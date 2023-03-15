@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:hokok/presentation/screen/auth/create_client_account_screen.dart';
+import 'package:hokok/presentation/screen/auth/create_lawyer_account_screen.dart';
+import 'package:hokok/presentation/screen/auth/login_screen.dart';
+import 'package:hokok/presentation/screen/hire_lawyer/hire_lawyer_screen.dart';
+import 'package:hokok/presentation/screen/intro/on_boarding_screen.dart';
+import 'package:hokok/presentation/screen/intro/splash_screen.dart';
+import 'package:hokok/presentation/screen/layout/layout_screen.dart';
+import 'package:hokok/presentation/screen/profile/profile_screen.dart';
+import 'package:hokok/presentation/screen/talk_with_us/talk_with_us_screen.dart';
+import 'package:hokok/core/strings_manager.dart';
+
+import '../presentation/screen/auth/chose_account_screen.dart';
+import '../presentation/screen/chat/chat_helper_screen.dart';
+import '../presentation/screen/layout_profile/layout_profile_screen.dart';
+import '../presentation/screen/welcome/welcome_screen.dart';
+
+class Routes {
+  static const String splashRoute = "/";
+  static const String onboardingRoute = "/onboarding";
+  static const String loginRoute = "/login";
+  static const String otpRoute = "/otp";
+  static const String registerRoute = "/register";
+  static const String clientRoute = "/client";
+  static const String lawyerRoute = "/lawyer";
+  static const String welcomeRoute = "/welcome";
+  static const String layoutRoute = "/layout";
+  static const String talkWithUsRoute = '/talkWithUs';
+  static const String chatRoute = '/chat';
+  static const String profileRoute = '/profile';
+  static const String hiringRoute = '/hire';
+  static const String layoutProfileRoute = '/layoutProfile';
+}
+
+class RouteGenerator {
+  static Route<dynamic> getRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.splashRoute:
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case Routes.onboardingRoute:
+        return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
+      case Routes.loginRoute:
+        return MaterialPageRoute(builder: (_) => LoginScreen());
+      case Routes.otpRoute:
+        return MaterialPageRoute(builder: (_) => OTPScreen());
+      case Routes.registerRoute:
+        return MaterialPageRoute(builder: (_) => const ChoseAccountScreen());
+      case Routes.clientRoute:
+        return MaterialPageRoute(builder: (_) => CreateClientAccountScreen());
+      case Routes.lawyerRoute:
+        return MaterialPageRoute(builder: (_) => CreateLawyerAccountScreen());
+      case Routes.welcomeRoute:
+        return MaterialPageRoute(builder: (_) => const WelcomeScreen());
+      case Routes.layoutRoute:
+        return MaterialPageRoute(builder: (_) => const LayoutScreen());
+      case Routes.talkWithUsRoute:
+        return MaterialPageRoute(builder: (_) => const TalkWithUsScreen());
+      case Routes.chatRoute:
+        return MaterialPageRoute(builder: (_) => const ChatHelperScreen());
+      case Routes.profileRoute:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case Routes.hiringRoute:
+        return MaterialPageRoute(builder: (_) => const HireLawyerScreen());
+      case Routes.layoutProfileRoute:
+        return MaterialPageRoute(builder: (_) => const LayoutProfileScreen());
+
+      default:
+        return _unDefinedRoute();
+    }
+  }
+
+  static Route<dynamic> _unDefinedRoute() {
+    return MaterialPageRoute(
+      builder: (_) => Scaffold(
+        appBar: AppBar(
+          title: const Text(AppStrings.noRouteFound),
+        ),
+        body: const Center(child: Text(AppStrings.noRouteFound)),
+      ),
+    );
+  }
+}
