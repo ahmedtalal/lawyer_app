@@ -112,8 +112,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(221, 170, 143, 1),
+                                    color:ConstantColor.primaryColor,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Column(
@@ -153,8 +152,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(221, 170, 143, 1),
+                                    color:ConstantColor.primaryColor,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Column(
