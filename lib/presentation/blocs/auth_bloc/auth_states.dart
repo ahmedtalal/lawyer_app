@@ -14,8 +14,8 @@ class AuthLoadingState extends AuthStates {
 }
 
 class AuthSuccessState extends AuthStates {
-  Route authNaviation(RouteSettings settings) {
-    return RouteGenerator.getRoute(settings);
+  authNaviation(RouteSettings settings, BuildContext context) {
+    return Navigator.of(context).push(RouteGenerator.getRoute(settings));
   }
 }
 

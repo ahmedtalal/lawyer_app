@@ -42,7 +42,9 @@ class RouteGenerator {
       case Routes.loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case Routes.otpRoute:
-        return MaterialPageRoute(builder: (_) => OTPScreen());
+        return MaterialPageRoute(
+          builder: (_) => OTPScreen(),
+        );
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const ChoseAccountScreen());
       case Routes.clientRoute:

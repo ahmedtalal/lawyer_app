@@ -27,4 +27,9 @@ class AuthApiRepository implements IAuthInterface {
   FutureOr<Map<String, dynamic>> register(data) async {
     return await AuthApiService.instance().register(data);
   }
+
+  @override
+  bool checkUserIsLogined() {
+    return AuthApiService.instance().checkIsUserLoginedService();
+  }
 }

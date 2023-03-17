@@ -4,35 +4,35 @@ class DioExceptions implements Exception {
   static dioErrorHandling(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.cancel:
-        return "تم إلغاء الطلب";
+        return "request to api server was cancelled";
       case DioErrorType.connectionTimeout:
-        return "يوجد مشكله في الاتصال بالخادم";
+        return "Connection timeout with api server";
       case DioErrorType.receiveTimeout:
-        return "يوجد مشكله في الاتصال بالخادم";
+        return "receive timeout in connection with api server";
       case DioErrorType.sendTimeout:
-        return "يوجد مشكله في الاتصال بالخادم";
-      case DioErrorType.unknown:
-        return "يوجد مشكله في الاتصال بالخادم";
+        return "send timeout in connection with api server";
+      case DioErrorType.connectionError:
+        return "connection to api server failed due to internet connection";
       case DioErrorType.badResponse:
         return _handleErrorMessage(
             dioError.response!.statusCode, dioError.error);
       default:
-        return "حدث خطا ما تأكد بانك متصل بالانترنت";
+        return "something went wrong";
     }
   }
 
   static String _handleErrorMessage(int? statusCode, dynamic error) {
     switch (statusCode) {
       case 400:
-        return "يوجد مشكله ما حاول الاتصال مرة اخري";
+        return "Bad request and the error is $error";
       case 409:
-        return "يوجد مشكله ما حاول الاتصال مرة اخري";
+        return error["error"];
       case 500:
-        return "يوجد مشكله ما حاول الاتصال مرة اخري";
+        return "internal server error";
       case 401:
-        return "يوجد مشكله ما حاول الاتصال مرة اخري";
+        return "Unauthorized";
       default:
-        return "يوجد مشكله ما حاول الاتصال مرة اخري";
+        return "oops something went wrong";
     }
   }
 }

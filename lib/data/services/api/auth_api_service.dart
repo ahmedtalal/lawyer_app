@@ -3,9 +3,9 @@ import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
-import 'package:hokok/data/models/user_model.dart';
+import 'package:hokok/data/models/user_local_model.dart';
 import 'package:hokok/data/services/api/api_helper.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/data/services/local/user_info_local_storage.dart';
 
 class AuthApiService {
   static AuthApiService? _authService;
@@ -42,6 +42,13 @@ class AuthApiService {
       Response response = await CurdApiHelper.instance
           .postRequest(path: LOGIN_REQUEST_PATH, data: data);
       printDone("the login using number done => ${response.data}");
+      UserLocalModel userModel = UserLocalModel.fromJson(response.data);
+      UserData? userData = userModel.data;
+      Map<String, dynamic> userMap = userData!.toJson();
+      printInfo("the userlocal model is $userMap");
+      final result =
+          await UserInfoLocalService.instance().saveUserInfo(userMap);
+      printDone("the response is $result");
       return successRequest(response.data);
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
@@ -55,9 +62,8 @@ class AuthApiService {
     }
   }
 
-  Future<Map<String, dynamic>> register(UserEntity entity) async {
+  Future<Map<String, dynamic>> register(Map<String, dynamic> data) async {
     try {
-      Map<String, dynamic> data = UserModel.toJson(entity);
       Response response = await CurdApiHelper.instance
           .postRequest(path: REGISTER_REQUEST_PATH, data: data);
       printDone("the register done => ${response.data}");
@@ -71,5 +77,14 @@ class AuthApiService {
       printError("the user failed from dio catch => ${e.toString()}");
       return failedRequest(e.toString());
     }
+  }
+
+  bool checkIsUserLoginedService() {
+    final result = UserInfoLocalService.instance().getUserInfo();
+    printInfo("the user from storage is $result");
+    if (result[mapValue] != "user not found") {
+      return true;
+    }
+    return false;
   }
 }

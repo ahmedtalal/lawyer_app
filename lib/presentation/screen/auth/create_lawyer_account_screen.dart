@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/constant.dart';
+import 'package:hokok/core/debug_prints.dart';
+import 'package:hokok/core/font_manager.dart';
+import 'package:hokok/domain/entities/major_entity.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_states.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
 
 import '../../../core/routes_manager.dart';
 
-class CreateLawyerAccountScreen extends StatelessWidget {
+class CreateLawyerAccountScreen extends StatefulWidget {
   CreateLawyerAccountScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CreateLawyerAccountScreen> createState() =>
+      _CreateLawyerAccountScreenState();
+}
+
+class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -14,7 +29,14 @@ class CreateLawyerAccountScreen extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+
   GlobalKey<FormState> kForm = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    MajorBlocHelper.instance().getMajorsActionCon(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +82,25 @@ class CreateLawyerAccountScreen extends StatelessWidget {
                       defaultTextFiled(
                           controller: nameController,
                           inputType: TextInputType.number,
+                          labelText: 'الاسم الرباعي',
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'من فضلك ادخل اسم المستخدم';
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      defaultTextFiled(
+                          controller: nameController,
+                          inputType: TextInputType.number,
                           labelText: 'اسم المستخدم',
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'من فضلك ادخل اسم المستخدم';
                             }
+                            return null;
                           }),
                       const SizedBox(
                         height: 10,
@@ -77,6 +113,7 @@ class CreateLawyerAccountScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'من فضلك ادخل البريد الالكتروني';
                             }
+                            return null;
                           }),
                       const SizedBox(
                         height: 10,
@@ -90,7 +127,86 @@ class CreateLawyerAccountScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'من فضلك ادخل رقم الهاتف';
                             }
+                            return null;
                           }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      BlocBuilder<MajorBloc, MajorStates>(
+                          builder: (context, state) {
+                        List<MajorData>? majors = [];
+                        if (state is GetMajorsSuccessState) {
+                          majors = state.majorsList;
+                          printInfo("the majors are ${majors!.length}");
+                        } else if (state is GetMajorsFailedState) {
+                          majors = [];
+                        }
+                        return Container(
+                          height: 65,
+                          padding: const EdgeInsets.all(2),
+                          margin: const EdgeInsets.only(bottom: 10, top: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60),
+                            border: Border.all(color: Colors.grey, width: 1),
+                          ),
+                          child: FormField<MajorData>(
+                            builder: (FormFieldState<MajorData> state) {
+                              return InputDecorator(
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    //errorStyle: TextStyle(color: Colors.red[900], fontSize: 16.0),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(30.0))),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    dropdownColor: Colors.white,
+                                    iconSize: 30,
+                                    iconEnabledColor: Colors.red[900],
+                                    hint: Text(
+                                      'الموقع',
+                                      style: TextStyle(
+                                          color: ConstantColor.primaryColor),
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: FontConstants.fontFamily,
+                                      color: ConstantColor.primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    value: AuthBlocHelper.instance().major,
+                                    isDense: true,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        AuthBlocHelper.instance().major = value;
+                                      });
+                                    },
+                                    items: majors!.map((MajorData value) {
+                                      return DropdownMenuItem(
+                                          value: value.name.toString(),
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5.0, right: 5.0),
+                                              child: Text(
+                                                value.name.toString(),
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                          ));
+                                    }).toList(),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }),
                       const SizedBox(
                         height: 10,
                       ),
@@ -104,6 +220,7 @@ class CreateLawyerAccountScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'من فضلك ادخل المحافظه';
                             }
+                            return null;
                           }),
                       const SizedBox(
                         height: 10,
@@ -118,33 +235,10 @@ class CreateLawyerAccountScreen extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'من فضلك ادخل الموقع';
                             }
+                            return null;
                           }),
                       const SizedBox(
                         height: 10,
-                      ),
-                      defaultTextFiled(
-                          controller: passwordController,
-                          inputType: TextInputType.number,
-                          labelText: 'كلمه السر',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل كلمه السر';
-                            }
-                          }),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      defaultTextFiled(
-                          controller: confirmPasswordController,
-                          inputType: TextInputType.number,
-                          labelText: 'تاكيد كلمه السر',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل تاكيد كلمه السر';
-                            }
-                          }),
-                      const SizedBox(
-                        height: 20,
                       ),
                       mainButton(
                           text: 'انشاء حساب ',

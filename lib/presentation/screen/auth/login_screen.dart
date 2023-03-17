@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth-bloc_controller.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
 
 import '../../../core/routes_manager.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController phoneController = TextEditingController();
+
   GlobalKey<FormState> kForm = GlobalKey<FormState>();
+
   bool showed = false;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -28,11 +37,16 @@ class LoginScreen extends StatelessWidget {
               printError("error");
               state.authErrorMessage(context, state.error);
             }
-          }, builder: (context, state) {
             if (state is AuthSuccessState) {
               showed = false;
-              state.authNaviation(const RouteSettings(name: Routes.loginRoute));
-            } else if (state is AuthLoadingState) {
+              state.authNaviation(
+                  const RouteSettings(
+                    name: Routes.otpRoute,
+                  ),
+                  context);
+            }
+          }, builder: (context, state) {
+            if (state is AuthLoadingState) {
               showed = true;
               //state.showLoadingDialog(context);
             }
@@ -67,8 +81,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                         defaultTextFiled(
                             controller: phoneController,
-                            onChange: AuthBlocController.instance()
-                                .onListenerOptNUmber,
+                            onChange: (value) {
+                              setState(() {
+                                AuthBlocHelper.instance().phoneNumber = value;
+                              });
+                            },
                             inputType: TextInputType.number,
                             labelText: 'رقم الهاتف',
                             suffixText: '+966',
@@ -85,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                             ? mainButton(
                                 text: 'استمرار',
                                 fct: () {
-                                  AuthBlocController.instance()
+                                  AuthBlocHelper.instance()
                                       .onSendOptCodeAction(context, kForm);
                                 },
                               )
@@ -115,11 +132,17 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class OTPScreen extends StatelessWidget {
+class OTPScreen extends StatefulWidget {
   OTPScreen({Key? key}) : super(key: key);
-  final TextEditingController otpCode = TextEditingController();
-  GlobalKey<FormState> kForm = GlobalKey<FormState>();
+  @override
+  State<OTPScreen> createState() => _OTPScreenState();
+}
 
+class _OTPScreenState extends State<OTPScreen> {
+  final TextEditingController otpCode = TextEditingController();
+
+  GlobalKey<FormState> kForm = GlobalKey<FormState>();
+  bool show = false;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -141,44 +164,72 @@ class OTPScreen extends StatelessWidget {
                   horizontal: 30,
                 ),
                 decoration: BoxDecoration(
-                    color: ConstantColor.whiteColor,
-                    borderRadius:
-                        BorderRadius.circular(SizedConstant.radiusAuthSize)),
-                child: Form(
-                  key: kForm,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      textWidget(
-                          text: 'أدخل الكود المرسل الى هاتفك', fontSize: 16),
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      defaultTextFiled(
-                          controller: otpCode,
-                          inputType: TextInputType.number,
-                          labelText: 'ادخل الكود',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'من فضلك ادخل الكود';
-                            }
-                          }),
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      mainButton(
-                          text: 'استمرار',
-                          fct: () {
-                            if (kForm.currentState!.validate()) {
-                              Navigator.of(context)
-                                  .pushReplacementNamed(Routes.welcomeRoute);
-                            }
-                          }),
-                    ],
+                  color: ConstantColor.whiteColor,
+                  borderRadius: BorderRadius.circular(
+                    SizedConstant.radiusAuthSize,
                   ),
                 ),
+                child: BlocConsumer<AuthBloc, AuthStates>(
+                    listener: (context, state) {
+                  if (state is AuthFailedState) {
+                    show = false;
+                    printError("error");
+                    state.authErrorMessage(context, state.error);
+                  }
+                  if (state is AuthSuccessState) {
+                    show = false;
+                    state.authNaviation(
+                        const RouteSettings(
+                          name: Routes.welcomeRoute,
+                        ),
+                        context);
+                  }
+                }, builder: (context, state) {
+                  if (state is AuthLoadingState) {
+                    show = true;
+                    //state.showLoadingDialog(context);
+                  }
+                  return Form(
+                    key: kForm,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        textWidget(
+                            text: 'أدخل الكود المرسل الى هاتفك', fontSize: 16),
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        defaultTextFiled(
+                            controller: otpCode,
+                            onChange: (value) {
+                              AuthBlocHelper.instance().optNumber = value;
+                            },
+                            inputType: TextInputType.number,
+                            labelText: 'ادخل الكود',
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'من فضلك ادخل الكود';
+                              }
+                              return null;
+                            }),
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        !show
+                            ? mainButton(
+                                text: 'استمرار',
+                                fct: () {
+                                  AuthBlocHelper.instance()
+                                      .onLoginAction(context, kForm);
+                                },
+                              )
+                            : const Center(child: CircularProgressIndicator()),
+                      ],
+                    ),
+                  );
+                }),
               )
             ],
           ),

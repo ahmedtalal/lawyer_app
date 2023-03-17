@@ -8,7 +8,7 @@ class UserModel extends UserEntity {
     super.phoneNumber,
     super.zone,
     super.city,
-    super.majors,
+    super.major,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> data) {
@@ -19,7 +19,7 @@ class UserModel extends UserEntity {
       phoneNumber: data["phone_number"],
       zone: data["zone"],
       city: data["city"],
-      majors: data["majors"],
+      major: data["majors"],
     );
   }
 
@@ -31,7 +31,7 @@ class UserModel extends UserEntity {
       "phone_number": model.phoneNumber,
       "zone": model.zone,
       "city": model.city,
-      "majors": model.majors,
+      "majors[]": model.major,
     };
   }
 }

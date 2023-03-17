@@ -2,20 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/data/models/user_model.dart';
+import 'package:hokok/data/repositories/auth_api_repository.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/usecases/use_case_provider.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_events.dart';
+import 'package:hokok/presentation/screen/intro/splash_screen.dart';
+import 'package:hokok/presentation/screen/layout/layout_screen.dart';
 
-class AuthBlocController {
-  static AuthBlocController? _authBLocController;
-  AuthBlocController._internal();
-  static AuthBlocController instance() {
-    if (_authBLocController == null) {
-      return _authBLocController = AuthBlocController._internal();
+class AuthBlocHelper {
+  static AuthBlocHelper? _authBLocHelper;
+  AuthBlocHelper._internal();
+  static AuthBlocHelper instance() {
+    if (_authBLocHelper == null) {
+      return _authBLocHelper = AuthBlocHelper._internal();
     }
 
-    return _authBLocController!;
+    return _authBLocHelper!;
   }
 
   String optNumber = '';
@@ -25,39 +30,7 @@ class AuthBlocController {
   String email = "";
   String zone = "";
   String city = "";
-  List<dynamic> majors = [];
-
-  onListenerOptNUmber(String? value) {
-    optNumber = value!;
-  }
-
-  onListenerPhoneNumber(String? value) {
-    phoneNumber = value!;
-  }
-
-  onTypeListener(String? value) {
-    type = value!;
-  }
-
-  onNameListener(String? value) {
-    name = value!;
-  }
-
-  onEmailListener(String? value) {
-    email = value!;
-  }
-
-  onZoneListener(String? value) {
-    zone = value!;
-  }
-
-  onCityListener(String? value) {
-    city = value!;
-  }
-
-  onMajorListener(List<dynamic>? value) {
-    majors = value!;
-  }
+  String? major;
 
   UserEntity prepateUserModel() => UserModel(
         type: type,
@@ -66,7 +39,7 @@ class AuthBlocController {
         phoneNumber: phoneNumber,
         zone: zone,
         city: city,
-        majors: majors,
+        major: major,
       );
 
   onSendOptCodeAction(BuildContext context, GlobalKey<FormState> key) {
@@ -79,5 +52,19 @@ class AuthBlocController {
     if (key.currentState!.validate()) {
       context.read<AuthBloc>().add(AuthRegisterEvent());
     }
+  }
+
+  onLoginAction(BuildContext context, GlobalKey<FormState> key) {
+    if (key.currentState!.validate()) {
+      context.read<AuthBloc>().add(AuthLoginUsingPhoneEvent());
+    }
+  }
+
+  Widget checkUserIsLoginActtion() {
+    return UseCaseProvider.instance()
+            .creator<AuthApiRepository>(AuthApiRepository.instance())
+            .checkUserIsLogined()
+        ? const LayoutScreen()
+        : const SplashScreen();
   }
 }
