@@ -34,4 +34,15 @@ class UserModel extends UserEntity {
       "majors": model.major,
     };
   }
+
+  static Map<String, dynamic> toJson1(UserEntity model) {
+    return {
+      "type": model.type,
+      "name": model.name,
+      "email": model.email,
+      "phone_number": model.phoneNumber,
+      "zone": model.zone,
+      "city": model.city,
+    };
+  }
 }

@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       {"phone_number": _controller.phoneNumber};
 
   Map<String, dynamic> _userMapModel() =>
-      UserModel.toJson(_controller.prepareUserInfo());
+      UserModel.toJson1(_controller.prepareUserInfo());
 
   Map<String, dynamic> _lawyerMapModel() =>
       UserModel.toJson(_controller.prepareLawyerInfo());

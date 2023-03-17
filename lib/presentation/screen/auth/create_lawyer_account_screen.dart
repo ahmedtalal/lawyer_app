@@ -102,6 +102,92 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         const SizedBox(
                           height: 20,
                         ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(221, 170, 143, 1),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "اضف صورة شهادة الترخيص",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: FontConstants.fontFamily,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 11,
+                                      ),
+                                      Icon(
+                                        Icons.camera_alt_outlined,
+                                        size: 23,
+                                        color: Color.fromARGB(255, 255, 255, 1),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(221, 170, 143, 1),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "اضف صورتك الشخصية",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: FontConstants.fontFamily,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 11,
+                                      ),
+                                      Icon(
+                                        Icons.camera_alt_outlined,
+                                        size: 23,
+                                        color: Color.fromARGB(255, 255, 255, 1),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         defaultTextFiled(
                             controller: nameController,
                             onChange: (value) {
