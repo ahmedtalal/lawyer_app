@@ -31,7 +31,7 @@ class UserModel extends UserEntity {
       "phone_number": model.phoneNumber,
       "zone": model.zone,
       "city": model.city,
-      "majors[]": model.major,
+      "majors": model.major,
     };
   }
 }

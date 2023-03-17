@@ -197,7 +197,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                                 fct: () {
                                   AuthBlocHelper.instance().type = "client";
                                   AuthBlocHelper.instance()
-                                      .onCreateAccount(context, kForm);
+                                      .onCreateUserAccount(context, kForm);
                                 })
                             : const Center(child: CircularProgressIndicator()),
                         const SizedBox(

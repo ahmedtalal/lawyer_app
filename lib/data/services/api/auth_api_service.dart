@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';
@@ -86,5 +88,29 @@ class AuthApiService {
       return true;
     }
     return false;
+  }
+
+  FutureOr<bool> logOutApiService() async {
+    try {
+      Map<String, dynamic> userMap =
+          UserInfoLocalService.instance().getUserInfo();
+      UserData userData = UserData.fromJson(userMap);
+      Options options =
+          Options(headers: {"authorization": "Bearer ${userData.token}"});
+      Response response = await CurdApiHelper.instance.postRequest(
+        path: LOGOUT_REQUEST_PATH,
+        options: options,
+      );
+      printDone("the logout request success => ${response.data}");
+      await UserInfoLocalService.instance().deleteUserInfo();
+      return true;
+    } on DioError catch (error) {
+      String message = DioExceptions.dioErrorHandling(error);
+      printError("the logout request failed from dio catch => $message");
+      return false;
+    } catch (e) {
+      printError("the logout request failed from  catch => $e");
+      return false;
+    }
   }
 }

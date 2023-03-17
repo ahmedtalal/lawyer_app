@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/core/routes_manager.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/screen/browse_order/browse_order_screen.dart';
 import 'package:hokok/presentation/screen/find_lawyer/find_lawyer_screen.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_cubit.dart';
@@ -74,6 +78,31 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 ),
               ),
             ),
+            BlocConsumer<AuthBloc, AuthStates>(listener: (context, state) {
+              if (state is AuthFailedState) {
+                state.authErrorMessage(context, state.error);
+              }
+              if (state is LogOutSuccessState) {
+                state.authNaviation(
+                    const RouteSettings(
+                      name: Routes.splashRoute,
+                    ),
+                    context);
+              }
+            }, builder: (context, state) {
+              return Positioned(
+                width: AppSize.s15_5,
+                height: AppSize.s17_4,
+                left: AppSize.s144,
+                top: AppSize.s101,
+                child: GestureDetector(
+                  onTap: () {
+                    AuthBlocHelper.instance().onLogOutAction(context);
+                  },
+                  child: const Icon(Icons.logout),
+                ),
+              );
+            }),
             Positioned(
               width: AppSize.s15_5,
               height: AppSize.s17_4,

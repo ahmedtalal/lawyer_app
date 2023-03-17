@@ -30,16 +30,26 @@ class AuthBlocHelper {
   String email = "";
   String zone = "";
   String city = "";
-  String? major;
+  List<dynamic>? major;
+  String? majorValue;
 
-  UserEntity prepateUserModel() => UserModel(
+  UserEntity prepareLawyerInfo() => UserModel(
         type: type,
         name: name,
         email: email,
         phoneNumber: phoneNumber,
         zone: zone,
         city: city,
-        major: major,
+        major: [majorValue],
+      );
+
+  UserEntity prepareUserInfo() => UserModel(
+        type: type,
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber,
+        zone: zone,
+        city: city,
       );
 
   onSendOptCodeAction(BuildContext context, GlobalKey<FormState> key) {
@@ -48,9 +58,15 @@ class AuthBlocHelper {
     }
   }
 
-  onCreateAccount(BuildContext context, GlobalKey<FormState> key) {
+  onCreateUserAccount(BuildContext context, GlobalKey<FormState> key) {
     if (key.currentState!.validate()) {
-      context.read<AuthBloc>().add(AuthRegisterEvent());
+      context.read<AuthBloc>().add(CreateUserAccountEvent());
+    }
+  }
+
+  onCreateLawyerAccount(BuildContext context, GlobalKey<FormState> key) {
+    if (key.currentState!.validate()) {
+      context.read<AuthBloc>().add(CreateLawyerAccountEvent());
     }
   }
 
@@ -66,5 +82,9 @@ class AuthBlocHelper {
             .checkUserIsLogined()
         ? const LayoutScreen()
         : const SplashScreen();
+  }
+
+  onLogOutAction(BuildContext context) {
+    context.read<AuthBloc>().add(LogOutEvent());
   }
 }

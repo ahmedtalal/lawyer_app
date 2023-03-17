@@ -32,4 +32,9 @@ class AuthApiRepository implements IAuthInterface {
   bool checkUserIsLogined() {
     return AuthApiService.instance().checkIsUserLoginedService();
   }
+
+  @override
+  FutureOr<bool> logOut() async {
+    return await AuthApiService.instance().logOutApiService();
+  }
 }

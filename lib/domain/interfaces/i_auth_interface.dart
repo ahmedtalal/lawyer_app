@@ -5,4 +5,5 @@ abstract class IAuthInterface {
   FutureOr<dynamic> login(var data);
   FutureOr<dynamic> register(var data);
   bool checkUserIsLogined();
+  FutureOr<bool> logOut();
 }

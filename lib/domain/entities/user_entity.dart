@@ -1,5 +1,6 @@
 class UserEntity {
-  String? type, name, email, phoneNumber, zone, city, major;
+  String? type, name, email, phoneNumber, zone, city;
+  List<dynamic>? major;
   UserEntity({
     this.type,
     this.name,

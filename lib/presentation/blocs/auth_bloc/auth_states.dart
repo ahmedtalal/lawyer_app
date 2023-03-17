@@ -28,3 +28,10 @@ class AuthFailedState extends AuthStates {
         .showSnackBar(showSnakBarWidget(context, title, Colors.red));
   }
 }
+
+class LogOutSuccessState extends AuthStates {
+  authNaviation(RouteSettings settings, BuildContext context) {
+    return Navigator.of(context)
+        .pushReplacement(RouteGenerator.getRoute(settings));
+  }
+}
