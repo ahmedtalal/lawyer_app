@@ -76,6 +76,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                     state.authNaviation(
                         const RouteSettings(
                           name: Routes.loginRoute,
+                          arguments: true,
                         ),
                         context);
                   }

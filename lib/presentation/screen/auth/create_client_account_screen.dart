@@ -76,6 +76,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                     state.authNaviation(
                         const RouteSettings(
                           name: Routes.loginRoute,
+                          arguments: true,
                         ),
                         context);
                   }

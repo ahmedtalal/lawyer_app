@@ -10,8 +10,8 @@ import 'package:hokok/presentation/widget/shared_widget.dart';
 import '../../../core/routes_manager.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
+  const LoginScreen({authType, Key? key}) : super(key: key);
+  final bool authType = false;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -40,8 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is AuthSuccessState) {
               showed = false;
               state.authNaviation(
-                  const RouteSettings(
+                  RouteSettings(
                     name: Routes.otpRoute,
+                    arguments: widget.authType,
                   ),
                   context);
             }
@@ -133,7 +134,8 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class OTPScreen extends StatefulWidget {
-  OTPScreen({Key? key}) : super(key: key);
+  const OTPScreen({this.authType, Key? key}) : super(key: key);
+  final bool? authType;
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
@@ -178,11 +180,18 @@ class _OTPScreenState extends State<OTPScreen> {
                   }
                   if (state is AuthSuccessState) {
                     show = false;
-                    state.authNaviation(
-                        const RouteSettings(
-                          name: Routes.welcomeRoute,
-                        ),
-                        context);
+                    widget.authType == false
+                        ? state.authNaviation(
+                            const RouteSettings(
+                              name: Routes.layoutRoute,
+                            ),
+                            context)
+                        : state.authNaviation(
+                            RouteSettings(
+                              name: Routes.welcomeRoute,
+                              arguments: AuthBlocHelper.instance().name,
+                            ),
+                            context);
                   }
                 }, builder: (context, state) {
                   if (state is AuthLoadingState) {
