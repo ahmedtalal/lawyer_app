@@ -40,15 +40,12 @@ class _MainScreenState extends State<MainScreen> {
             _space(AppSize.s20),
             _categories(),
             _space(AppSize.s35),
-            _advertisementCard(),
-            _space(AppSize.s143),
             InkWell(
               borderRadius: BorderRadius.circular(AppSize.s15),
               onTap: () =>
                   Navigator.of(context).pushNamed(Routes.talkWithUsRoute),
               child: const ChatButtonWidget(),
             ),
-            _space(AppSize.s177),
           ],
         ),
       ),

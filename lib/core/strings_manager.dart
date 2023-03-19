@@ -18,6 +18,9 @@ class AppStrings {
   static const main = "الرئيسية";
   static const findLawyer = "ابحث عن محاميين";
   static const browse = "تصفح الطلبات";
+  static const orders = "تصفح الطلبات";
+  static const exit = "تصفح الطلبات";
+
   static const classification = "التصنيفات";
   static const commercial = "تجاري";
   static const administrative = "إداري";
