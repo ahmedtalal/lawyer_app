@@ -287,7 +287,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         alignment: AlignmentDirectional.center,
         child: Container(
           width: AppSize.s272,
-          height: AppSize.s180,
+          height: AppSize.s234,
           margin: const EdgeInsets.only(top: AppMargin.m19),
           decoration: BoxDecoration(
             border: Border.all(

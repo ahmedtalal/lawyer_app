@@ -144,16 +144,4 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
 
-  SizedBox _advertisementCard() => SizedBox(
-        height: AppSize.s150,
-        width: double.infinity,
-        child: SvgPicture.asset(
-          AssetsManager.advertisementImage,
-          fit: BoxFit.cover,
-          colorFilter: const ColorFilter.mode(
-            ColorManager.secondary,
-            BlendMode.srcIn,
-          ),
-        ),
-      );
 }

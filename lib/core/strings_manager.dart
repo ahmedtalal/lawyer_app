@@ -2,8 +2,7 @@ class AppStrings {
   static const noRouteFound = "لا يوجد مسار هنا";
 
   static const testImage =
-      "https://avatars.githubusercontent.com/u/100779215?s=400&u=bf334b1407e8fbf51a5cb21bd582bd38b7dd7c44&v=4";
-
+      "https://pps.whatsapp.net/v/t61.24694-24/323851717_895030145113701_1245968762489632016_n.jpg?ccb=11-4&oh=01_AdTTzCxc6GAFLgwz0_uANWceXQfOdbyq18HUoAVYYp09yg&oe=6425D912";
 //welcome
   static const welcome = "مرحباً";
   static const welcomeName = "Ashmawi";

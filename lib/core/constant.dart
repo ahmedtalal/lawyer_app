@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ConstantColor{
-  static Color primaryColor= HexColor("#A16E53");
+  static Color primaryColor=const Color(0XFFa26e53);
+
+  //static Color primaryColor= HexColor("#A16E53");
   static Color secondaryColor=const Color(0XFF17173C);
   static Color greyColor=const Color(0XFF707070);
   static Color whiteColor= Colors.white;
