@@ -190,6 +190,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             RouteSettings(
                               name: Routes.welcomeRoute,
                               arguments: AuthHelper.instance().name,
+                              arguments: AuthBlocHelper.instance().name,
                             ),
                             context);
                   }
