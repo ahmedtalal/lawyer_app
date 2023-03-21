@@ -26,6 +26,7 @@ class DioExceptions implements Exception {
     switch (statusCode) {
       case 400:
         return error["message"];
+      case 404:
       case 409:
         return error["message"];
       case 500:
@@ -33,6 +34,7 @@ class DioExceptions implements Exception {
       case 401:
         return "Unauthorized";
       case 422:
+        return error["errors"]["phone_number"].toString();
         return error["message"];
       default:
         return "oops something went wrong";

@@ -35,4 +35,5 @@ class AssetsManager {
   static String penIcon = '$iconPath/pen.svg';
   static String penal2Icon = '$iconPath/penal2.svg';
   static String cameraIcon = '$iconPath/camera.svg';
+  static String emptyDataImage = "assets/images/emptydata.jpg";
 }

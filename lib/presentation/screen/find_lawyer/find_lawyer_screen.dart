@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/shared_widget/text.dart';
+import 'package:hokok/core/values_manager.dart';
+import '../../../core/assets_manager.dart';
 import '../../../core/color_manager.dart';
+import '../../../core/font_manager.dart';
+import '../../../core/strings_manager.dart';
 import '../welcome/welcome_screen.dart';
 
 class FindLawyerScreen extends StatelessWidget {
@@ -18,28 +23,45 @@ class FindLawyerScreen extends StatelessWidget {
               const SizedBox(
                 height: 35,
               ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: ConstantColor.greyColor.withOpacity(0.09),
+              Container(
+                height: AppSize.s40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppSize.s15),
+                  border: Border.all(
+                    width: AppSize.s1,
+                    color: ColorManager.grey,
                   ),
-                  width: 270.0,
-                  height: 40.0,
-                  child: Stack(
-                    children: const [
-                      Positioned(
-                        bottom: 10,
-                        left: 80.0,
-                        child: DefaultText('ابحث عن محامي', fontSize: 12),
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: AppPadding.p2,
+                        right: AppPadding.p10,
                       ),
-                      Positioned(
-                        bottom: 10,
-                        left: 230.0,
-                        child: Icon(Icons.search),
-                      )
-                    ],
-                  ),
+                      child: SvgPicture.asset(
+                        AssetsManager.searchIcon,
+                        colorFilter: const ColorFilter.mode(
+                          ColorManager.primary,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: const TextStyle(fontSize: FontSize.s13),
+                        decoration: const InputDecoration(
+                          hintText: AppStrings.findLawyer,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: AppPadding.p5,
+                            vertical: AppPadding.p10,
+                          ),
+                          hintStyle: TextStyle(fontSize: FontSize.s13),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
@@ -48,7 +70,7 @@ class FindLawyerScreen extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: AppSize.s35,
                     backgroundColor: ConstantColor.secondaryColor,
                   ),
                   const SizedBox(
@@ -57,16 +79,20 @@ class FindLawyerScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const DefaultText("فيصل", fontSize: 21),
+                      const DefaultText("فيصل", fontSize: AppSize.s21_4),
                       const SizedBox(
                         height: 7,
                       ),
                       Row(
                         children: const [
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
+                          Icon(Icons.star,
+                          size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
                         ],
                       ),
                       const SizedBox(
@@ -75,7 +101,7 @@ class FindLawyerScreen extends StatelessWidget {
                       const DefaultText("مرحبا بكام انا فيصل حاصل علر.....",
                           fontSize: 11),
                       const SizedBox(
-                        height: 7,
+                        height: 5,
                       ),
                       Container(
                         width: 130,
@@ -188,7 +214,7 @@ class FindLawyerScreen extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: AppSize.s35,
                     backgroundColor: ConstantColor.secondaryColor,
                   ),
                   const SizedBox(
@@ -197,16 +223,20 @@ class FindLawyerScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const DefaultText("فيصل", fontSize: 21),
+                      const DefaultText("فيصل", fontSize: AppSize.s21_4),
                       const SizedBox(
                         height: 7,
                       ),
                       Row(
                         children: const [
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
                         ],
                       ),
                       const SizedBox(
@@ -215,7 +245,7 @@ class FindLawyerScreen extends StatelessWidget {
                       const DefaultText("مرحبا بكام انا فيصل حاصل علر.....",
                           fontSize: 11),
                       const SizedBox(
-                        height: 7,
+                        height: 5,
                       ),
                       Container(
                         width: 130,
@@ -269,30 +299,55 @@ class FindLawyerScreen extends StatelessWidget {
                       color: Colors.black,
                     ),
                     child: PopupMenuButton<int>(
-                      color: Colors.indigo,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22.0),
+                      ),
+                      color: ColorManager.primary,
                       onSelected: (item) => onSelected(context, item),
                       itemBuilder: (context) => [
-                        const PopupMenuItem<int>(
+                        PopupMenuItem<int>(
                           value: 0,
-                          child: Text('Settings'),
+                          child: Row(
+                            children: const [
+                              Icon(Icons.insert_invitation),
+                              SizedBox(width: 8),
+                              Text('دعوه للعمل لعي قضيه'),
+                            ],
+                          ),
                         ),
-                        const PopupMenuItem<int>(
+                        PopupMenuItem<int>(
                           value: 1,
-                          child: Text('Share'),
+                          child: Row(
+                            children: const [
+                              Icon(Icons.favorite),
+                              SizedBox(width: 8),
+                              Text('اضف الي المفضله'),
+                            ],
+                          ),
                         ),
                         PopupMenuItem<int>(
                           value: 2,
                           child: Row(
                             children: const [
-                              Icon(Icons.logout),
+                              Icon(Icons.message),
                               SizedBox(width: 8),
-                              Text('Sign Out'),
+                              Text('ترك ملاحظه'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.flag),
+                              SizedBox(width: 8),
+                              Text('بلاغ عن اساءه'),
                             ],
                           ),
                         ),
                       ],
                       child:
-                          const Icon(Icons.arrow_downward, color: Colors.white),
+                      const Icon(Icons.arrow_downward, color: Colors.white),
                     ),
                   )
                 ],
@@ -303,7 +358,7 @@ class FindLawyerScreen extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: AppSize.s35,
                     backgroundColor: ConstantColor.secondaryColor,
                   ),
                   const SizedBox(
@@ -312,16 +367,20 @@ class FindLawyerScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const DefaultText("فيصل", fontSize: 21),
+                      const DefaultText("فيصل", fontSize: AppSize.s21_4),
                       const SizedBox(
                         height: 7,
                       ),
                       Row(
                         children: const [
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
                         ],
                       ),
                       const SizedBox(
@@ -330,7 +389,7 @@ class FindLawyerScreen extends StatelessWidget {
                       const DefaultText("مرحبا بكام انا فيصل حاصل علر.....",
                           fontSize: 11),
                       const SizedBox(
-                        height: 7,
+                        height: 5,
                       ),
                       Container(
                         width: 130,
@@ -375,20 +434,64 @@ class FindLawyerScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(10),
+                  Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(10),
+                      ),
+                      color: Colors.black,
+                    ),
+                    child: PopupMenuButton<int>(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22.0),
+                      ),
+                      color: ColorManager.primary,
+                      onSelected: (item) => onSelected(context, item),
+                      itemBuilder: (context) => [
+                        PopupMenuItem<int>(
+                          value: 0,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.insert_invitation),
+                              SizedBox(width: 8),
+                              Text('دعوه للعمل لعي قضيه'),
+                            ],
+                          ),
                         ),
-                        color: Colors.black,
-                      ),
-                      child: const Icon(
-                        Icons.arrow_downward,
-                        color: Colors.white,
-                      ),
+                        PopupMenuItem<int>(
+                          value: 1,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.favorite),
+                              SizedBox(width: 8),
+                              Text('اضف الي المفضله'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.message),
+                              SizedBox(width: 8),
+                              Text('ترك ملاحظه'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.flag),
+                              SizedBox(width: 8),
+                              Text('بلاغ عن اساءه'),
+                            ],
+                          ),
+                        ),
+                      ],
+                      child:
+                      const Icon(Icons.arrow_downward, color: Colors.white),
                     ),
                   )
                 ],
@@ -399,7 +502,7 @@ class FindLawyerScreen extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: AppSize.s35,
                     backgroundColor: ConstantColor.secondaryColor,
                   ),
                   const SizedBox(
@@ -408,16 +511,20 @@ class FindLawyerScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const DefaultText("فيصل", fontSize: 21),
+                      const DefaultText("فيصل", fontSize: AppSize.s21_4),
                       const SizedBox(
                         height: 7,
                       ),
                       Row(
                         children: const [
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
                         ],
                       ),
                       const SizedBox(
@@ -426,7 +533,7 @@ class FindLawyerScreen extends StatelessWidget {
                       const DefaultText("مرحبا بكام انا فيصل حاصل علر.....",
                           fontSize: 11),
                       const SizedBox(
-                        height: 7,
+                        height: 5,
                       ),
                       Container(
                         width: 130,
@@ -471,20 +578,64 @@ class FindLawyerScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(10),
+                  Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(10),
+                      ),
+                      color: Colors.black,
+                    ),
+                    child: PopupMenuButton<int>(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22.0),
+                      ),
+                      color: ColorManager.primary,
+                      onSelected: (item) => onSelected(context, item),
+                      itemBuilder: (context) => [
+                        PopupMenuItem<int>(
+                          value: 0,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.insert_invitation),
+                              SizedBox(width: 8),
+                              Text('دعوه للعمل لعي قضيه'),
+                            ],
+                          ),
                         ),
-                        color: Colors.black,
-                      ),
-                      child: const Icon(
-                        Icons.arrow_downward,
-                        color: Colors.white,
-                      ),
+                        PopupMenuItem<int>(
+                          value: 1,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.favorite),
+                              SizedBox(width: 8),
+                              Text('اضف الي المفضله'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.message),
+                              SizedBox(width: 8),
+                              Text('ترك ملاحظه'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.flag),
+                              SizedBox(width: 8),
+                              Text('بلاغ عن اساءه'),
+                            ],
+                          ),
+                        ),
+                      ],
+                      child:
+                      const Icon(Icons.arrow_downward, color: Colors.white),
                     ),
                   )
                 ],
@@ -495,7 +646,7 @@ class FindLawyerScreen extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: AppSize.s35,
                     backgroundColor: ConstantColor.secondaryColor,
                   ),
                   const SizedBox(
@@ -504,16 +655,20 @@ class FindLawyerScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const DefaultText("فيصل", fontSize: 21),
+                      const DefaultText("فيصل", fontSize: AppSize.s21_4),
                       const SizedBox(
                         height: 7,
                       ),
                       Row(
                         children: const [
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
-                          Icon(Icons.star),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
+                          Icon(Icons.star,
+                            size: AppSize.s15,),
                         ],
                       ),
                       const SizedBox(
@@ -522,7 +677,7 @@ class FindLawyerScreen extends StatelessWidget {
                       const DefaultText("مرحبا بكام انا فيصل حاصل علر.....",
                           fontSize: 11),
                       const SizedBox(
-                        height: 7,
+                        height: 5,
                       ),
                       Container(
                         width: 130,
@@ -567,20 +722,64 @@ class FindLawyerScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 30,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.horizontal(
-                          left: Radius.circular(10),
+                  Container(
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.horizontal(
+                        left: Radius.circular(10),
+                      ),
+                      color: Colors.black,
+                    ),
+                    child: PopupMenuButton<int>(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22.0),
+                      ),
+                      color: ColorManager.primary,
+                      onSelected: (item) => onSelected(context, item),
+                      itemBuilder: (context) => [
+                        PopupMenuItem<int>(
+                          value: 0,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.insert_invitation),
+                              SizedBox(width: 8),
+                              Text('دعوه للعمل لعي قضيه'),
+                            ],
+                          ),
                         ),
-                        color: Colors.black,
-                      ),
-                      child: const Icon(
-                        Icons.arrow_downward,
-                        color: Colors.white,
-                      ),
+                        PopupMenuItem<int>(
+                          value: 1,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.favorite),
+                              SizedBox(width: 8),
+                              Text('اضف الي المفضله'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.message),
+                              SizedBox(width: 8),
+                              Text('ترك ملاحظه'),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          value: 2,
+                          child: Row(
+                            children: const [
+                              Icon(Icons.flag),
+                              SizedBox(width: 8),
+                              Text('بلاغ عن اساءه'),
+                            ],
+                          ),
+                        ),
+                      ],
+                      child:
+                      const Icon(Icons.arrow_downward, color: Colors.white),
                     ),
                   )
                 ],

@@ -19,13 +19,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           const TextSpan(
-              text: ' مرحبا بكم في تطبيق \n',
+              text: 'تواصل مع محاميك الخاص ',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
                   fontWeight: FontWeight.w600)),
           TextSpan(
-            text: 'حقوق',
+            text: ' بكل سهولة وسرية',
             style: TextStyle(
                 color: ConstantColor.primaryColor,
                 fontSize: 35,
@@ -36,61 +36,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           const TextSpan(
-              text: 'أكبر أبليكيشن مختص بالإستشارات القانونية في',
+              text: '  ',
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
                   fontWeight: FontWeight.w600)),
           TextSpan(
-            text: ' السعوديه',
-            style: TextStyle(
-                color: ConstantColor.primaryColor,
-                fontSize: 35,
-                fontWeight: FontWeight.w600),
-          ),
-        ])),
-    RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(children: [
-          const TextSpan(
-              text: 'أحصل علي',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w600)),
-          TextSpan(
-            text: ' محاميك',
+            text: '  ',
             style: TextStyle(
                 color: ConstantColor.primaryColor,
                 fontSize: 35,
                 fontWeight: FontWeight.w600),
           ),
           TextSpan(
-            text: ' الخاص وتواصل معة عبر التطبيق بكل بسرية',
-            style: TextStyle(
-                color: ConstantColor.whiteColor,
-                fontSize: 35,
-                fontWeight: FontWeight.w600),
-          ),
-        ])),
-    RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(children: [
-          const TextSpan(
-              text: 'أحصل علي',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w600)),
-          TextSpan(
-            text: ' محاميك',
-            style: TextStyle(
-                color: ConstantColor.primaryColor,
-                fontSize: 35,
-                fontWeight: FontWeight.w600),
-          ),
-          TextSpan(
-            text: ' الخاص وتواصل معة عبر التطبيق بكل بسرية',
+            text: ' ',
             style: TextStyle(
                 color: ConstantColor.whiteColor,
                 fontSize: 35,
