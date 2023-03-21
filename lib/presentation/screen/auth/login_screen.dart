@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: phoneController,
                             onChange: (value) {
                               setState(() {
-                                AuthBlocHelper.instance().phoneNumber = value;
+                                AuthHelper.instance().phoneNumber = value;
                               });
                             },
                             inputType: TextInputType.number,
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? mainButton(
                                 text: 'استمرار',
                                 fct: () {
-                                  AuthBlocHelper.instance()
+                                  AuthHelper.instance()
                                       .onSendOptCodeAction(context, kForm);
                                 },
                               )
@@ -189,7 +189,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         : state.authNaviation(
                             RouteSettings(
                               name: Routes.welcomeRoute,
-                              arguments: AuthBlocHelper.instance().name,
+                              arguments: AuthHelper.instance().name,
                             ),
                             context);
                   }
@@ -213,7 +213,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         defaultTextFiled(
                             controller: otpCode,
                             onChange: (value) {
-                              AuthBlocHelper.instance().optNumber = value;
+                              AuthHelper.instance().optNumber = value;
                             },
                             inputType: TextInputType.number,
                             labelText: 'ادخل الكود',
@@ -230,7 +230,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             ? mainButton(
                                 text: 'استمرار',
                                 fct: () {
-                                  AuthBlocHelper.instance()
+                                  AuthHelper.instance()
                                       .onLoginAction(context, kForm);
                                 },
                               )

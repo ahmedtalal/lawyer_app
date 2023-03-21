@@ -12,15 +12,15 @@ import 'package:hokok/presentation/blocs/auth_bloc/auth_events.dart';
 import 'package:hokok/presentation/screen/intro/splash_screen.dart';
 import 'package:hokok/presentation/screen/layout/layout_screen.dart';
 
-class AuthBlocHelper {
-  static AuthBlocHelper? _authBLocHelper;
-  AuthBlocHelper._internal();
-  static AuthBlocHelper instance() {
-    if (_authBLocHelper == null) {
-      return _authBLocHelper = AuthBlocHelper._internal();
+class AuthHelper {
+  static AuthHelper? _authHelper;
+  AuthHelper._internal();
+  static AuthHelper instance() {
+    if (_authHelper == null) {
+      return _authHelper = AuthHelper._internal();
     }
 
-    return _authBLocHelper!;
+    return _authHelper!;
   }
 
   String optNumber = '';

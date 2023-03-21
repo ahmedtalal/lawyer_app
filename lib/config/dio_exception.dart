@@ -26,14 +26,14 @@ class DioExceptions implements Exception {
     switch (statusCode) {
       case 400:
         return error["message"];
-      case 409:
+      case 404:
         return error["message"];
       case 500:
         return "internal server error";
       case 401:
         return "Unauthorized";
       case 422:
-        return error["message"];
+        return error["errors"]["phone_number"].toString();
       default:
         return "oops something went wrong";
     }

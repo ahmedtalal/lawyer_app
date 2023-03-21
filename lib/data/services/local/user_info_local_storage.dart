@@ -42,4 +42,10 @@ class UserInfoLocalService {
     printInfo("the data is $d");
     return UserLocalModel.fromJson(d);
   }
+
+  UserData getUserToken() {
+    Map<String, dynamic> data = getUserInfo();
+    UserData userData = UserData.fromJson(data);
+    return userData;
+  }
 }
