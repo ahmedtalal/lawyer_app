@@ -5,7 +5,7 @@ import 'package:hokok/data/repositories/comment_repository.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_events.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_helper.dart';
-import 'package:hokok/presentation/blocs/comment_bloc/comment_stated.dart';
+import 'package:hokok/presentation/blocs/comment_bloc/comment_states.dart';
 
 class CommentBloc extends Bloc<CommentEvents, CommentStates> {
   CommentBloc() : super(CommentInitState()) {
