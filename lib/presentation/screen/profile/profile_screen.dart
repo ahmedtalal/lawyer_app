@@ -1,15 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hokok/core/assets_manager.dart';
-import 'package:hokok/core/color_manager.dart';
-import 'package:hokok/core/font_manager.dart';
-import 'package:hokok/core/routes_manager.dart';
-import 'package:hokok/core/shared_widget/text.dart';
-import 'package:hokok/core/strings_manager.dart';
-import 'package:hokok/core/values_manager.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../../../core/assets_manager.dart';
+import '../../../core/color_manager.dart';
 import '../../../core/constants_manager.dart';
+import '../../../core/font_manager.dart';
+import '../../../core/routes_manager.dart';
 import '../../../core/shared_widget/button.dart';
+import '../../../core/shared_widget/text.dart';
+import '../../../core/strings_manager.dart';
+import '../../../core/values_manager.dart';
 import 'component/profile_details_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -40,12 +41,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossFadeState: state
                         ? CrossFadeState.showFirst
                         : CrossFadeState.showSecond,
-                    duration:
-                        const Duration(seconds: AppConstants.splashMoreDelay),
+                    duration: Duration(seconds: AppConstants.splashMoreDelay),
                   ),
                   _header(AppStrings.statistics),
                   Padding(
-                    padding: const EdgeInsets.all(AppPadding.p14),
+                    padding: EdgeInsets.all(AppPadding.p14),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -6,6 +6,7 @@ import 'package:hokok/core/values_manager.dart';
 import '../../../core/assets_manager.dart';
 import '../../../core/color_manager.dart';
 import '../../../core/font_manager.dart';
+import '../../../core/routes_manager.dart';
 import '../../../core/strings_manager.dart';
 import '../welcome/welcome_screen.dart';
 
@@ -113,7 +114,7 @@ class FindLawyerScreen extends StatelessWidget {
                         child: Center(
                           child: InkWell(
                             onTap: () {
-                              //go to profile
+                              Navigator.of(context).pushNamed(Routes.profileRoute);
                             },
                             child: const DefaultText(
                               'زيارة البروفيل',

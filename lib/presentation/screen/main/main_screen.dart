@@ -40,12 +40,6 @@ class _MainScreenState extends State<MainScreen> {
             _space(AppSize.s20),
             _categories(),
             _space(AppSize.s35),
-            InkWell(
-              borderRadius: BorderRadius.circular(AppSize.s15),
-              onTap: () =>
-                  Navigator.of(context).pushNamed(Routes.talkWithUsRoute),
-              child: const ChatButtonWidget(),
-            ),
           ],
         ),
       ),
@@ -102,45 +96,50 @@ class _MainScreenState extends State<MainScreen> {
         : true;
   }
 
-  Container _categoryItem(String title, String image,
+  InkWell _categoryItem(String title, String image,
           [bool primeColor = true]) =>
-      Container(
-        padding: const EdgeInsets.all(AppPadding.p5),
-        width: AppSize.s70,
-        height: AppSize.s64,
-        decoration: BoxDecoration(
-          color: primeColor ? ColorManager.primary : ColorManager.secondary,
-          borderRadius: BorderRadius.circular(AppSize.s16),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p5,
-                  vertical: AppPadding.p2_6,
-                ),
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: AppIntegerNum.i2,
-                  style: const TextStyle(
-                      color: ColorManager.white,
-                      fontFamily: FontConstants.fontFamily),
+      InkWell(
+        onTap: (){
+          Navigator.of(context).popAndPushNamed(Routes.hiringRoute);
+        },
+        child: Container(
+          padding: const EdgeInsets.all(AppPadding.p5),
+          width: AppSize.s70,
+          height: AppSize.s64,
+          decoration: BoxDecoration(
+            color: primeColor ? ColorManager.primary : ColorManager.secondary,
+            borderRadius: BorderRadius.circular(AppSize.s16),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p5,
+                    vertical: AppPadding.p2_6,
+                  ),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: AppIntegerNum.i2,
+                    style: const TextStyle(
+                        color: ColorManager.white,
+                        fontFamily: FontConstants.fontFamily),
+                  ),
                 ),
               ),
-            ),
-            CircleAvatar(
-              radius: AppSize.s12,
-              backgroundColor: ColorManager.white,
-              child: SvgPicture.asset(
-                image,
-                height: AppSize.s14,
+              CircleAvatar(
+                radius: AppSize.s12,
+                backgroundColor: ColorManager.white,
+                child: SvgPicture.asset(
+                  image,
+                  height: AppSize.s14,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 

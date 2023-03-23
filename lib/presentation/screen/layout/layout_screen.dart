@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../core/constants_manager.dart';
 import '../../../core/routes_manager.dart';
+import '../main/drawer/home_view_drawer.dart';
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class LayoutScreen extends StatelessWidget {
         appBar: _appBar( context),
         body: cubit.screens[cubit.currentIndex],
         bottomNavigationBar: _tapBar(),
+        drawer: const HomeViewDrawer(),
       );
     });
   }
@@ -44,7 +46,7 @@ class LayoutScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: AppPadding.p12),
             child: GestureDetector(
               onTap: () => Navigator.of(context)
-    .pushReplacementNamed(Routes.profileRoute),
+    .pushReplacementNamed(Routes.layoutProfileRoute),
               child: const CircleAvatar(
                 backgroundColor: ColorManager.white,
                 radius: AppSize.s18,
@@ -77,7 +79,7 @@ class LayoutScreen extends StatelessWidget {
               );
             }),*/
         ],
-        leading: Padding(
+        /*leading: Padding(
           padding: const EdgeInsets.all(AppPadding.p12),
           child: GestureDetector(
             onTap: () {},
@@ -85,7 +87,7 @@ class LayoutScreen extends StatelessWidget {
               AssetsManager.menuIcon,
             ),
           ),
-        ),
+        )*/
       );
 
   MainBottomNavBar _tapBar() => const MainBottomNavBar();
