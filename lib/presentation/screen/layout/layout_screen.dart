@@ -2,15 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-<<<<<<< HEAD
-=======
-import 'package:hokok/core/routes_manager.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
-import 'package:hokok/presentation/screen/browse_order/browse_order_screen.dart';
-import 'package:hokok/presentation/screen/find_lawyer/find_lawyer_screen.dart';
->>>>>>> 40e4b49 (add feedback logic and comment logic)
 import 'package:hokok/presentation/screen/layout/cubit/layout_cubit.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_state.dart';
 import 'package:hokok/core/assets_manager.dart';
@@ -27,14 +18,6 @@ class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
 
   @override
-<<<<<<< HEAD
-=======
-  State<LayoutScreen> createState() => _LayoutScreenState();
-}
-
-class _LayoutScreenState extends State<LayoutScreen> {
-  @override
->>>>>>> 40e4b49 (add feedback logic and comment logic)
   Widget build(BuildContext context) {
     return BlocBuilder<LayoutCubit, LayoutState>(builder: (context, state) {
       var cubit = context.read<LayoutCubit>();
@@ -89,7 +72,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 top: AppSize.s101,
                 child: GestureDetector(
                   onTap: () {
-                    AuthHelper.instance().onLogOutAction(context);
+                    AuthBlocHelper.instance().onLogOutAction(context);
                   },
                   child: const Icon(Icons.logout),
                 ),
@@ -107,19 +90,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
         )*/
       );
 
-<<<<<<< HEAD
-=======
-  Expanded _body() => const Expanded(
-        child: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
-          children: [
-            MainScreen(),
-            FindLawyerScreen(),
-            BrowseOrderScreen(),
-          ],
-        ),
-      );
->>>>>>> 40e4b49 (add feedback logic and comment logic)
   MainBottomNavBar _tapBar() => const MainBottomNavBar();
 }
 
@@ -173,18 +143,10 @@ class MainBottomNavBar extends StatelessWidget {
                         children: [
                           Icon(
                             bottomNavIcons[index],
-<<<<<<< HEAD
                             color: context.read<LayoutCubit>().currentIndex ==
                                     index
                                 ? ColorManager.primary
                                 : ColorManager.white,
-=======
-                            color:
-                                context.read<LayoutCubit>().navSelectedIndex ==
-                                        index
-                                    ? ColorManager.primary
-                                    : ColorManager.white,
->>>>>>> 40e4b49 (add feedback logic and comment logic)
                           ),
                           const SizedBox(height: 5),
                           FittedBox(
