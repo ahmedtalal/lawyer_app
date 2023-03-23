@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/data/models/user_model.dart';
 import 'package:hokok/data/repositories/auth_api_repository.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_events.dart';
@@ -32,24 +30,49 @@ class AuthHelper {
   String city = "";
   List<dynamic>? major;
   String? majorValue;
+  int? id = null;
+  String token = "";
+  String? about = "";
+  int? status = null;
+  String? personalImage = "";
+  String? createdAt = "";
+  int? lawyerId = null;
+  String? licenseImg = "";
+  int? idNumber = null;
+  String? idExpireDate = "";
 
-  UserEntity prepareLawyerInfo() => UserModel(
+  UserModelInfo prepareLawyerInfo() => UserModelInfo(
+        id: id,
+        token: token,
         type: type,
         name: name,
         email: email,
         phoneNumber: phoneNumber,
         zone: zone,
         city: city,
-        major: [majorValue],
+        majors: [UserMajors(id: int.parse(majorValue!))],
+        status: status,
+        personalImage: personalImage,
+        createdAt: createdAt,
+        lawyerId: lawyerId,
+        licenseImg: licenseImg,
+        idExpiryDate: idExpireDate,
+        about: about,
+        idNumber: idNumber,
       );
 
-  UserEntity prepareUserInfo() => UserModel(
+  UserModelInfo prepareClientInfo() => UserModelInfo(
+        id: id,
+        token: token,
         type: type,
         name: name,
         email: email,
         phoneNumber: phoneNumber,
         zone: zone,
         city: city,
+        status: status,
+        createdAt: createdAt,
+        personalImage: personalImage,
       );
 
   onSendOptCodeAction(BuildContext context, GlobalKey<FormState> key) {

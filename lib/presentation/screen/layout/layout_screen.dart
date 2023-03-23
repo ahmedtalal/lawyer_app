@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,7 +21,7 @@ class LayoutScreen extends StatelessWidget {
     return BlocBuilder<LayoutCubit, LayoutState>(builder: (context, state) {
       var cubit = context.read<LayoutCubit>();
       return Scaffold(
-        appBar: _appBar( context),
+        appBar: _appBar(context),
         body: cubit.screens[cubit.currentIndex],
         bottomNavigationBar: _tapBar(),
         drawer: const HomeViewDrawer(),
@@ -47,6 +46,7 @@ class LayoutScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context)
     .pushReplacementNamed(Routes.layoutProfileRoute),
+                  .pushReplacementNamed(Routes.profileRoute),
               child: const CircleAvatar(
                 backgroundColor: ColorManager.white,
                 radius: AppSize.s18,

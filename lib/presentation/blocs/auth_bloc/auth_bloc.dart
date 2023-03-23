@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
-import 'package:hokok/data/models/user_model.dart';
 import 'package:hokok/data/repositories/auth_api_repository.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
@@ -23,11 +22,11 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   Map<String, dynamic> _phoneMapModel() =>
       {"phone_number": _controller.phoneNumber};
 
-  Map<String, dynamic> _userMapModel() =>
-      UserModel.toJson1(_controller.prepareUserInfo());
+  Map<String, dynamic> _clientMapModel() =>
+      _controller.prepareClientInfo().clientToJson();
 
   Map<String, dynamic> _lawyerMapModel() =>
-      UserModel.toJson(_controller.prepareLawyerInfo());
+      _controller.prepareLawyerInfo().lawyerToJson();
 
   Map<String, dynamic> _phoneOtpMapModel() => {
         "phone_number": _controller.phoneNumber,
@@ -61,10 +60,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
   FutureOr<void> createUserAccount(AuthEvents events, Emitter emit) async {
     emit(AuthLoadingState());
-    printInfo("the user model is ${_userMapModel()}");
+    printInfo("the user model is ${_clientMapModel()}");
     Map<String, dynamic> result = await UseCaseProvider.instance()
         .creator<AuthApiRepository>(AuthApiRepository.instance())
-        .register(_userMapModel());
+        .register(_clientMapModel());
     if (result[mapKey] == successReposne) {
       emit(AuthSuccessState());
     } else {
