@@ -12,7 +12,10 @@ import 'package:hokok/core/strings_manager.dart';
 
 import '../presentation/screen/auth/chose_account_screen.dart';
 import '../presentation/screen/chat/chat_helper_screen.dart';
+import '../presentation/screen/layout_profile/layout_profile/Lawyer_profile_screen.dart';
+import '../presentation/screen/layout_profile/layout_profile/layout_lawyer_profile.dart';
 import '../presentation/screen/layout_profile/layout_profile_screen.dart';
+import '../presentation/screen/main/main_screen.dart';
 import '../presentation/screen/welcome/welcome_screen.dart';
 
 class Routes {
@@ -30,6 +33,9 @@ class Routes {
   static const String profileRoute = '/profile';
   static const String hiringRoute = '/hire';
   static const String layoutProfileRoute = '/layoutProfile';
+  static const String homeScreenRoute = '/homeScreen';
+  static const String laywerProfileScreen = '/LawyerProfile';
+
 }
 
 class RouteGenerator {
@@ -65,6 +71,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const HireLawyerScreen());
       case Routes.layoutProfileRoute:
         return MaterialPageRoute(builder: (_) => const LayoutProfileScreen());
+      case Routes.homeScreenRoute:
+        return MaterialPageRoute(builder: (_) => const MainScreen());
+      case Routes.laywerProfileScreen:
+        return MaterialPageRoute(builder: (_) => const LayoutLawyerProfile());
 
       default:
         return _unDefinedRoute();

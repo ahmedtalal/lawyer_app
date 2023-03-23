@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/presentation/screen/layout_profile/layout_profile/Lawyer_profile_screen.dart';
 import 'package:hokok/core/color_manager.dart';
-import 'package:hokok/core/strings_manager.dart';
 
 import '../../../../core/assets_manager.dart';
-import '../../../../core/constants_manager.dart';
 import '../../../../core/font_manager.dart';
-import '../../../../core/shared_widget/button.dart';
 import '../../../../core/shared_widget/text.dart';
+import '../../../../core/strings_manager.dart';
 import '../../../../core/values_manager.dart';
-import '../../profile/component/profile_details_widget.dart';
 
-class LawyerProfileScreen extends StatefulWidget {
-  const LawyerProfileScreen({Key? key}) : super(key: key);
+
+
+class LayoutLawyerProfile extends StatefulWidget {
+  const LayoutLawyerProfile({Key? key}) : super(key: key);
 
   @override
-  State<LawyerProfileScreen> createState() => _LawyerProfileScreenState();
+  State<LayoutLawyerProfile> createState() => _LayoutLawyerProfile();
 }
 
-class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
-  bool state = true;
-
+class _LayoutLawyerProfile extends State<LayoutLawyerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +33,7 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
                 TabBar(
                   overlayColor: MaterialStateProperty.all(Colors.transparent),
                   padding: const EdgeInsets.only(top: AppPadding.p213),
-                  labelPadding: const EdgeInsets.symmetric(
+                  labelPadding:  const EdgeInsets.symmetric(
                     horizontal: AppPadding.p5,
                     vertical: AppPadding.p0,
                   ),
@@ -141,7 +139,7 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
             ),
           ],
         ),
-        const Padding(
+         const Padding(
           padding: EdgeInsets.symmetric(vertical: AppPadding.p2),
           child: DefaultText(
             AppStrings.name,
@@ -163,5 +161,4 @@ class _LawyerProfileScreenState extends State<LawyerProfileScreen> {
       ],
     ),
   );
-
 }

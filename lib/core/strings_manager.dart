@@ -5,7 +5,7 @@ class AppStrings {
       "https://pps.whatsapp.net/v/t61.24694-24/323851717_895030145113701_1245968762489632016_n.jpg?ccb=11-4&oh=01_AdTTzCxc6GAFLgwz0_uANWceXQfOdbyq18HUoAVYYp09yg&oe=6425D912";
 //welcome
   static const welcome = "مرحباً";
-  static const welcomeName = "Ashmawi";
+  static const welcomeName = "Seif";
   static const createdAccount = "تم انشاء حسابك بنجاح";
   static const quotation = "\"";
   static const join = "سعداء بانضمامك إلينا:)";
@@ -34,7 +34,7 @@ class AppStrings {
   static const committees = "لجان شبة قضائية";
 
   //talk with us strings
-  static const chatText = "حقوق شات";
+  static const chatText = "انصاف شات";
   static const welcomeTab = "مرحبا بكم في خدمة الدعم الفني";
   static const searchTab = "ابحث عن موضوع أو سؤال سابق";
   static const subjectsTab = "مواضيع شائعة";
@@ -82,4 +82,6 @@ class AppStrings {
   static const profile = 'الملف الشخصي';
   static const balance = 'رصيدي';
   static const offers = 'عروضي وتوكيلاتى';
+  static const addOlder = 'اضف طلب';
+  static const Myagencies = 'توكيلاتي' ;
 }

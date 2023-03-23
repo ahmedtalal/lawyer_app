@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/font_manager.dart';
+import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/text.dart';
 
 import '../assets_manager.dart';
@@ -24,7 +25,7 @@ class DefaultBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).pop(),
+      onTap: () =>  Navigator.of(context).pop(),
       borderRadius: BorderRadius.circular(AppSize.s10),
       child: Padding(
         padding: edgeInsets ??
