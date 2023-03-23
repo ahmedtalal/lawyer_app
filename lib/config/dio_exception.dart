@@ -15,22 +15,27 @@ class DioExceptions implements Exception {
         return "connection to api server failed due to internet connection";
       case DioErrorType.badResponse:
         return _handleErrorMessage(
-            dioError.response!.statusCode, dioError.error);
+            dioError.response!.statusCode, dioError.response!.data);
       default:
         return "something went wrong";
     }
   }
 
-  static String _handleErrorMessage(int? statusCode, dynamic error) {
+  static String _handleErrorMessage(
+      int? statusCode, Map<String, dynamic> error) {
     switch (statusCode) {
       case 400:
-        return "Bad request and the error is $error";
+        return error["message"];
+      case 404:
       case 409:
-        return error["error"];
+        return error["message"];
       case 500:
         return "internal server error";
       case 401:
         return "Unauthorized";
+      case 422:
+        return error["errors"]["phone_number"].toString();
+        return error["message"];
       default:
         return "oops something went wrong";
     }

@@ -5,7 +5,7 @@ import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/domain/entities/major_entity.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc_helper.dart';
@@ -76,6 +76,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                     state.authNaviation(
                         const RouteSettings(
                           name: Routes.loginRoute,
+                          arguments: true,
                         ),
                         context);
                   }
@@ -112,7 +113,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
                                   decoration: BoxDecoration(
-                                    color:ConstantColor.primaryColor,
+                                    color: ConstantColor.primaryColor,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Column(
@@ -152,7 +153,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
                                   decoration: BoxDecoration(
-                                    color:ConstantColor.primaryColor,
+                                    color: ConstantColor.primaryColor,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Column(
@@ -189,7 +190,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: nameController,
                             onChange: (value) {
-                              AuthBlocHelper.instance().name = value;
+                              AuthHelper.instance().name = value;
                             },
                             inputType: TextInputType.text,
                             labelText: 'اسم المستخدم',
@@ -205,7 +206,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: emailController,
                             onChange: (value) {
-                              AuthBlocHelper.instance().email = value;
+                              AuthHelper.instance().email = value;
                             },
                             inputType: TextInputType.emailAddress,
                             labelText: 'البريد الالكتروني',
@@ -221,7 +222,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: phoneController,
                             onChange: (value) {
-                              AuthBlocHelper.instance().phoneNumber = value;
+                              AuthHelper.instance().phoneNumber = value;
                             },
                             inputType: TextInputType.number,
                             labelText: 'رقم الهاتف',
@@ -279,14 +280,13 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                         color: ConstantColor.primaryColor,
                                         fontWeight: FontWeight.bold,
                                       ),
-                                      value:
-                                          AuthBlocHelper.instance().majorValue,
+                                      value: AuthHelper.instance().majorValue,
                                       isDense: true,
                                       onChanged: (value) {
                                         setState(() {
                                           printInfo(
                                               "the id of major is $value");
-                                          AuthBlocHelper.instance().majorValue =
+                                          AuthHelper.instance().majorValue =
                                               value;
                                         });
                                       },
@@ -320,7 +320,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: governorateController,
                             onChange: (value) {
-                              AuthBlocHelper.instance().zone = value;
+                              AuthHelper.instance().zone = value;
                             },
                             inputType: TextInputType.text,
                             labelText: 'الموقع',
@@ -338,7 +338,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: locationController,
                             onChange: (value) {
-                              AuthBlocHelper.instance().city = value;
+                              AuthHelper.instance().city = value;
                             },
                             inputType: TextInputType.text,
                             labelText: 'المدينة',
@@ -357,8 +357,8 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                             ? mainButton(
                                 text: 'انشاء حساب ',
                                 fct: () {
-                                  AuthBlocHelper.instance().type = "lawyer";
-                                  AuthBlocHelper.instance()
+                                  AuthHelper.instance().type = "lawyer";
+                                  AuthHelper.instance()
                                       .onCreateLawyerAccount(context, kForm);
                                 })
                             : const Center(child: CircularProgressIndicator()),

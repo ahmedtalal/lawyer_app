@@ -6,7 +6,7 @@ import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/data/models/major_model.dart';
 import 'package:hokok/domain/entities/major_entity.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc_helper.dart';
@@ -76,6 +76,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                     state.authNaviation(
                         const RouteSettings(
                           name: Routes.loginRoute,
+                          arguments: true,
                         ),
                         context);
                   }
@@ -105,7 +106,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                         defaultTextFiled(
                             controller: nameController,
                             onChange: (value) {
-                              AuthBlocHelper.instance().name = value;
+                              AuthHelper.instance().name = value;
                             },
                             inputType: TextInputType.text,
                             labelText: 'اسم المستخدم',
@@ -122,7 +123,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                             controller: emailController,
                             onChange: (value) {
                               setState(() {
-                                AuthBlocHelper.instance().email = value;
+                                AuthHelper.instance().email = value;
                               });
                             },
                             inputType: TextInputType.emailAddress,
@@ -140,7 +141,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                             controller: phoneController,
                             onChange: (value) {
                               setState(() {
-                                AuthBlocHelper.instance().phoneNumber = value;
+                                AuthHelper.instance().phoneNumber = value;
                               });
                             },
                             inputType: TextInputType.number,
@@ -159,7 +160,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                             controller: locationController,
                             onChange: (value) {
                               setState(() {
-                                AuthBlocHelper.instance().zone = value;
+                                AuthHelper.instance().zone = value;
                               });
                             },
                             inputType: TextInputType.text,
@@ -177,7 +178,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                             controller: cityController,
                             onChange: (value) {
                               setState(() {
-                                AuthBlocHelper.instance().city = value;
+                                AuthHelper.instance().city = value;
                               });
                             },
                             inputType: TextInputType.text,
@@ -195,8 +196,8 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                             ? mainButton(
                                 text: 'انشاء حساب ',
                                 fct: () {
-                                  AuthBlocHelper.instance().type = "client";
-                                  AuthBlocHelper.instance()
+                                  AuthHelper.instance().type = "client";
+                                  AuthHelper.instance()
                                       .onCreateUserAccount(context, kForm);
                                 })
                             : const Center(child: CircularProgressIndicator()),

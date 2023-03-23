@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
@@ -10,8 +10,8 @@ import 'package:hokok/presentation/widget/shared_widget.dart';
 import '../../../core/routes_manager.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
+  const LoginScreen({authType, Key? key}) : super(key: key);
+  final bool authType = false;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -40,8 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is AuthSuccessState) {
               showed = false;
               state.authNaviation(
-                  const RouteSettings(
+                  RouteSettings(
                     name: Routes.otpRoute,
+                    arguments: widget.authType,
                   ),
                   context);
             }
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: phoneController,
                             onChange: (value) {
                               setState(() {
-                                AuthBlocHelper.instance().phoneNumber = value;
+                                AuthHelper.instance().phoneNumber = value;
                               });
                             },
                             inputType: TextInputType.number,
@@ -102,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? mainButton(
                                 text: 'استمرار',
                                 fct: () {
-                                  AuthBlocHelper.instance()
+                                  AuthHelper.instance()
                                       .onSendOptCodeAction(context, kForm);
                                 },
                               )
@@ -133,7 +134,8 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class OTPScreen extends StatefulWidget {
-  OTPScreen({Key? key}) : super(key: key);
+  const OTPScreen({this.authType, Key? key}) : super(key: key);
+  final bool? authType;
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
@@ -178,11 +180,19 @@ class _OTPScreenState extends State<OTPScreen> {
                   }
                   if (state is AuthSuccessState) {
                     show = false;
-                    state.authNaviation(
-                        const RouteSettings(
-                          name: Routes.welcomeRoute,
-                        ),
-                        context);
+                    widget.authType == false
+                        ? state.authNaviation(
+                            const RouteSettings(
+                              name: Routes.layoutRoute,
+                            ),
+                            context)
+                        : state.authNaviation(
+                            RouteSettings(
+                              name: Routes.welcomeRoute,
+                              arguments: AuthHelper.instance().name,
+                              arguments: AuthBlocHelper.instance().name,
+                            ),
+                            context);
                   }
                 }, builder: (context, state) {
                   if (state is AuthLoadingState) {
@@ -204,7 +214,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         defaultTextFiled(
                             controller: otpCode,
                             onChange: (value) {
-                              AuthBlocHelper.instance().optNumber = value;
+                              AuthHelper.instance().optNumber = value;
                             },
                             inputType: TextInputType.number,
                             labelText: 'ادخل الكود',
@@ -221,7 +231,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             ? mainButton(
                                 text: 'استمرار',
                                 fct: () {
-                                  AuthBlocHelper.instance()
+                                  AuthHelper.instance()
                                       .onLoginAction(context, kForm);
                                 },
                               )

@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
+import 'package:hokok/presentation/blocs/comment_bloc/comment_bloc.dart';
+import 'package:hokok/presentation/blocs/feedback_bloc/feedback_bloc.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_cubit.dart';
 import 'package:hokok/config/l10n/l10n.dart';
@@ -37,6 +39,12 @@ class MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => MajorBloc(),
         ),
+        BlocProvider(
+          create: (context) => FeedBackBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CommentBloc(),
+        ),
       ],
       child: MaterialApp(
         locale: const Locale('ar'),
@@ -50,7 +58,7 @@ class MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.getRoute,
         //initialRoute: AuthBlocHelper.instance().checkUserIsLoginActtion(),
-        home: AuthBlocHelper.instance().checkUserIsLoginActtion(),
+        home: AuthHelper.instance().checkUserIsLoginActtion(),
       ),
     );
   }

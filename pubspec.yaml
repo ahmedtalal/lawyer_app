@@ -20,11 +20,10 @@ dependencies:
   get_storage: ^2.1.1
   hexcolor: ^3.0.1
   font_awesome_flutter: ^10.4.0
-
-
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.0+1
+  flutter_screenutil: ^5.7.0
 
 
 

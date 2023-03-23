@@ -7,11 +7,11 @@ import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/strings_manager.dart';
 import 'package:hokok/core/values_manager.dart';
-
 import '../../../core/shared_widget/button.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({this.name, Key? key}) : super(key: key);
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,9 @@ class WelcomeScreen extends StatelessWidget {
             const SizedBox(height: AppSize.s101, width: double.infinity),
             RichText(
               textAlign: TextAlign.center,
-              text: const TextSpan(
+              text: TextSpan(
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: AppStrings.welcome,
                     style: TextStyle(
                       color: ColorManager.secondary,
@@ -35,8 +35,8 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: AppStrings.welcomeName,
-                    style: TextStyle(
+                    text: name,
+                    style: const TextStyle(
                       color: ColorManager.primary,
                       fontSize: FontSize.s39,
                       fontWeight: FontWeightManager.w600,
