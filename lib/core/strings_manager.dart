@@ -24,6 +24,8 @@ class AppStrings {
   static const commercial = "تجاري";
   static const administrative = "إداري";
   static const penal = "جزائية";
+  static const fav = "المفضل";
+
   static const labor = "عمالي";
   static const execution = "تنفيذ أحكام";
   static const traffic = "مروري";
