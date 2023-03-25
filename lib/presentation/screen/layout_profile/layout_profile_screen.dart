@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/presentation/screen/layout_profile/layout_profile/Lawyer_profile_screen.dart';
 import 'package:hokok/core/color_manager.dart';
 
@@ -9,8 +10,11 @@ import '../../../core/shared_widget/button.dart';
 import '../../../core/shared_widget/text.dart';
 import '../../../core/strings_manager.dart';
 import '../../../core/values_manager.dart';
+import '../layout/layout_screen.dart';
+import '../layout/layout_screen.dart';
 import 'layout_profile/client_profile_screen.dart';
 import 'layout_profile/fav_client_screen.dart';
+import 'layout_profile/order_client_screen.dart';
 
 class LayoutProfileScreen extends StatefulWidget {
   const LayoutProfileScreen({Key? key}) : super(key: key);
@@ -93,7 +97,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
               child: TabBarView(children: [
                 ClientProfileScreen(),
                 FavClientScreen(),
-                ClientProfileScreen(),
+                OrdersClientScreen(),
               ]),
             )
           ],
@@ -171,43 +175,44 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
         child: Column(
           children: [
 
-            Stack(
-              alignment: AlignmentDirectional.bottomEnd,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Positioned(
-                  child: SvgPicture.asset(
-                    AssetsManager.settings,
-                    width: AppSize.s40,
-                    height: AppSize.s40,
-                  ),
+                Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    Container(
+                      height: AppSize.s105,
+                      width: AppSize.s116,
+                      margin: const EdgeInsets.only(top: AppMargin.m48),
+                      padding: const EdgeInsets.all(AppPadding.p10),
+                      decoration: BoxDecoration(
+                        color: ColorManager.white,
+                        border: Border.all(color: ColorManager.grey, width: 0.5),
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                    ),
+                    Container(
+                      height: AppSize.s34,
+                      width: AppSize.s34,
+                      padding: const EdgeInsets.all(AppPadding.p5),
+                      decoration: BoxDecoration(
+                        color: ColorManager.secondary,
+                        border: Border.all(color: ColorManager.grey, width: 0.5),
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: SvgPicture.asset(
+                        AssetsManager.cameraIcon,
+                      ),
+                    ),
+                  ],
+                ),
+SizedBox(width: 100,),
+                IconButton(onPressed: (){Navigator.of(context).pushNamed(Routes.layoutRoute);}, icon: Icon(Icons.home),iconSize: AppSize.s40,),
 
-                ),
-                Container(
-                  height: AppSize.s105,
-                  width: AppSize.s116,
-                  margin: const EdgeInsets.only(top: AppMargin.m48),
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  decoration: BoxDecoration(
-                    color: ColorManager.white,
-                    border: Border.all(color: ColorManager.grey, width: 0.5),
-                    shape: BoxShape.circle,
-                  ),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                ),
-                Container(
-                  height: AppSize.s34,
-                  width: AppSize.s34,
-                  padding: const EdgeInsets.all(AppPadding.p5),
-                  decoration: BoxDecoration(
-                    color: ColorManager.secondary,
-                    border: Border.all(color: ColorManager.grey, width: 0.5),
-                    shape: BoxShape.circle,
-                  ),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: SvgPicture.asset(
-                    AssetsManager.cameraIcon,
-                  ),
-                ),
+
               ],
             ),
             const Padding(

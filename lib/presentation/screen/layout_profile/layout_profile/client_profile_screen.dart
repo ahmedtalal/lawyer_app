@@ -44,7 +44,7 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               duration:  Duration(seconds: AppConstants.splashMoreDelay),
             ),
             const SizedBox(
-              height: AppSize.s79,
+              height: AppSize.s65,
             ),
             Align(
               alignment: AlignmentDirectional.center,
@@ -68,7 +68,7 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
     alignment: AlignmentDirectional.center,
     child: Container(
       width: AppSize.s272,
-      height: AppSize.s180,
+      height: AppSize.s199,
       margin: const EdgeInsets.only(top: AppMargin.m19),
       decoration: BoxDecoration(
         border: Border.all(
@@ -159,54 +159,7 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
             ),
           ),
-          const Align(
-            alignment: AlignmentDirectional.center,
-            child: DefaultText(
-              AppStrings.certificates,
-              color: ColorManager.primary,
-              fontSize: FontSize.s16,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p12),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 93,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorManager.secondary, width: 1),
-                      borderRadius: BorderRadius.circular(AppSize.s15),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: AppSize.s12),
-                Expanded(
-                  child: Container(
-                    height: 106,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorManager.secondary, width: 1),
-                      borderRadius: BorderRadius.circular(AppSize.s15),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: AppSize.s12),
-                Expanded(
-                  child: Container(
-                    height: 93,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorManager.secondary, width: 1),
-                      borderRadius: BorderRadius.circular(AppSize.s15),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Spacer(),
+
           Align(
             alignment: AlignmentDirectional.center,
             child: DefaultOUtLinedButton(
@@ -222,23 +175,32 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
     ),
   );
 
-  Container _header(String header, [double fontSize = FontSize.s28]) =>
-      Container(
-        height: AppSize.s51,
-        width: AppSize.s140,
-        alignment: AlignmentDirectional.centerStart,
-        margin: const EdgeInsets.only(top: AppMargin.m31),
-        decoration: const BoxDecoration(
-          color: ColorManager.primary,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(AppSize.s30),
-            bottomLeft: Radius.circular(AppSize.s30),
+  Row _header(String header, [double fontSize = FontSize.s28]) =>
+      Row(
+        children: [
+          Container(
+            height: AppSize.s51,
+            width: AppSize.s140,
+            alignment: AlignmentDirectional.centerStart,
+            margin: const EdgeInsets.only(top: AppMargin.m31),
+            decoration: const BoxDecoration(
+              color: ColorManager.primary,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(AppSize.s30),
+                bottomLeft: Radius.circular(AppSize.s30),
+              ),
+            ),
+            child: DefaultText(
+              header,
+              fontSize: fontSize,
+              color: ColorManager.white,
+            ),
           ),
-        ),
-        child: DefaultText(
-          header,
-          fontSize: fontSize,
-          color: ColorManager.white,
-        ),
+          SizedBox(
+            width: AppSize.s188,
+          ),
+          IconButton(onPressed: (){}, icon: Icon(Icons.settings),iconSize: AppSize.s40,),
+
+        ],
       );
 }
