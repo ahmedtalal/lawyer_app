@@ -24,10 +24,43 @@ class ProfileDetailsWidget extends StatelessWidget {
       alignment: AlignmentDirectional.topCenter,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: AppPadding.p55, right: paddingRight),
+          padding: EdgeInsets.only(top: AppPadding.p10, right: paddingRight),
           child: Column(
             children: [
-              Container(
+              Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
+                  Container(
+                    height: AppSize.s105,
+                    width: AppSize.s116,
+                    margin: const EdgeInsets.only(top: AppMargin.m48),
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    decoration: BoxDecoration(
+                      color: ColorManager.white,
+                      border:
+                      Border.all(color: ColorManager.grey, width: 0.5),
+                      shape: BoxShape.circle,
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                  ),
+                  Container(
+                    height: AppSize.s34,
+                    width: AppSize.s34,
+                    padding: const EdgeInsets.all(AppPadding.p5),
+                    decoration: BoxDecoration(
+                      color: ColorManager.secondary,
+                      border:
+                      Border.all(color: ColorManager.grey, width: 0.5),
+                      shape: BoxShape.circle,
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: SvgPicture.asset(
+                      AssetsManager.cameraIcon,
+                    ),
+                  ),
+                ],
+              ),
+              /*Container(
                 height: AppSize.s105,
                 width: AppSize.s116,
                 padding: const EdgeInsets.all(AppPadding.p10),
@@ -58,7 +91,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                   ),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                 ),
-              ),
+              ),*/
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppPadding.p2),
                 child: DefaultText(
@@ -81,7 +114,7 @@ class ProfileDetailsWidget extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
+        /*Positioned(
           top: AppSize.s79,
           right: positionRight,
           height: AppSize.s9,
@@ -98,7 +131,7 @@ class ProfileDetailsWidget extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-        ),
+        ),*/
       ],
     );
   }
