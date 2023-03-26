@@ -46,7 +46,7 @@ class LayoutScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context)
     .pushReplacementNamed(Routes.layoutProfileRoute),
-                  .pushReplacementNamed(Routes.profileRoute),
+
               child: const CircleAvatar(
                 backgroundColor: ColorManager.white,
                 radius: AppSize.s18,

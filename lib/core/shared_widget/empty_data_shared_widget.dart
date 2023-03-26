@@ -4,7 +4,7 @@ import 'package:hokok/core/font_manager.dart';
 
 Widget emptyDataSharedWidget() {
   return Container(
-    height: 300.h,
+    height: 300,
     width: double.maxFinite,
     padding: const EdgeInsets.all(10),
     child: Column(
@@ -14,16 +14,16 @@ Widget emptyDataSharedWidget() {
         Image(
           image: AssetImage(AssetsManager.emptyDataImage),
           width: double.maxFinite,
-          height: 250.h,
+          height: 250,
           fit: BoxFit.cover,
         ),
         SizedBox(
-          height: 10.h,
+          height: 10,
         ),
         Text(
           "there is no data",
           style: TextStyle(
-            fontSize: 20.h,
+            fontSize: 20,
             fontFamily: FontConstants.fontFamily,
           ),
         ),
