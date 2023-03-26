@@ -1,3 +1,8 @@
+/*
+this class generate only one instance from any class using dependency injection
+and singleton and by using this instance you can access any method from this class.
+*/
+
 class UseCaseProvider {
   static UseCaseProvider? _useCaseProvider;
   UseCaseProvider._internal();
