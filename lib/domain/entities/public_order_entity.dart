@@ -1,7 +1,7 @@
-class OrderEntity {
+class PublicOrderEntity {
   List<OrderInfoModel>? data;
 
-  OrderEntity({this.data});
+  PublicOrderEntity({this.data});
 }
 
 class OrderInfoModel {

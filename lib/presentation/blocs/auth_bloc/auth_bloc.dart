@@ -91,7 +91,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     if (result == true) {
       emit(LogOutSuccessState());
     } else {
-      emit(AuthFailedState("error"));
+      emit(LogOutFailedState("error"));
     }
   }
 }

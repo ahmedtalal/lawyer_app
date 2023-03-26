@@ -1,9 +1,9 @@
-import 'package:hokok/domain/entities/order_entity.dart';
+import 'package:hokok/domain/entities/public_order_entity.dart';
 
-class OrderModel extends OrderEntity {
-  OrderModel({super.data});
+class PublicOrderModel extends PublicOrderEntity {
+  PublicOrderModel({super.data});
 
-  OrderModel.fromJson(Map<String, dynamic> json) {
+  PublicOrderModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <OrderInfoModel>[];
       json['data'].forEach((v) {

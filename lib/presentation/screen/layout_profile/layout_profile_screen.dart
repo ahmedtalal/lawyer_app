@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/routes_manager.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/screen/layout_profile/layout_profile/Lawyer_profile_screen.dart';
 import 'package:hokok/core/color_manager.dart';
 
@@ -103,7 +108,6 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
           ],
         ),
       ),
-
     );
   }
 
@@ -174,7 +178,6 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
         color: ColorManager.primary,
         child: Column(
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -188,7 +191,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       padding: const EdgeInsets.all(AppPadding.p10),
                       decoration: BoxDecoration(
                         color: ColorManager.white,
-                        border: Border.all(color: ColorManager.grey, width: 0.5),
+                        border:
+                            Border.all(color: ColorManager.grey, width: 0.5),
                         shape: BoxShape.circle,
                       ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -199,7 +203,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       padding: const EdgeInsets.all(AppPadding.p5),
                       decoration: BoxDecoration(
                         color: ColorManager.secondary,
-                        border: Border.all(color: ColorManager.grey, width: 0.5),
+                        border:
+                            Border.all(color: ColorManager.grey, width: 0.5),
                         shape: BoxShape.circle,
                       ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -209,10 +214,43 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                     ),
                   ],
                 ),
-SizedBox(width: 100,),
-                IconButton(onPressed: (){Navigator.of(context).pushNamed(Routes.layoutRoute);}, icon: Icon(Icons.home),iconSize: AppSize.s40,),
-
-
+                SizedBox(
+                  width: 100,
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.layoutRoute);
+                      },
+                      icon: const Icon(Icons.home),
+                      iconSize: AppSize.s40,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    BlocConsumer<AuthBloc, AuthStates>(
+                        listener: (context, state) {
+                      if (state is LogOutSuccessState) {
+                        state.authNaviation(
+                            const RouteSettings(
+                              name: Routes.layoutRoute,
+                            ),
+                            context);
+                      } else if (state is LogOutFailedState) {
+                        state.authErrorMessage(context, "logout exception");
+                      }
+                    }, builder: (context, state) {
+                      return IconButton(
+                        onPressed: () {
+                          AuthHelper.instance().onLogOutAction(context);
+                        },
+                        icon: const Icon(Icons.logout),
+                        iconSize: AppSize.s40,
+                      );
+                    }),
+                  ],
+                ),
               ],
             ),
             const Padding(
