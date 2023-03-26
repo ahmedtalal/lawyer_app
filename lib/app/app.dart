@@ -7,6 +7,8 @@ import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_bloc.dart';
 import 'package:hokok/presentation/blocs/feedback_bloc/feedback_bloc.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
+import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_cubit.dart';
 import 'package:hokok/config/l10n/l10n.dart';
 
@@ -44,6 +46,12 @@ class MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => CommentBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileBloc(),
+        ),
+        BlocProvider(
+          create: (context) => OrderBloc(),
         ),
       ],
       child: MaterialApp(

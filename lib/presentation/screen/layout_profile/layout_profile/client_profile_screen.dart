@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/core/routes_manager.dart';
 
 import '../../../../core/assets_manager.dart';
 import '../../../../core/color_manager.dart';
@@ -33,15 +34,14 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               width: double.infinity,
               height: AppSize.s20,
             ),
-
             _header(AppStrings.aboutMe),
             const SizedBox(height: AppSize.s40),
             AnimatedCrossFade(
               firstChild: _about(),
               secondChild: _aboutMore(),
               crossFadeState:
-              state ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration:  Duration(seconds: AppConstants.splashMoreDelay),
+                  state ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+              duration: Duration(seconds: AppConstants.splashMoreDelay),
             ),
             const SizedBox(
               height: AppSize.s65,
@@ -65,118 +65,116 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
   }
 
   Align _about() => Align(
-    alignment: AlignmentDirectional.center,
-    child: Container(
-      width: AppSize.s272,
-      height: AppSize.s199,
-      margin: const EdgeInsets.only(top: AppMargin.m19),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: AppSize.s2,
-          color: ColorManager.secondary.withOpacity(AppOpacity.c0_65),
+        alignment: AlignmentDirectional.center,
+        child: Container(
+          width: AppSize.s272,
+          height: AppSize.s199,
+          margin: const EdgeInsets.only(top: AppMargin.m19),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: AppSize.s2,
+              color: ColorManager.secondary.withOpacity(AppOpacity.c0_65),
+            ),
+            borderRadius: BorderRadius.circular(AppSize.s50),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: AppPadding.p15,
+                  right: AppPadding.p31,
+                ),
+                child: SvgPicture.asset(
+                  AssetsManager.penIcon,
+                  height: AppSize.s20,
+                  width: AppSize.s20,
+                  fit: BoxFit.none,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+                child: DefaultText(
+                  AppStrings.about,
+                  fontSize: FontSize.s16,
+                  color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional.center,
+                child: DefaultOUtLinedButton(
+                  AppStrings.more,
+                  onPressed: () {
+                    setState(() {
+                      state = false;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
-        borderRadius: BorderRadius.circular(AppSize.s50),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: AppPadding.p15,
-              right: AppPadding.p31,
-            ),
-            child: SvgPicture.asset(
-              AssetsManager.penIcon,
-              height: AppSize.s20,
-              width: AppSize.s20,
-              fit: BoxFit.none,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p10),
-            child: DefaultText(
-              AppStrings.about,
-              fontSize: FontSize.s16,
-              color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
-            ),
-          ),
-          Align(
-            alignment: AlignmentDirectional.center,
-            child: DefaultOUtLinedButton(
-              AppStrings.more,
-              onPressed: () {
-                setState(() {
-                  state = false;
-                });
-              },
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
+      );
 
   Align _aboutMore() => Align(
-    alignment: AlignmentDirectional.center,
-    child: Container(
-      width: AppSize.s303,
-      height: AppSize.s444,
-      margin: const EdgeInsets.only(top: AppMargin.m19),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: AppSize.s2,
-          color: ColorManager.secondary.withOpacity(AppOpacity.c0_65),
+        alignment: AlignmentDirectional.center,
+        child: Container(
+          width: AppSize.s303,
+          height: AppSize.s444,
+          margin: const EdgeInsets.only(top: AppMargin.m19),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: AppSize.s2,
+              color: ColorManager.secondary.withOpacity(AppOpacity.c0_65),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: AppPadding.p15,
+                  right: AppPadding.p31,
+                ),
+                child: SvgPicture.asset(
+                  AssetsManager.penIcon,
+                  height: AppSize.s20,
+                  width: AppSize.s20,
+                  fit: BoxFit.none,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+                child: DefaultText(
+                  AppStrings.about,
+                  fontSize: FontSize.s16,
+                  color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+                child: DefaultText(
+                  AppStrings.about,
+                  fontSize: FontSize.s16,
+                  color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional.center,
+                child: DefaultOUtLinedButton(
+                  AppStrings.less,
+                  onPressed: () {
+                    state = true;
+                    setState(() {});
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: AppPadding.p15,
-              right: AppPadding.p31,
-            ),
-            child: SvgPicture.asset(
-              AssetsManager.penIcon,
-              height: AppSize.s20,
-              width: AppSize.s20,
-              fit: BoxFit.none,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p10),
-            child: DefaultText(
-              AppStrings.about,
-              fontSize: FontSize.s16,
-              color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.p10),
-            child: DefaultText(
-              AppStrings.about,
-              fontSize: FontSize.s16,
-              color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
-            ),
-          ),
+      );
 
-          Align(
-            alignment: AlignmentDirectional.center,
-            child: DefaultOUtLinedButton(
-              AppStrings.less,
-              onPressed: () {
-                state = true;
-                setState(() {});
-              },
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-
-  Row _header(String header, [double fontSize = FontSize.s28]) =>
-      Row(
+  Row _header(String header, [double fontSize = FontSize.s28]) => Row(
         children: [
           Container(
             height: AppSize.s51,
@@ -196,11 +194,20 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               color: ColorManager.white,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: AppSize.s188,
           ),
-          IconButton(onPressed: (){}, icon: Icon(Icons.settings),iconSize: AppSize.s40,),
-
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                RouteGenerator.getRoute(
+                  const RouteSettings(name: Routes.editClientProfileScreen),
+                ),
+              );
+            },
+            icon: const Icon(Icons.settings),
+            iconSize: AppSize.s40,
+          ),
         ],
       );
 }

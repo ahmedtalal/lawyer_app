@@ -35,3 +35,13 @@ class LogOutSuccessState extends AuthStates {
         .pushReplacement(RouteGenerator.getRoute(settings));
   }
 }
+
+class LogOutFailedState extends AuthStates {
+  String error;
+  LogOutFailedState(this.error);
+
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(showSnakBarWidget(context, title, Colors.red));
+  }
+}
