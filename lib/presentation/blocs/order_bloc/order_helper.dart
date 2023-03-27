@@ -16,12 +16,25 @@ class OrderHelper {
   String city = '';
   int status = 0;
   int majorId = 0;
+  int orderId = 0;
+  String orderFeedback = "";
+  double orderRate = 0;
 
-  getPublicOrdersForLawyerAction(BuildContext context) {
-    context.read<OrderBloc>().add(GetPublicOrdersForLawyerEvent());
-  }
+  getPublicOrdersForLawyerAction(BuildContext context) =>
+      context.read<OrderBloc>().add(GetPublicOrdersForLawyerEvent());
 
-  getOwnOrdersForLawyerAction(BuildContext context) {
-    context.read<OrderBloc>().add(GetOwnOrdersForLawyerEvent());
-  }
+  getOwnOrdersForLawyerAction(BuildContext context) =>
+      context.read<OrderBloc>().add(GetOwnOrdersForLawyerEvent());
+
+  getPrivateOrdersForLawyerAction(BuildContext context) =>
+      context.read<OrderBloc>().add(GetPrivateOrdersForLawyerEvent());
+
+  getRequestOrdersForLawyerAction(BuildContext context) =>
+      context.read<OrderBloc>().add(GetRequestsOrdersForLawyerEvent());
+
+  updateOrdersForLawyerAction(BuildContext context) =>
+      context.read<OrderBloc>().add(UpdateOrdersForLawyerEvent());
+
+  addOrderFeedbackForLawyerAction(BuildContext context) =>
+      context.read<OrderBloc>().add(AddOrderFeedbackForLawyerEvent());
 }
