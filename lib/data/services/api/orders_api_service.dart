@@ -4,7 +4,10 @@ import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
+import 'package:hokok/data/models/client_request_order_model.dart';
+import 'package:hokok/data/models/order_for_client_model.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
+import 'package:hokok/data/models/request_order_for_lawyer_model.dart';
 import 'package:hokok/data/services/api/api_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/client__requests_order_entity.dart';
@@ -12,6 +15,8 @@ import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/domain/entities/private_order_for_lawyer_entity.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
+import 'package:hokok/data/models/public_order_model.dart';
+import 'package:hokok/data/models/private_order_for_lawyer_model.dart';
 
 class OrdersApiService {
   static OrdersApiService? ordersApiService;
@@ -40,7 +45,7 @@ class OrdersApiService {
         options: options,
       );
       printDone("the get all public lawyer orders => ${response.data}");
-      return response.data;
+      return PublicOrderModel.fromJson(response.data).data!;
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError("the get public lawyer order from dio catch => $message");
@@ -69,7 +74,7 @@ class OrdersApiService {
         options: options,
       );
       printDone("the get all own orders lawyer orders => ${response.data}");
-      return response.data;
+      return OwnOrdersForLawyerModel.fromJson(response.data).data!;
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError("get all ower orders error from dio catch $message");
@@ -93,7 +98,7 @@ class OrdersApiService {
         options: options,
       );
       printDone("the get all private orders lawyer orders => ${response.data}");
-      return response.data;
+      return PrivateOrdersForLawyerModel.fromJson(response.data).data!;
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError("the get private orders error from dio catch $message");
@@ -116,7 +121,7 @@ class OrdersApiService {
         options: options,
       );
       printDone("the get all request orders lawyer orders => ${response.data}");
-      return response.data;
+      return RequestsOrderForLawyerModel.fromJson(response.data).data!;
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError(
@@ -224,7 +229,8 @@ class OrdersApiService {
         options: options,
       );
       printDone("the get all client orders success => ${response.data}");
-      return response.data;
+
+      return OrderForClientModel.fromJson(response.data).data!;
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError("the get all client orders error from dio catch => $message");
@@ -250,7 +256,7 @@ class OrdersApiService {
       );
       printDone(
           "the get all client request orders success => ${response.data}");
-      return response.data;
+      return CLientRequestOrderModel.fromJson(response.data).data!;
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError(
