@@ -7,6 +7,7 @@ import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/data/services/api/api_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
+import 'package:hokok/domain/entities/client__requests_order_entity.dart';
 import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/domain/entities/private_order_for_lawyer_entity.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
@@ -234,7 +235,7 @@ class OrdersApiService {
     }
   }
 
-  FutureOr<List<ClientOrderInfo>> getAllClientRequestOrdersSer(
+  FutureOr<List<RequestOrderInfo>> getAllClientRequestOrdersSer(
       int orderId) async {
     try {
       Options options = Options(headers: {
@@ -298,7 +299,7 @@ class OrdersApiService {
             "/$status".toString(),
         options: options,
       );
-      printDone("the update client order status success => ${response.data}");
+      printDone("the update client order status  success => ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
@@ -308,6 +309,38 @@ class OrdersApiService {
     } catch (e) {
       printError("the update order status for client error from  catch => $e");
       return failedRequest(e);
+    }
+  }
+
+  FutureOr<Map<String, dynamic>> addCLientFeedbackSer(
+    int orderId,
+    String clientFeedback,
+    double rate,
+  ) async {
+    try {
+      Options options = Options(headers: {
+        "authorization":
+            "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
+      });
+      Map<String, dynamic> data = {
+        "order_id": orderId,
+        "client_feedback": clientFeedback,
+        "client_feedback_rate": rate,
+      };
+      Response response = await CurdApiHelper.instance.postRequest(
+        path: ADD_CLIENT_FEED_BACK_REQUEST_PATH,
+        options: options,
+        data: data,
+      );
+      printDone("the add feedback for client success ${response.data}");
+      return successRequest(response.data);
+    } on DioError catch (error) {
+      String messsage = DioExceptions.dioErrorHandling(error);
+      printError("the add client feedback error from dio catch => $messsage");
+      return failedRequest(messsage);
+    } catch (e) {
+      printError("the add client feedback error from catch => $e");
+      return failedRequest(e.toString());
     }
   }
 }

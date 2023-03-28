@@ -28,7 +28,7 @@ class ClientOrderInfo {
   Null? cancellationReason;
   String? createdAt;
   Client? client;
-  Client? lawyer;
+  Lawyer? lawyer;
 
   ClientOrderInfo(
       {this.id,
@@ -82,7 +82,7 @@ class ClientOrderInfo {
     client =
         json['client'] != null ? new Client.fromJson(json['client']) : null;
     lawyer =
-        json['lawyer'] != null ? new Client.fromJson(json['lawyer']) : null;
+        json['lawyer'] != null ? new Lawyer.fromJson(json['lawyer']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -127,6 +127,28 @@ class Client {
   Client({this.id, this.name, this.personalImage});
 
   Client.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    personalImage = json['personal_image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['personal_image'] = this.personalImage;
+    return data;
+  }
+}
+
+class Lawyer {
+  int? id;
+  String? name;
+  String? personalImage;
+
+  Lawyer({this.id, this.name, this.personalImage});
+
+  Lawyer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     personalImage = json['personal_image'];

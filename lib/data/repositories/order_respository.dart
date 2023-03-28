@@ -1,5 +1,7 @@
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/data/services/api/orders_api_service.dart';
+import 'package:hokok/domain/entities/client__requests_order_entity.dart';
+import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/domain/entities/private_order_for_lawyer_entity.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
@@ -17,15 +19,14 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr acceptOrderRequestForClient() {
-    // TODO: implement acceptOrderRequestForClient
-    throw UnimplementedError();
+  FutureOr<Map<String, dynamic>> acceptOrderRequestForClient(
+      int orderId) async {
+    return await OrdersApiService.instance().acceptCLientRequestSer(orderId);
   }
 
   @override
-  FutureOr addOrderForClient(PublicOrderEntity entity) {
-    // TODO: implement addOrderForClient
-    throw UnimplementedError();
+  FutureOr addOrderForClient(PublicOrderEntity entity) async {
+    return await OrdersApiService.instance().createOrderForClientSer();
   }
 
   @override
@@ -35,15 +36,15 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr<List<PublicOrderEntity>> getAllOrderRequestsForClient() {
-    // TODO: implement getAllOrderRequestsForClient
-    throw UnimplementedError();
+  FutureOr<List<RequestOrderInfo>> getAllOrderRequestsForClient(
+      int orderId) async {
+    return await OrdersApiService.instance()
+        .getAllClientRequestOrdersSer(orderId);
   }
 
   @override
-  FutureOr<List<PublicOrderEntity>> getAllOrdersForClient() {
-    // TODO: implement getAllOrdersForClient
-    throw UnimplementedError();
+  FutureOr<List<ClientOrderInfo>> getAllOrdersForClient() async {
+    return await OrdersApiService.instance().getAllClientOrdersSer();
   }
 
   @override
@@ -78,9 +79,10 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr updateOrderStatusFOrClient(int status) {
-    // TODO: implement updateOrderStatusFOrClient
-    throw UnimplementedError();
+  FutureOr<Map<String, dynamic>> updateOrderStatusFOrClient(
+      int status, int orderId) async {
+    return await OrdersApiService.instance()
+        .updateCLientOrderStatusSer(status, orderId);
   }
 
   @override
@@ -88,5 +90,12 @@ class OrderRepository implements IOrderInterface {
       int orderId, String lawyerFeedback, double rate) async {
     return await OrdersApiService.instance()
         .addOrderFeedBackForLawyerSer(orderId, lawyerFeedback, rate);
+  }
+
+  @override
+  FutureOr<Map<String, dynamic>> addOrderFeedbackForClient(
+      int orderId, String clientFeedback, double rate) async {
+    return await OrdersApiService.instance()
+        .addCLientFeedbackSer(orderId, clientFeedback, rate);
   }
 }
