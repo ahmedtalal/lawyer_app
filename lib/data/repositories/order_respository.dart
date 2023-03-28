@@ -25,7 +25,7 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr addOrderForClient(PublicOrderEntity entity) async {
+  FutureOr addOrderForClient(OrderInfoModel entity) async {
     return await OrdersApiService.instance().createOrderForClientSer();
   }
 

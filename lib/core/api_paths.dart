@@ -30,3 +30,7 @@ const String GET_CLIENT_ORDER_REQUESTS_REQUEST_PATH = "client/order/";
 const String ACCEPT_REQUESTS_FOR_CLIENTS_REQUEST_PATH = "client/order/request";
 const String UPDATE_CLIENT_ORDER_STATUS_REQUEST_PATH = "client/order/";
 const String ADD_CLIENT_FEED_BACK_REQUEST_PATH = "client/order/feedback";
+const String GET_ALL_PLANS_REQUEST_PATH = "plans";
+const String GET_ALL_WALLET_REQUEST_PATH = "wallet";
+const String GET_ALL_TRANSACTIONS_REQUEST_PATH = "transactions";
+const String GET_ALL_LAWYERS_REQUEST_PATH = "lawyer/all";
