@@ -1,6 +1,6 @@
 import 'package:hokok/domain/entities/wallet_entity.dart';
 
-class WalletModel extends WalleEntity {
+class WalletModel extends WalletEntity {
   WalletModel({super.data});
 
   WalletModel.fromJson(Map<String, dynamic> json) {
