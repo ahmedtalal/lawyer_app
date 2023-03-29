@@ -1,7 +1,7 @@
-class WalleEntity {
+class WalletEntity {
   WalletInfoModel? data;
 
-  WalleEntity({this.data});
+  WalletEntity({this.data});
 }
 
 class WalletInfoModel {

@@ -1,3 +1,4 @@
+import 'package:hokok/domain/entities/transaction_entity.dart';
 import 'package:hokok/domain/entities/wallet_entity.dart';
 import 'dart:async';
 import 'package:hokok/domain/interfaces/i_wallet_interface.dart';
@@ -14,7 +15,12 @@ class WalletRepository implements IWalletInterface {
   }
 
   @override
-  FutureOr<WalleEntity?> getWallet() async {
+  FutureOr<WalletEntity?> getWallet() async {
     return await WalletServices.instance().getAllWalletSer();
+  }
+
+  @override
+  FutureOr<List<TransactionInfoModel>> getAllTransactions(int status) async {
+    return await WalletServices.instance().getAllTransactionsSer(status);
   }
 }
