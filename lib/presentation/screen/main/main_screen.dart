@@ -100,7 +100,7 @@ class _MainScreenState extends State<MainScreen> {
           [bool primeColor = true]) =>
       InkWell(
         onTap: (){
-          Navigator.of(context).popAndPushNamed(Routes.hiringRoute);
+          Navigator.of(context).popAndPushNamed(Routes.subMajorsScreen);
         },
         child: Container(
           padding: const EdgeInsets.all(AppPadding.p5),

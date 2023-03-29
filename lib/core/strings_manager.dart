@@ -32,6 +32,8 @@ class AppStrings {
   static const traffic = "مروري";
   static const conditions = "أحوال شخصية";
   static const companies = "قطاع الشركات";
+  static const attachments = "اضافة ملفات";
+
   static const errors = "أخطاء طبية";
   static const public = "عامة";
   static const committees = "لجان شبة قضائية";
@@ -95,6 +97,19 @@ class AppStrings {
   static const dateDeadline_ = '22/5/2023' ;
   static const more_ = "عرض المزيد";
   static const finished = "المنجزة";
+  static const consultation = "استشارة";
+  static const note = "كتابة مذكرة رد/ لوائح";
+  static const studyCase = "دراسة القضية";
+  static const takeCase = "تولي القضية";
+  static const others = "أخرى";
+  static const cases = "القضايا";
+  static const massages = "الرسائل";
+  static const contactUs = "راسلنا";
+
+
+
+
+
 
 
 
