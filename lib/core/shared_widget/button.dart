@@ -90,6 +90,47 @@ class DefaultElevatedButton extends StatelessWidget {
   }
 }
 
+
+//*********
+class DefaultElevatedButton2 extends StatelessWidget {
+  const DefaultElevatedButton2(
+      this.text, {
+        this.btnColor,
+        this.txtColor,
+        this.size,
+        this.fontSize,
+        this.onPressed,
+        Key? key,
+      }) : super(key: key);
+
+  final String text;
+  final Color? btnColor;
+  final Color? txtColor;
+  final double? fontSize;
+  final VoidCallback? onPressed;
+
+  final Size? size;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: btnColor ?? ColorManager.secondary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.s25),
+        ),
+        minimumSize: size ?? const Size(AppSize.s199, AppSize.s58),
+      ),
+      child: DefaultText(
+        text,
+        textAlign: TextAlign.center,
+        color: txtColor ?? ColorManager.white,
+        fontSize: fontSize ?? FontSize.s23,
+      ),
+    );
+  }
+}
 //*********
 class DefaultOUtLinedButton extends StatelessWidget {
   const DefaultOUtLinedButton(

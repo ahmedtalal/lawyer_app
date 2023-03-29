@@ -302,6 +302,7 @@ class _HireLawyerScreenState extends State<HireLawyerScreen> {
                               ),
                               hintStyle: TextStyle(fontSize: FontSize.s13),
                               border: InputBorder.none,
+
                             ),
                           ),
                         ),

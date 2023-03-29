@@ -10,6 +10,7 @@ import 'package:hokok/presentation/screen/profile/profile_screen.dart';
 import 'package:hokok/presentation/screen/talk_with_us/talk_with_us_screen.dart';
 import 'package:hokok/core/strings_manager.dart';
 
+import '../laywer_app/presentation/screen/home/widget/main_screen.dart';
 import '../presentation/screen/auth/chose_account_screen.dart';
 import '../presentation/screen/chat/chat_helper_screen.dart';
 import '../presentation/screen/layout_profile/edit_client_profile.dart';
@@ -17,6 +18,8 @@ import '../presentation/screen/layout_profile/layout_profile/Lawyer_profile_scre
 import '../presentation/screen/layout_profile/layout_profile/layout_lawyer_profile.dart';
 import '../presentation/screen/layout_profile/layout_profile_screen.dart';
 import '../presentation/screen/main/main_screen.dart';
+import '../presentation/screen/orders/main_order/public_order_screen.dart';
+import '../presentation/screen/orders/sub_major/sub_majors_screen.dart';
 import '../presentation/screen/welcome/welcome_screen.dart';
 
 class Routes {
@@ -37,6 +40,9 @@ class Routes {
   static const String homeScreenRoute = '/homeScreen';
   static const String laywerProfileScreen = '/LawyerProfile';
   static const String editClientProfileScreen = '/editClient';
+  static const String subMajorsScreen = '/subMajors';
+  static const String mainOrderScreen = '/mainOrderScreen';
+  static const String lawyerHomeScreen = '/lawyerHomeScreen';
 
 
 }
@@ -80,6 +86,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LayoutLawyerProfile());
       case Routes.editClientProfileScreen:
         return MaterialPageRoute(builder: (_) => const ClientEditProfileScreen());
+      case Routes.subMajorsScreen :
+        return MaterialPageRoute(builder: (_) => SybMajorsScreen());
+      case Routes.mainOrderScreen :
+        return MaterialPageRoute(builder: (_) => const MainOrderScreen());
+      case Routes.lawyerHomeScreen :
+        return MaterialPageRoute(builder: (_) =>  LawyerHomeScreen());
 
       default:
         return _unDefinedRoute();
