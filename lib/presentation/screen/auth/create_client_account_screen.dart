@@ -9,7 +9,7 @@ import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
-import 'package:hokok/presentation/blocs/major_bloc/major_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_helper.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_states.dart';
 import 'package:hokok/presentation/screen/auth/login_screen.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
@@ -35,7 +35,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
 
   @override
   void initState() {
-    MajorBlocHelper.instance().getMajorsActionCon(context);
+    MajorHelper.instance().getMajorsActionCon(context);
     super.initState();
   }
 

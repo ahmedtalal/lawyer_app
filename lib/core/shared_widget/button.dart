@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
@@ -25,7 +26,7 @@ class DefaultBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>  Navigator.of(context).pop(),
+      onTap: () => Navigator.of(context).pop(),
       borderRadius: BorderRadius.circular(AppSize.s10),
       child: Padding(
         padding: edgeInsets ??
@@ -90,18 +91,17 @@ class DefaultElevatedButton extends StatelessWidget {
   }
 }
 
-
 //*********
 class DefaultElevatedButton2 extends StatelessWidget {
   const DefaultElevatedButton2(
-      this.text, {
-        this.btnColor,
-        this.txtColor,
-        this.size,
-        this.fontSize,
-        this.onPressed,
-        Key? key,
-      }) : super(key: key);
+    this.text, {
+    this.btnColor,
+    this.txtColor,
+    this.size,
+    this.fontSize,
+    this.onPressed,
+    Key? key,
+  }) : super(key: key);
 
   final String text;
   final Color? btnColor;
@@ -113,24 +113,28 @@ class DefaultElevatedButton2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: btnColor ?? ColorManager.secondary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.s25),
+    return Container(
+      margin: const EdgeInsets.all(5),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: btnColor ?? ColorManager.secondary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.s25),
+          ),
+          minimumSize: size ?? const Size(AppSize.s103, AppSize.s58),
         ),
-        minimumSize: size ?? const Size(AppSize.s199, AppSize.s58),
-      ),
-      child: DefaultText(
-        text,
-        textAlign: TextAlign.center,
-        color: txtColor ?? ColorManager.white,
-        fontSize: fontSize ?? FontSize.s23,
+        child: DefaultText(
+          text,
+          textAlign: TextAlign.center,
+          color: txtColor ?? ColorManager.white,
+          fontSize: fontSize ?? FontSize.s23,
+        ),
       ),
     );
   }
 }
+
 //*********
 class DefaultOUtLinedButton extends StatelessWidget {
   const DefaultOUtLinedButton(

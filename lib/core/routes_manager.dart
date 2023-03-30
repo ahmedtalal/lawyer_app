@@ -43,8 +43,6 @@ class Routes {
   static const String subMajorsScreen = '/subMajors';
   static const String mainOrderScreen = '/mainOrderScreen';
   static const String lawyerHomeScreen = '/lawyerHomeScreen';
-
-
 }
 
 class RouteGenerator {
@@ -85,13 +83,21 @@ class RouteGenerator {
       case Routes.laywerProfileScreen:
         return MaterialPageRoute(builder: (_) => const LayoutLawyerProfile());
       case Routes.editClientProfileScreen:
-        return MaterialPageRoute(builder: (_) => const ClientEditProfileScreen());
-      case Routes.subMajorsScreen :
-        return MaterialPageRoute(builder: (_) => SybMajorsScreen());
-      case Routes.mainOrderScreen :
-        return MaterialPageRoute(builder: (_) => const MainOrderScreen());
-      case Routes.lawyerHomeScreen :
-        return MaterialPageRoute(builder: (_) =>  LawyerHomeScreen());
+        return MaterialPageRoute(
+            builder: (_) => const ClientEditProfileScreen());
+      case Routes.subMajorsScreen:
+        return MaterialPageRoute(
+          builder: (_) => SubMajorsScreen(
+            id: settings.arguments as int,
+          ),
+        );
+      case Routes.mainOrderScreen:
+        return MaterialPageRoute(
+          builder: (_) =>
+              MainOrderScreen(data: settings.arguments as Map<String, dynamic>),
+        );
+      case Routes.lawyerHomeScreen:
+        return MaterialPageRoute(builder: (_) => LawyerHomeScreen());
 
       default:
         return _unDefinedRoute();

@@ -8,7 +8,7 @@ import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
-import 'package:hokok/presentation/blocs/major_bloc/major_bloc_helper.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_helper.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_states.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
 
@@ -36,7 +36,7 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
 
   @override
   void initState() {
-    MajorBlocHelper.instance().getMajorsActionCon(context);
+    MajorHelper.instance().getMajorsActionCon(context);
     super.initState();
   }
 
@@ -239,10 +239,10 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         BlocBuilder<MajorBloc, MajorStates>(
                             builder: (context, state) {
                           List<MajorData>? majors = [];
-                          if (state is GetMajorsSuccessState) {
+                          if (state is MajorSuccessLoadedState) {
                             majors = state.majorsList;
                             printInfo("the majors are ${majors!.length}");
-                          } else if (state is GetMajorsFailedState) {
+                          } else if (state is FailedLoadedState) {
                             majors = [];
                           }
                           return Container(

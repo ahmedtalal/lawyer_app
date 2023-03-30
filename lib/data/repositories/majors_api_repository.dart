@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:hokok/data/services/api/majors_api_service.dart';
 import 'package:hokok/domain/entities/major_entity.dart';
+import 'package:hokok/domain/entities/sub_majors_entity.dart';
 import 'package:hokok/domain/interfaces/i_majors_interface.dart';
 
 class MajorsApiRepository implements IMajorsInterface {
@@ -20,8 +21,7 @@ class MajorsApiRepository implements IMajorsInterface {
   }
 
   @override
-  FutureOr getAllSubMajors() {
-    // TODO: implement getAllSubMajors
-    throw UnimplementedError();
+  FutureOr<List<SubMajorsInfoModel>> getAllSubMajors() async {
+    return await MajorsApiService.instance().getAllSUbMajors();
   }
 }
