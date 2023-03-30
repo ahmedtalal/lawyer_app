@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_bloc.dart';
@@ -62,19 +63,24 @@ class MyAppState extends State<MyApp> {
           create: (context) => WalletBloc(),
         ),
       ],
-      child: MaterialApp(
-        locale: const Locale('ar'),
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: L10n.all,
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: RouteGenerator.getRoute,
-        //initialRoute: AuthBlocHelper.instance().checkUserIsLoginActtion(),
-        home: AuthHelper.instance().checkUserIsLoginActtion(),
+      child: ScreenUtilInit(
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            locale: const Locale('ar'),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: L10n.all,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: RouteGenerator.getRoute,
+            //initialRoute: AuthBlocHelper.instance().checkUserIsLoginActtion(),
+            home: AuthHelper.instance().checkUserIsLoginActtion(),
+          );
+        },
       ),
     );
   }

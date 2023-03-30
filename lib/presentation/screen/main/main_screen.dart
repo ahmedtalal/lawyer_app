@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hokok/core/debug_prints.dart';
+import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
+import 'package:hokok/domain/entities/major_entity.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_helper.dart';
+import 'package:hokok/presentation/blocs/major_bloc/major_states.dart';
 import 'package:hokok/presentation/screen/main/component/cubit/main_cubit.dart';
 import 'package:hokok/presentation/screen/main/component/cubit/main_state.dart';
-import 'package:hokok/presentation/screen/main/component/shared_widget/chat_button_widget.dart';
-import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/strings_manager.dart';
+import 'package:hokok/presentation/screen/orders/sub_major/sub_majors_screen.dart';
 
 import '../../../core/constants_manager.dart';
 import '../../../core/shared_widget/text.dart';
@@ -21,7 +27,16 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
+  List<MajorData> majors = [];
+
+  @override
+  void initState() {
+    printInfo("done");
+    MajorHelper.instance().getMajorsActionCon(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,21 +69,49 @@ class _MainScreenState extends State<MainScreen> {
 
   SizedBox _space(double space) => SizedBox(height: space);
 
-  BlocBuilder _categories() => BlocBuilder<MainCubit, MainState>(
+  BlocConsumer _categories() => BlocConsumer<MajorBloc, MajorStates>(
+        listener: (context, state) {
+          if (state is MajorSuccessLoadedState) {
+            majors = state.majorsList!;
+          }
+        },
         builder: (context, state) {
-          var cubit = context.read<MainCubit>();
+          if (state is LoadingState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _space(AppSize.s107),
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                const Text(
+                  "من فضلك الرجاء الانتظار جاري تحميل البيانات",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: FontConstants.fontFamily,
+                  ),
+                ),
+              ],
+            );
+          }
+          if (state is FailedLoadedState) {
+            return emptyDataSharedWidget();
+          }
           return Container(
-            padding: const EdgeInsets.fromLTRB(
-              AppPadding.p20,
-              AppPadding.p0,
-              AppPadding.p20,
-              AppPadding.p10,
-            ),
+            height: 380.h,
+            padding: const EdgeInsets.all(8),
             width: AppSize.s312,
             alignment: AlignmentDirectional.center,
             decoration: BoxDecoration(
-              border: Border.all(width: AppSize.s0_5, color: ColorManager.grey),
-              borderRadius: BorderRadius.circular(AppSize.s50),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey,
+                width: 0.5,
+              ),
             ),
             child: GridView.count(
               shrinkWrap: true,
@@ -78,10 +121,9 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisSpacing: AppSize.s20,
               childAspectRatio: 1 / AspectRatioSize.a1,
               children: List.generate(
-                cubit.categories.length,
+                majors.length,
                 (index) => _categoryItem(
-                  cubit.categories[index].title,
-                  cubit.categories[index].image,
+                  majors[index],
                   _isPrimeColor(index),
                 ),
               ),
@@ -96,11 +138,16 @@ class _MainScreenState extends State<MainScreen> {
         : true;
   }
 
-  InkWell _categoryItem(String title, String image,
-          [bool primeColor = true]) =>
-      InkWell(
-        onTap: (){
-          Navigator.of(context).popAndPushNamed(Routes.subMajorsScreen);
+  InkWell _categoryItem(MajorData model, [bool primeColor = true]) => InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            RouteGenerator.getRoute(
+              RouteSettings(
+                name: Routes.subMajorsScreen,
+                arguments: model.id,
+              ),
+            ),
+          );
         },
         child: Container(
           padding: const EdgeInsets.all(AppPadding.p5),
@@ -120,7 +167,7 @@ class _MainScreenState extends State<MainScreen> {
                     vertical: AppPadding.p2_6,
                   ),
                   child: Text(
-                    title,
+                    model.name!,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: AppIntegerNum.i2,
@@ -131,16 +178,15 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               CircleAvatar(
-                radius: AppSize.s12,
-                backgroundColor: ColorManager.white,
-                child: SvgPicture.asset(
-                  image,
-                  height: AppSize.s14,
+                radius: AppSize.s15,
+                backgroundColor: Colors.grey[50],
+                child: Image.network(
+                  model.icon!,
+                  height: AppSize.s15,
                 ),
               ),
             ],
           ),
         ),
       );
-
 }

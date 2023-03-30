@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/text.dart';
 
@@ -10,13 +11,19 @@ import '../../../../core/strings_manager.dart';
 import '../../../../core/values_manager.dart';
 
 class MainOrderScreen extends StatefulWidget {
-  const MainOrderScreen({Key? key}) : super(key: key);
-
+  const MainOrderScreen({this.data, Key? key}) : super(key: key);
+  final Map<String, dynamic>? data;
   @override
   State<MainOrderScreen> createState() => _MainOrderScreen();
 }
 
 class _MainOrderScreen extends State<MainOrderScreen> {
+  @override
+  void initState() {
+    printInfo("the model is ${widget.data}");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,10 +89,14 @@ class _MainOrderScreen extends State<MainOrderScreen> {
             Positioned(
               top: 35,
               left: 15,
-              child:                 IconButton(onPressed: (){Navigator.of(context).pushNamed(Routes.layoutRoute);}, icon: Icon(Icons.home),iconSize: AppSize.s40,),
-
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.layoutRoute);
+                },
+                icon: Icon(Icons.home),
+                iconSize: AppSize.s40,
+              ),
             ),
-
           ],
         ),
       ),
@@ -125,7 +136,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                       horizontal: AppPadding.p5,
                       vertical: AppPadding.p15,
                     ),
-                    hintText: 'Username',
+                    hintText: 'العنوان',
                     hintStyle: TextStyle(fontSize: FontSize.s13),
                     border: InputBorder.none,
                   ),
@@ -341,7 +352,9 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                         left: 2,
                         child: IconButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed(Routes.layoutRoute);
+                            Navigator.of(context).pushNamed(
+                              Routes.layoutRoute,
+                            );
                           },
                           icon: Icon(Icons.attach_file),
                           iconSize: AppSize.s40,
