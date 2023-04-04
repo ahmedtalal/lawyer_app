@@ -20,7 +20,7 @@ class ProfileLoadedState extends ProfileStates {
 }
 
 class ProfileFailedState extends ProfileStates {
-  String error;
+  dynamic error;
   ProfileFailedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {

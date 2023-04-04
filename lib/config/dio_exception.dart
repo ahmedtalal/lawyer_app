@@ -21,12 +21,13 @@ class DioExceptions implements Exception {
     }
   }
 
-  static String _handleErrorMessage(
+  static dynamic _handleErrorMessage(
       int? statusCode, Map<String, dynamic> error) {
     switch (statusCode) {
       case 400:
         return error["message"];
       case 404:
+        return error["message"];
       case 409:
         return error["message"];
       case 500:
@@ -34,8 +35,9 @@ class DioExceptions implements Exception {
       case 401:
         return "Unauthorized";
       case 422:
-        return error["errors"]["phone_number"].toString();
-        return error["message"];
+        return error["errors"].toString();
+      case 405:
+        return "method not allowed";
       default:
         return "oops something went wrong";
     }

@@ -20,7 +20,7 @@ class AuthSuccessState extends AuthStates {
 }
 
 class AuthFailedState extends AuthStates {
-  String error;
+  final error;
   AuthFailedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {
@@ -37,7 +37,7 @@ class LogOutSuccessState extends AuthStates {
 }
 
 class LogOutFailedState extends AuthStates {
-  String error;
+  final error;
   LogOutFailedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {

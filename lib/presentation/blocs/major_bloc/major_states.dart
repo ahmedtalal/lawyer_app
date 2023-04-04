@@ -18,6 +18,6 @@ class SubMajorSuccessLoadedState extends MajorStates {
 }
 
 class FailedLoadedState extends MajorStates {
-  String? errorMessage;
+  dynamic errorMessage;
   FailedLoadedState(this.errorMessage);
 }

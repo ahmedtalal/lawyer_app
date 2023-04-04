@@ -21,7 +21,7 @@ class FeedBackLoadedState extends FeedBackStates {
 }
 
 class FeedBackFailedState extends FeedBackStates {
-  String error;
+  dynamic error;
   FeedBackFailedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {

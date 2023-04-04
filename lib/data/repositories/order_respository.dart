@@ -7,6 +7,7 @@ import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'dart:async';
 import 'package:hokok/domain/interfaces/i_order_interface.dart';
+import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 
 class OrderRepository implements IOrderInterface {
   static OrderRepository? _orderRepository;
@@ -25,8 +26,9 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr addOrderForClient(OrderInfoModel entity) async {
-    return await OrdersApiService.instance().createOrderForClientSer();
+  FutureOr<Map<String, dynamic>> addOrderForClient(
+      CreateOrderModel model) async {
+    return await OrdersApiService.instance().createOrderForClientSer(model);
   }
 
   @override

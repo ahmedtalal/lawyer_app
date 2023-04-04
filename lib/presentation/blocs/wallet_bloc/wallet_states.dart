@@ -22,7 +22,7 @@ class TransactionsLoadedState extends WalletStates {
 class WalletFailedLoadedState extends WalletStates {}
 
 class WalletFailedState extends WalletStates {
-  String error;
+  dynamic error;
   WalletFailedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {

@@ -21,7 +21,7 @@ class CommentLoadedState extends CommentStates {
 }
 
 class CommentFailedState extends CommentStates {
-  String error;
+  dynamic error;
   CommentFailedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {

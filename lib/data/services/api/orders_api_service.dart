@@ -17,6 +17,7 @@ import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'package:hokok/data/models/public_order_model.dart';
 import 'package:hokok/data/models/private_order_for_lawyer_model.dart';
+import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 
 class OrdersApiService {
   static OrdersApiService? ordersApiService;
@@ -47,7 +48,7 @@ class OrdersApiService {
       printDone("the get all public lawyer orders => ${response.data}");
       return PublicOrderModel.fromJson(response.data).data!;
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError("the get public lawyer order from dio catch => $message");
       return [];
     } catch (e) {
@@ -76,7 +77,7 @@ class OrdersApiService {
       printDone("the get all own orders lawyer orders => ${response.data}");
       return OwnOrdersForLawyerModel.fromJson(response.data).data!;
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError("get all ower orders error from dio catch $message");
       return [];
     } catch (e) {
@@ -100,7 +101,7 @@ class OrdersApiService {
       printDone("the get all private orders lawyer orders => ${response.data}");
       return PrivateOrdersForLawyerModel.fromJson(response.data).data!;
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError("the get private orders error from dio catch $message");
       return [];
     } catch (e) {
@@ -123,7 +124,7 @@ class OrdersApiService {
       printDone("the get all request orders lawyer orders => ${response.data}");
       return RequestsOrderForLawyerModel.fromJson(response.data).data!;
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError(
           "the get all requests order for lawyer error from dio catch => $message");
       return [];
@@ -152,7 +153,7 @@ class OrdersApiService {
       printDone("the get all request orders lawyer orders => ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError(
           "the update order status for lawyer from dio catch => $message");
       return failedRequest(message);
@@ -186,7 +187,7 @@ class OrdersApiService {
           "the add  feedback to orders lawyer orders => ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError(
           "the add feedback for lawyer error from dio catch => $message");
       return failedRequest(message);
@@ -196,20 +197,27 @@ class OrdersApiService {
     }
   }
 
-  FutureOr<Map<String, dynamic>> createOrderForClientSer() async {
+  FutureOr<Map<String, dynamic>> createOrderForClientSer(
+      CreateOrderModel model) async {
     try {
       Options options = Options(headers: {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
+      Map<String, dynamic> data = model.type == "0"
+          ? model.toJsonWithoutLawyerId()
+          : model.toJsonWithLawyerId();
+      printInfo("the create order model => $data");
+
       Response response = await CurdApiHelper.instance.postRequest(
         path: CREATE_CLIENT_ORDER_REQUEST_PATH,
         options: options,
+        data: data,
       );
       printDone("the create client order success => ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError("the create order for client error from dio catch =>$message");
       return failedRequest(message);
     } catch (e) {
@@ -232,7 +240,7 @@ class OrdersApiService {
 
       return OrderForClientModel.fromJson(response.data).data!;
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError("the get all client orders error from dio catch => $message");
       return [];
     } catch (e) {
@@ -258,7 +266,7 @@ class OrdersApiService {
           "the get all client request orders success => ${response.data}");
       return CLientRequestOrderModel.fromJson(response.data).data!;
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError(
           "the get client request order error from dio catch => $message");
       return [];
@@ -283,7 +291,7 @@ class OrdersApiService {
       printDone("the post client accept request success => ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError("the accept client request error from dio catch => $message");
       return failedRequest(message);
     } catch (e) {
@@ -308,7 +316,7 @@ class OrdersApiService {
       printDone("the update client order status  success => ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
-      String message = DioExceptions.dioErrorHandling(error);
+      final message = DioExceptions.dioErrorHandling(error);
       printError(
           "the update order status for client error from dio catch => $message");
       return failedRequest(message);
@@ -341,7 +349,7 @@ class OrdersApiService {
       printDone("the add feedback for client success ${response.data}");
       return successRequest(response.data);
     } on DioError catch (error) {
-      String messsage = DioExceptions.dioErrorHandling(error);
+      final messsage = DioExceptions.dioErrorHandling(error);
       printError("the add client feedback error from dio catch => $messsage");
       return failedRequest(messsage);
     } catch (e) {

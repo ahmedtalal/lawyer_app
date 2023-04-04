@@ -68,6 +68,8 @@ class OrderActionSuccessState extends OrderStates {
 }
 
 class OrderActionFailedState extends OrderStates {
+  dynamic error;
+  OrderActionFailedState({required this.error});
   authErrorMessage(BuildContext context, String title) {
     ScaffoldMessenger.of(context).showSnackBar(
       showSnakBarWidget(context, title, Colors.red),

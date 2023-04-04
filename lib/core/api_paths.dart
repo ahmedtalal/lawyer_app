@@ -1,7 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-const String BASE_URL =
-    "https://phplaravel-938230-3353441.cloudwaysapps.com/api/";
+const String BASE_URL = "https://www.en-saf.com/api/";
 const String LOGIN_REQUEST_PATH = "login";
 const String LOGIN_OPT_REQUEST_PATH = "send-login-otp";
 const String REGISTER_REQUEST_PATH = "register";
@@ -33,4 +32,4 @@ const String ADD_CLIENT_FEED_BACK_REQUEST_PATH = "client/order/feedback";
 const String GET_ALL_PLANS_REQUEST_PATH = "plans";
 const String GET_ALL_WALLET_REQUEST_PATH = "wallet";
 const String GET_ALL_TRANSACTIONS_REQUEST_PATH = "transactions";
-const String GET_ALL_LAWYERS_REQUEST_PATH = "lawyer/all";
+const String GET_ALL_LAWYERS_REQUEST_PATH = "lawyer/all?";
