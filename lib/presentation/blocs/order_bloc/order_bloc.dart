@@ -94,7 +94,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
-      emit(OrderActionFailedState());
+      emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
 
@@ -111,7 +111,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
-      emit(OrderActionFailedState());
+      emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
 
@@ -121,7 +121,13 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     final result = await UseCaseProvider.instance()
         .creator<OrderRepository>(OrderRepository.instance())
         .addOrderForClient(
-            OrderInfoModel() /*TODO: this parameter will change*/);
+          OrderHelper.instance().prepareClientOrderModel(),
+        );
+    if (result[mapKey] == successReposne) {
+      emit(OrderActionSuccessState());
+    } else {
+      emit(OrderActionFailedState(error: result[mapValue]));
+    }
   }
 
   FutureOr<void> getAllOrdersForClient(
@@ -159,7 +165,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
-      emit(OrderActionFailedState());
+      emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
 
@@ -175,7 +181,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
-      emit(OrderActionFailedState());
+      emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
 
@@ -192,7 +198,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
-      emit(OrderActionFailedState());
+      emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
 }

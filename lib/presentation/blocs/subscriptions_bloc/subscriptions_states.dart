@@ -15,7 +15,7 @@ class PlansLoadedState extends SubscriptionsStates {
 }
 
 class FailedLoadedState extends SubscriptionsStates {
-  String error;
+  dynamic error;
   FailedLoadedState(this.error);
 
   authErrorMessage(BuildContext context, String title) {
