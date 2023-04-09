@@ -1,6 +1,8 @@
 abstract class ProfileEvents {}
 
-class GetProfileModelEvent extends ProfileEvents {}
+class GetLawyerProfileModelEvent extends ProfileEvents {}
+
+class GetClientProfileModelEvent extends ProfileEvents {}
 
 class UpdateClientProfileModelEvent extends ProfileEvents {}
 

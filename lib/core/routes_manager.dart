@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hokok/domain/entities/user_entity.dart';
 import 'package:hokok/presentation/screen/auth/create_client_account_screen.dart';
 import 'package:hokok/presentation/screen/auth/create_lawyer_account_screen.dart';
 import 'package:hokok/presentation/screen/auth/login_screen.dart';
@@ -84,7 +85,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LayoutLawyerProfile());
       case Routes.editClientProfileScreen:
         return MaterialPageRoute(
-            builder: (_) => const ClientEditProfileScreen());
+          builder: (_) => ClientEditProfileScreen(
+            userEntity: settings.arguments as UserEntity,
+          ),
+        );
       case Routes.subMajorsScreen:
         return MaterialPageRoute(
           builder: (_) => SubMajorsScreen(

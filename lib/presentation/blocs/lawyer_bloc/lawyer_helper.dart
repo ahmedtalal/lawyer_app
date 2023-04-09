@@ -5,10 +5,10 @@ import 'package:hokok/presentation/blocs/lawyer_bloc/lawyer_events.dart';
 
 class LawyerHelper {
   static LawyerHelper? _lawyerHelper;
-  LawyerHelper.internal();
+  LawyerHelper._internal();
   static LawyerHelper instance() {
     if (_lawyerHelper == null) {
-      return _lawyerHelper = LawyerHelper.internal();
+      return _lawyerHelper = LawyerHelper._internal();
     }
     return _lawyerHelper!;
   }
@@ -18,7 +18,32 @@ class LawyerHelper {
   int majorId = 0;
   String city = '';
   double rate = 0;
+  bool isLoadMoreLawyer = false;
+  ScrollController scrollController = ScrollController();
 
+  Map<String, dynamic> lawyersModel1() => {
+        "page": page,
+        "per_page": perPage,
+      };
+  Map<String, dynamic> lawyersModel2() => {
+        "page": page,
+        "per_page": perPage,
+        "major_id": majorId,
+        "city": city,
+        "rate": rate,
+      };
   onGetAllLawyers(BuildContext context) =>
       context.read<LawyersBloc>().add(GetAllLawyersEvent());
+
+  ScrollController paginationListener(BuildContext context) {
+    return scrollController
+      ..addListener(() {
+        if (scrollController.offset ==
+                scrollController.position.maxScrollExtent &&
+            !isLoadMoreLawyer) {
+          isLoadMoreLawyer = true;
+          LawyerHelper.instance().onGetAllLawyers(context);
+        }
+      });
+  }
 }

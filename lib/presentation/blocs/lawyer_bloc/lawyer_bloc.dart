@@ -18,18 +18,13 @@ class LawyersBloc extends Bloc<LawyersEvetns, LawyerStates> {
     emit(LawyersLoadingState());
     List<LawyerAttributes> lawyers = await UseCaseProvider.instance()
         .creator<LawyerRepository>(LawyerRepository.instance())
-        .getAllLawyers(
-          LawyerHelper.instance().page,
-          LawyerHelper.instance().perPage,
-          LawyerHelper.instance().majorId,
-          LawyerHelper.instance().city,
-          LawyerHelper.instance().rate,
-        );
+        .getAllLawyers(LawyerHelper.instance().lawyersModel1());
     if (lawyers.isEmpty) {
-      emit(LawyerFailedRequestState("there are no lawyers"));
+      emit(LawyerFailedRequestState("OOps:something is wrong^_^!"));
       emit(LawyersFailedLoadedState());
     } else {
       emit(LawyersLoadedState(lawyers: lawyers));
+      LawyerHelper.instance().page++;
     }
   }
 }

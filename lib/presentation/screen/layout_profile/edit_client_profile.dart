@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/text.dart';
+import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_states.dart';
 import '../../../core/color_manager.dart';
 import '../../../core/font_manager.dart';
 import '../../../core/shared_widget/button.dart';
@@ -9,15 +14,15 @@ import '../../../core/values_manager.dart';
 import '../profile/component/profile_details_widget.dart';
 
 class ClientEditProfileScreen extends StatefulWidget {
-  const ClientEditProfileScreen({Key? key}) : super(key: key);
-
+  const ClientEditProfileScreen({required this.userEntity, Key? key})
+      : super(key: key);
+  final UserEntity? userEntity;
   @override
   State<ClientEditProfileScreen> createState() => _ClientEditProfileScreen();
 }
 
 class _ClientEditProfileScreen extends State<ClientEditProfileScreen> {
-
-
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +51,9 @@ class _ClientEditProfileScreen extends State<ClientEditProfileScreen> {
                 ),
                 RichText(
                   textAlign: TextAlign.center,
-                  text: const TextSpan(
+                  text: TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: 'نبذه عن  ',
                         style: TextStyle(
                           color: ColorManager.primary,
@@ -57,12 +62,11 @@ class _ClientEditProfileScreen extends State<ClientEditProfileScreen> {
                           fontFamily: FontConstants.fontFamily,
                         ),
                       ),
-
                       TextSpan(
-                        text: AppStrings.name,
-                        style: TextStyle(
+                        text: widget.userEntity!.userModel!.name!,
+                        style: const TextStyle(
                           color: ColorManager.secondary,
-                          fontSize: FontSize.s25,
+                          fontSize: FontSize.s20,
                           fontWeight: FontWeightManager.w400,
                           fontFamily: FontConstants.fontFamily,
                         ),
@@ -82,33 +86,65 @@ class _ClientEditProfileScreen extends State<ClientEditProfileScreen> {
                       color: ColorManager.grey,
                     ),
                   ),
-                  child: TextFormField(
-                    style: const TextStyle(fontSize: FontSize.s13),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: AppPadding.p15,
-                        vertical: AppPadding.p10,
+                  child: Form(
+                    key: formKey,
+                    child: TextFormField(
+                      style: const TextStyle(fontSize: FontSize.s13),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: AppPadding.p15,
+                          vertical: AppPadding.p10,
+                        ),
+                        hintStyle: TextStyle(fontSize: FontSize.s13),
+                        border: InputBorder.none,
                       ),
-                      hintStyle: TextStyle(fontSize: FontSize.s13),
-                      border: InputBorder.none,
+                      onChanged: (value) {
+                        setState(() {
+                          ProfileHelper.instance().about = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "هذا الحقل إلزامي";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ),
-
-                DefaultElevatedButton(
-                  'حفظ',
-                  onPressed: () => Navigator.of(context)
-                      .pushNamed(Routes.layoutProfileRoute),
-                  fontSize: FontSize.s19,
-                  size: const Size(AppSize.s133, AppSize.s30),
-                ),
+                BlocConsumer<ProfileBloc, ProfileStates>(
+                    listener: (context, state) {
+                  if (state is ProfileFailedState) {
+                    state.authErrorMessage(context, "Oops,somthinn is wrong");
+                  } else if (state is PorfileUpdatedSuccessState) {
+                    state.naviation(
+                      const RouteSettings(name: Routes.layoutProfileRoute),
+                      context,
+                    );
+                  }
+                }, builder: (context, state) {
+                  bool isLoading = false;
+                  if (state is ProfileLoadingState) {
+                    isLoading = true;
+                  }
+                  return !isLoading
+                      ? DefaultElevatedButton(
+                          'حفظ',
+                          onPressed: () {
+                            ProfileHelper.instance()
+                                .updateClientProfile(context, formKey);
+                          },
+                          fontSize: FontSize.s19,
+                          size: const Size(AppSize.s133, AppSize.s30),
+                        )
+                      : const CircularProgressIndicator();
+                }),
               ],
             ),
           ),
           const DefaultBackButton(
-
             color: ColorManager.primary,
             height: AppSize.s27,
             edgeInsets: EdgeInsets.all(AppPadding.p15),
@@ -119,12 +155,13 @@ class _ClientEditProfileScreen extends State<ClientEditProfileScreen> {
   }
 
   Container _appBar() => Container(
-    width: double.infinity,
-    height: AppSize.s234,
-    color: ColorManager.primary,
-    child: const ProfileDetailsWidget(
-      paddingRight: AppPadding.p0,
-      positionRight: AppSize.s88,
-    ),
-  );
+        width: double.infinity,
+        height: AppSize.s234,
+        color: ColorManager.primary,
+        child: ProfileDetailsWidget(
+          userEntity: widget.userEntity,
+          paddingRight: AppPadding.p0,
+          positionRight: AppSize.s88,
+        ),
+      );
 }

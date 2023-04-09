@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/domain/entities/user_entity.dart';
 
 import '../../../../core/assets_manager.dart';
 import '../../../../core/color_manager.dart';
@@ -12,11 +14,13 @@ class ProfileDetailsWidget extends StatelessWidget {
   const ProfileDetailsWidget({
     this.paddingRight = AppPadding.p59,
     this.positionRight = AppSize.s15,
+    this.userEntity,
     Key? key,
   }) : super(key: key);
 
   final double paddingRight;
   final double positionRight;
+  final UserEntity? userEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +40,24 @@ class ProfileDetailsWidget extends StatelessWidget {
                     margin: const EdgeInsets.only(top: AppMargin.m48),
                     padding: const EdgeInsets.all(AppPadding.p10),
                     decoration: BoxDecoration(
-                      color: ColorManager.white,
-                      border:
-                      Border.all(color: ColorManager.grey, width: 0.5),
+                      border: Border.all(color: ColorManager.grey, width: 0.5),
                       shape: BoxShape.circle,
                     ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[300],
+                      child: CachedNetworkImage(
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.cover,
+                        imageUrl: userEntity!.userModel!.personalImage!,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Image(
+                          image: AssetImage(AssetsManager.lawyerImg),
+                        ),
+                      ),
+                    ),
+                    //clipBehavior: Clip.antiAliasWithSaveLayer,
                   ),
                   Container(
                     height: AppSize.s34,
@@ -49,8 +65,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(AppPadding.p5),
                     decoration: BoxDecoration(
                       color: ColorManager.secondary,
-                      border:
-                      Border.all(color: ColorManager.grey, width: 0.5),
+                      border: Border.all(color: ColorManager.grey, width: 0.5),
                       shape: BoxShape.circle,
                     ),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -92,11 +107,11 @@ class ProfileDetailsWidget extends StatelessWidget {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                 ),
               ),*/
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: AppPadding.p2),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppPadding.p2),
                 child: DefaultText(
-                  AppStrings.name,
-                  fontSize: FontSize.s26,
+                  userEntity!.userModel!.name!,
+                  fontSize: FontSize.s22,
                   color: ColorManager.white,
                 ),
               ),
@@ -104,9 +119,9 @@ class ProfileDetailsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(AssetsManager.locationIcon),
-                  const DefaultText(
-                    AppStrings.location,
-                    fontSize: FontSize.s10,
+                  DefaultText(
+                    "${userEntity!.userModel!.city} - ${userEntity!.userModel!.zone}",
+                    fontSize: FontSize.s14,
                     color: ColorManager.secondary,
                   ),
                 ],

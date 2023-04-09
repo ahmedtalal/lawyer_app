@@ -16,7 +16,6 @@ class LawyerRepository implements ILawyerInterface {
 
   @override
   FutureOr<List<LawyerAttributes>> getAllLawyers(
-          int page, int perPage, int majorId, String city, double rate) async =>
-      await LawyerApiService.instance()
-          .getAllLawyersApiSer(page, perPage, majorId, city, rate);
+          Map<String, dynamic> data) async =>
+      await LawyerApiService.instance().getAllLawyersApiSer(data);
 }

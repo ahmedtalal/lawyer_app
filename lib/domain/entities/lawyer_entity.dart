@@ -48,7 +48,7 @@ class LawyerAttributes {
   String? createdAt;
   List<Certifications>? certifications;
   List<Feedbacks>? feedbacks;
-  double? lawyerRate;
+  dynamic lawyerRate;
   int? ratesNum;
   bool? canChat;
 
@@ -85,13 +85,13 @@ class LawyerAttributes {
     if (json['certifications'] != null) {
       certifications = <Certifications>[];
       json['certifications'].forEach((v) {
-        certifications!.add(new Certifications.fromJson(v));
+        certifications!.add(Certifications.fromJson(v));
       });
     }
     if (json['feedbacks'] != null) {
       feedbacks = <Feedbacks>[];
       json['feedbacks'].forEach((v) {
-        feedbacks!.add(new Feedbacks.fromJson(v));
+        feedbacks!.add(Feedbacks.fromJson(v));
       });
     }
     lawyerRate = json['lawyer_rate'];
@@ -207,8 +207,8 @@ class Pagination {
 }
 
 class Links {
-  Null? previous;
-  Null? next;
+  String? previous;
+  String? next;
 
   Links({this.previous, this.next});
 
@@ -218,7 +218,7 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['previous'] = this.previous;
     data['next'] = this.next;
     return data;

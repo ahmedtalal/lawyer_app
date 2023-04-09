@@ -3,14 +3,20 @@ import 'package:hokok/domain/entities/user_entity.dart';
 class UserModel extends UserEntity {
   UserModel({super.userModel});
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserModel.lawyerFromJson(Map<String, dynamic> json) {
     userModel = json['data'] != null
         ? UserModelInfo.lawyerFromJson(json['data'])
         : null;
   }
 
+  UserModel.clientFromJson(Map<String, dynamic> json) {
+    userModel = json['data'] != null
+        ? UserModelInfo.clientFromJson(json['data'])
+        : null;
+  }
+
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.userModel != null) {
       data['data'] = this.userModel!.lawyerToJson();
     }

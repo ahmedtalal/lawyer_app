@@ -13,11 +13,19 @@ class ProfileHelper {
     return _profileHelper!;
   }
 
-  getProfileAction(BuildContext context) =>
-      context.read<ProfileBloc>().add(GetProfileModelEvent());
+  String about = "";
 
-  updateClientProfile(BuildContext context) =>
+  getLawyerProfileAction(BuildContext context) =>
+      context.read<ProfileBloc>().add(GetLawyerProfileModelEvent());
+
+  getCLientProfileAction(BuildContext context) =>
+      context.read<ProfileBloc>().add(GetClientProfileModelEvent());
+
+  updateClientProfile(BuildContext context, GlobalKey<FormState> formKey) {
+    if (formKey.currentState!.validate()) {
       context.read<ProfileBloc>().add(UpdateClientProfileModelEvent());
+    }
+  }
 
   updateLawyerProfile(BuildContext context) =>
       context.read<ProfileBloc>().add(UpdateLawyerProfileModelEvent());

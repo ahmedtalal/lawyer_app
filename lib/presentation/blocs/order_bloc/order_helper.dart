@@ -69,6 +69,9 @@ class OrderHelper {
       context.read<OrderBloc>().add(CreateClientOrderEvent());
     }
   }
+
+  onGetAllClientOrdersFun(BuildContext context) =>
+      context.read<OrderBloc>().add(GetAllClientOderEvent());
 }
 
 class CreateOrderModel {
