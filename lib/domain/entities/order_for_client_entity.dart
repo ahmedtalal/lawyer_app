@@ -11,24 +11,24 @@ class ClientOrderInfo {
   String? major;
   String? subMajor;
   String? status;
-  int? statusCode;
+  dynamic statusCode;
   String? type;
   String? clientExpectedDate;
-  Null? lawyerExpectedDays;
-  double? clientProposedBudget;
-  Null? lawyerProposedBudget;
-  Null? assignedToLawyerAt;
-  Null? deliveredAt;
-  Null? lastBudget;
-  int? requests;
+  dynamic lawyerExpectedDays;
+  dynamic clientProposedBudget;
+  dynamic lawyerProposedBudget;
+  String? assignedToLawyerAt;
+  String? deliveredAt;
+  dynamic lastBudget;
+  dynamic requests;
   String? clientFeedback;
-  int? clientFeedbackRate;
+  dynamic clientFeedbackRate;
   String? lawyerFeedback;
-  int? lawyerFeedbackRate;
-  Null? cancellationReason;
+  dynamic lawyerFeedbackRate;
+  String? cancellationReason;
   String? createdAt;
   Client? client;
-  Lawyer? lawyer;
+  Client? lawyer;
 
   ClientOrderInfo(
       {this.id,
@@ -82,7 +82,7 @@ class ClientOrderInfo {
     client =
         json['client'] != null ? new Client.fromJson(json['client']) : null;
     lawyer =
-        json['lawyer'] != null ? new Lawyer.fromJson(json['lawyer']) : null;
+        json['lawyer'] != null ? new Client.fromJson(json['lawyer']) : null;
   }
 
   Map<String, dynamic> toJson() {

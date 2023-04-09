@@ -38,4 +38,5 @@ class AssetsManager {
   static String settings = '$iconPath/Settings.svg';
 
   static String emptyDataImage = "assets/images/emptydata.jpg";
+  static const String lawyerImg = "assets/images/lawyer.png";
 }

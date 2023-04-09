@@ -21,12 +21,14 @@ class ProfileRepository implements IProfileInterface {
   }
 
   @override
-  FutureOr<UserEntity?> getProfile() async {
-    return await ProfileAPiService.instance().getProfileApiService();
-  }
+  FutureOr<UserEntity?> getLawyerProfile() async =>
+      await ProfileAPiService.instance().getLawyerProfileApiService();
 
   @override
-  FutureOr updateProfile(model) async {
-    return await ProfileAPiService.instance().updateProfileApiService(model);
-  }
+  FutureOr<bool> updateProfile(model) async =>
+      await ProfileAPiService.instance().updateProfileApiService(model);
+
+  @override
+  FutureOr<Map<String, dynamic>> getCLientProfile() async =>
+      await ProfileAPiService.instance().getClientProfileApiService();
 }

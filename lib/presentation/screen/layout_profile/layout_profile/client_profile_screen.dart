@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/routes_manager.dart';
+import 'package:hokok/domain/entities/user_entity.dart';
 
 import '../../../../core/assets_manager.dart';
 import '../../../../core/color_manager.dart';
@@ -13,8 +14,9 @@ import '../../../../core/strings_manager.dart';
 import '../../../../core/values_manager.dart';
 
 class ClientProfileScreen extends StatefulWidget {
-  const ClientProfileScreen({Key? key}) : super(key: key);
-
+  const ClientProfileScreen({required this.userEntity, Key? key})
+      : super(key: key);
+  final UserEntity? userEntity;
   @override
   State<ClientProfileScreen> createState() => _ClientProfileScreen();
 }
@@ -41,7 +43,7 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               secondChild: _aboutMore(),
               crossFadeState:
                   state ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(seconds: AppConstants.splashMoreDelay),
+              duration: const Duration(seconds: AppConstants.splashMoreDelay),
             ),
             const SizedBox(
               height: AppSize.s65,
@@ -95,7 +97,9 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               Padding(
                 padding: const EdgeInsets.all(AppPadding.p10),
                 child: DefaultText(
-                  AppStrings.about,
+                  widget.userEntity!.userModel!.about == null
+                      ? AppStrings.about
+                      : widget.userEntity!.userModel!.about!,
                   fontSize: FontSize.s16,
                   color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
                 ),
@@ -201,7 +205,10 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
             onPressed: () {
               Navigator.of(context).push(
                 RouteGenerator.getRoute(
-                  const RouteSettings(name: Routes.editClientProfileScreen),
+                  RouteSettings(
+                    name: Routes.editClientProfileScreen,
+                    arguments: widget.userEntity,
+                  ),
                 ),
               );
             },

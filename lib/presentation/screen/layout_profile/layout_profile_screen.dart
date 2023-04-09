@@ -1,22 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/routes_manager.dart';
+import 'package:hokok/domain/entities/user_entity.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
-import 'package:hokok/presentation/screen/layout_profile/layout_profile/Lawyer_profile_screen.dart';
 import 'package:hokok/core/color_manager.dart';
-
+import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_states.dart';
 import '../../../core/assets_manager.dart';
 import '../../../core/font_manager.dart';
-import '../../../core/shared_widget/button.dart';
 import '../../../core/shared_widget/text.dart';
 import '../../../core/strings_manager.dart';
 import '../../../core/values_manager.dart';
-import '../layout/layout_screen.dart';
-import '../layout/layout_screen.dart';
 import 'layout_profile/client_profile_screen.dart';
 import 'layout_profile/fav_client_screen.dart';
 import 'layout_profile/order_client_screen.dart';
@@ -30,83 +29,109 @@ class LayoutProfileScreen extends StatefulWidget {
 
 class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
   @override
+  void initState() {
+    ProfileHelper.instance().getCLientProfileAction(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: DefaultTabController(
         length: 3,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+        child: BlocConsumer<ProfileBloc, ProfileStates>(
+            listener: (context, state) {
+          if (state is ProfileFailedState) {
+            state.authErrorMessage(context, state.error);
+          }
+        }, builder: (context, state) {
+          if (state is ProfileLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is ProfileLoadedState) {
+            UserEntity userEntity = state.userEntity!;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _appBar(),
-                TabBar(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
-                  padding: const EdgeInsets.only(top: AppPadding.p213),
-                  labelPadding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p5,
-                    vertical: AppPadding.p0,
-                  ),
-                  labelColor: ColorManager.secondary,
-                  labelStyle: const TextStyle(
-                    fontSize: FontSize.s13,
-                    fontWeight: FontWeightManager.w400,
-                  ),
-                  indicatorPadding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p37,
-                    vertical: AppPadding.p0,
-                  ),
-                  indicatorColor: ColorManager.primary,
-                  indicatorWeight: AppSize.s4,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  tabs: [
-                    Container(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(AppSize.s10),
+                Stack(
+                  children: [
+                    _appBar(userEntity),
+                    TabBar(
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.transparent),
+                      padding: const EdgeInsets.only(top: AppPadding.p213),
+                      labelPadding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p5,
+                        vertical: AppPadding.p0,
                       ),
-                      child: const Tab(
-                        text: AppStrings.profile,
+                      labelColor: ColorManager.secondary,
+                      labelStyle: const TextStyle(
+                        fontSize: FontSize.s13,
+                        fontWeight: FontWeightManager.w400,
                       ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(AppSize.s10),
+                      indicatorPadding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p37,
+                        vertical: AppPadding.p0,
                       ),
-                      child: const Tab(
-                        text: AppStrings.fav,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      decoration: BoxDecoration(
-                        color: ColorManager.white,
-                        borderRadius: BorderRadius.circular(AppSize.s10),
-                      ),
-                      child: const Tab(
-                        text: AppStrings.offers,
-                      ),
+                      indicatorColor: ColorManager.primary,
+                      indicatorWeight: AppSize.s4,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      tabs: [
+                        Container(
+                          width: double.infinity,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                            color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                          ),
+                          child: const Tab(
+                            text: AppStrings.profile,
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                            color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                          ),
+                          child: const Tab(
+                            text: AppStrings.fav,
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: AppSize.s40,
+                          decoration: BoxDecoration(
+                            color: ColorManager.white,
+                            borderRadius: BorderRadius.circular(AppSize.s10),
+                          ),
+                          child: const Tab(
+                            text: AppStrings.offers,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                Expanded(
+                  child: TabBarView(children: [
+                    ClientProfileScreen(
+                      userEntity: userEntity,
+                    ),
+                    FavClientScreen(),
+                    OrdersClientScreen(),
+                  ]),
+                )
               ],
-            ),
-            const Expanded(
-              child: TabBarView(children: [
-                ClientProfileScreen(),
-                FavClientScreen(),
-                OrdersClientScreen(),
-              ]),
-            )
-          ],
-        ),
+            );
+          } else {
+            return Container();
+          }
+        }),
       ),
     );
   }
@@ -172,7 +197,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
         ),
       );
 
-  Container _appBar() => Container(
+  Container _appBar(UserEntity userEntity) => Container(
         width: double.infinity,
         height: AppSize.s234,
         color: ColorManager.primary,
@@ -190,12 +215,25 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       margin: const EdgeInsets.only(top: AppMargin.m48),
                       padding: const EdgeInsets.all(AppPadding.p10),
                       decoration: BoxDecoration(
-                        color: ColorManager.white,
                         border:
                             Border.all(color: ColorManager.grey, width: 0.5),
                         shape: BoxShape.circle,
                       ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[300],
+                        child: CachedNetworkImage(
+                          height: 50,
+                          width: 50,
+                          fit: BoxFit.cover,
+                          imageUrl: userEntity.userModel!.personalImage!,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => const Image(
+                            image: AssetImage(AssetsManager.lawyerImg),
+                          ),
+                        ),
+                      ),
+                      //clipBehavior: Clip.antiAliasWithSaveLayer,
                     ),
                     Container(
                       height: AppSize.s34,
@@ -214,7 +252,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 100,
                 ),
                 Row(
@@ -253,11 +291,11 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                 ),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: AppPadding.p2),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p2),
               child: DefaultText(
-                AppStrings.name,
-                fontSize: FontSize.s26,
+                userEntity.userModel!.name!,
+                fontSize: FontSize.s24,
                 color: ColorManager.white,
               ),
             ),
@@ -265,8 +303,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(AssetsManager.locationIcon),
-                const DefaultText(
-                  AppStrings.location,
+                DefaultText(
+                  "${userEntity.userModel!.city!} - ${userEntity.userModel!.zone!}",
                   fontSize: FontSize.s10,
                   color: ColorManager.secondary,
                 ),

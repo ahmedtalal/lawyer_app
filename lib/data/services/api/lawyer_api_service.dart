@@ -21,12 +21,7 @@ class LawyerApiService {
   }
 
   FutureOr<List<LawyerAttributes>> getAllLawyersApiSer(
-    int page,
-    int perPage,
-    int majorId,
-    String city,
-    double rate,
-  ) async {
+      Map<String, dynamic> data) async {
     try {
       Options options = Options(headers: {
         "authorization":
@@ -35,13 +30,7 @@ class LawyerApiService {
       Response response = await CurdApiHelper.instance.getRequest(
         path: GET_ALL_LAWYERS_REQUEST_PATH,
         options: options,
-        parameters: {
-          "page": page,
-          "per_page": perPage,
-          "major_id": majorId,
-          "city": city,
-          "rate": rate,
-        },
+        parameters: data,
       );
       printDone("the get all lawyers success => ${response.data}");
       return LawyerModel.fromJson(response.data).data!.lawyers!;

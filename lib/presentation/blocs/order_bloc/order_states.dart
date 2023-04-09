@@ -39,8 +39,8 @@ class RequestOrderLoadedState extends OrderStates {
 }
 
 class ClientOrdersLoadedState extends OrderStates {
-  List<ClientOrderInfo>? requestOrders;
-  ClientOrdersLoadedState(this.requestOrders);
+  List<ClientOrderInfo>? clientOrders;
+  ClientOrdersLoadedState(this.clientOrders);
 }
 
 class ClientOrdersRequestLoadedState extends OrderStates {

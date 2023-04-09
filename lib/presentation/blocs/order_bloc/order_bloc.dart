@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/repositories/order_respository.dart';
-import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
