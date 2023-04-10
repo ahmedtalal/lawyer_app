@@ -12,22 +12,17 @@ import '../screens/home.dart';
 class LawyerHomeScreen extends StatelessWidget {
   const LawyerHomeScreen({Key? key}) : super(key: key);
 
-  static List<Widget> screens = [const HomeLawyerScreen()];
-  static int currentIndex = 0;
-  static int navSelectedIndex = 0;
-
-  changeNavIndex(int index) {
-    currentIndex = index;
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: screens[currentIndex],
-      bottomNavigationBar: _bottomNav(),
-    );
+    return BlocBuilder<MainLawyerCubit, MainLawyerState>(builder: (context, state) {
+      var cubit = context.read<MainLawyerCubit>();
+      return Scaffold(
+  body: cubit.screens[cubit.currentIndex],
+  bottomNavigationBar: _bottomNav(),
+      );
+    });
   }
-
   MainBottomNavBar _bottomNav() => const MainBottomNavBar();
 }
 
@@ -74,14 +69,14 @@ class MainBottomNavBar extends StatelessWidget {
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        const LawyerHomeScreen().changeNavIndex(index);
+                        context.read<MainLawyerCubit>().changeNavIndex(index);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             bottomNavIcons[index],
-                            color: LawyerHomeScreen.currentIndex == index
+                            color: context.read<MainLawyerCubit>().currentIndex == index
                                 ? ColorManager.primary
                                 : ColorManager.white,
                           ),
@@ -93,7 +88,9 @@ class MainBottomNavBar extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                    color: LawyerHomeScreen.navSelectedIndex ==
+                                    color: context
+                                        .read<MainLawyerCubit>()
+                                        .navSelectedIndex ==
                                             index
                                         ? ColorManager.primary
                                         : ColorManager.white,
