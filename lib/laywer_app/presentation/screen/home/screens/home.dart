@@ -25,7 +25,7 @@ class HomeLawyerScreen extends StatelessWidget {
     color: ColorManager.primary,
     child: Row(
       children: [
-        const ProfileDetailsWidget(),
+       // const ProfileDetailsWidget(),
       ],
     ),
   );

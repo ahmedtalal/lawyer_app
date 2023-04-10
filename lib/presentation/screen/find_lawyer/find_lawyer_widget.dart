@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hokok/config/screen_handler.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
@@ -10,7 +11,6 @@ import 'package:hokok/core/shared_widget/text.dart';
 import 'package:hokok/core/values_manager.dart';
 import 'package:hokok/domain/entities/lawyer_entity.dart';
 import 'package:hokok/presentation/screen/welcome/welcome_screen.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class FindLawyerView extends StatelessWidget {
   const FindLawyerView({required this.lawyerAttributes, super.key});
