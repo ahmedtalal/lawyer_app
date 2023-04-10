@@ -15,7 +15,7 @@ import 'package:hokok/presentation/widget/shared_widget.dart';
 import '../../../core/routes_manager.dart';
 
 class CreateLawyerAccountScreen extends StatefulWidget {
-  CreateLawyerAccountScreen({Key? key}) : super(key: key);
+  const CreateLawyerAccountScreen({Key? key}) : super(key: key);
 
   @override
   State<CreateLawyerAccountScreen> createState() =>
@@ -76,7 +76,10 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                     state.authNaviation(
                         const RouteSettings(
                           name: Routes.loginRoute,
-                          arguments: true,
+                          arguments: {
+                            "type": "lawyer",
+                            "authType": true,
+                          },
                         ),
                         context);
                   }

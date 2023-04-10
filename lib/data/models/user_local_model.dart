@@ -4,11 +4,11 @@ class UserLocalModel {
   UserLocalModel({this.data});
 
   UserLocalModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new UserData.fromJson(json['data']) : null;
+    data = json['data'] != null ? UserData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -19,18 +19,25 @@ class UserLocalModel {
 class UserData {
   int? id;
   String? token;
+  String? userType;
 
-  UserData({this.id, this.token});
+  UserData({
+    this.id,
+    this.token,
+    this.userType,
+  });
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     token = json['token'];
+    userType = json["type"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['token'] = this.token;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['token'] = token;
+    data["type"] = userType;
     return data;
   }
 }

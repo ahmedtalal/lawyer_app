@@ -23,9 +23,9 @@ class WelcomeScreen extends StatelessWidget {
             const SizedBox(height: AppSize.s101, width: double.infinity),
             RichText(
               textAlign: TextAlign.center,
-              text: TextSpan(
+              text: const TextSpan(
                 children: [
-                  const TextSpan(
+                  TextSpan(
                     text: AppStrings.welcome,
                     style: TextStyle(
                       color: ColorManager.secondary,
@@ -35,8 +35,8 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: name,
-                    style: const TextStyle(
+                    text: "بك عزيري",
+                    style: TextStyle(
                       color: ColorManager.primary,
                       fontSize: FontSize.s39,
                       fontWeight: FontWeightManager.w600,
@@ -114,8 +114,11 @@ class WelcomeScreen extends StatelessWidget {
             const SizedBox(height: AppSize.s104),
             DefaultElevatedButton(
               AppStrings.loginNow,
-              onPressed: () => Navigator.of(context)
-                  .pushReplacementNamed(Routes.layoutRoute),
+              onPressed: () => name == "client"
+                  ? Navigator.of(context)
+                      .pushReplacementNamed(Routes.layoutRoute)
+                  : Navigator.of(context)
+                      .pushReplacementNamed(Routes.lawyerHomeScreen),
             ),
           ],
         ),

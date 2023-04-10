@@ -54,10 +54,13 @@ class RouteGenerator {
       case Routes.onboardingRoute:
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(
+            builder: (_) => LoginScreen(
+                  parameters: settings.arguments as Map<String, dynamic>,
+                ));
       case Routes.otpRoute:
         return MaterialPageRoute(
-          builder: (_) => OTPScreen(),
+          builder: (_) => const OTPScreen(),
         );
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const ChoseAccountScreen());
@@ -101,7 +104,7 @@ class RouteGenerator {
               MainOrderScreen(data: settings.arguments as Map<String, dynamic>),
         );
       case Routes.lawyerHomeScreen:
-        return MaterialPageRoute(builder: (_) => LawyerHomeScreen());
+        return MaterialPageRoute(builder: (_) => const LawyerHomeScreen());
 
       default:
         return _unDefinedRoute();

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/data/models/user_model.dart';
 import 'package:hokok/data/repositories/auth_api_repository.dart';
+import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/widget/main_screen.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_events.dart';
 import 'package:hokok/presentation/screen/intro/splash_screen.dart';
@@ -103,7 +105,9 @@ class AuthHelper {
     return UseCaseProvider.instance()
             .creator<AuthApiRepository>(AuthApiRepository.instance())
             .checkUserIsLogined()
-        ? const LayoutScreen()
+        ? UserInfoLocalService.instance().getUserToken().userType == "client"
+            ? const LayoutScreen()
+            : const LawyerHomeScreen()
         : const SplashScreen();
   }
 

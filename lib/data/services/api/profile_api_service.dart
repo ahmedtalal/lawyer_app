@@ -6,7 +6,7 @@ import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/models/user_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
 
@@ -26,7 +26,7 @@ class ProfileAPiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}",
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_PROFILE_REQUEST_PATH,
         options: options,
       );
@@ -50,7 +50,7 @@ class ProfileAPiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}",
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_PROFILE_REQUEST_PATH,
         options: options,
       );
@@ -74,7 +74,7 @@ class ProfileAPiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: UPDATE_PROFILE_REQUEST_PATH,
         data: data,
         options: options,

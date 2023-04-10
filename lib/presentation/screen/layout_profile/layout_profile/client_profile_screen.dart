@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/routes_manager.dart';
+import 'package:hokok/data/services/api/auth_api_service.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
 
 import '../../../../core/assets_manager.dart';
@@ -23,7 +24,6 @@ class ClientProfileScreen extends StatefulWidget {
 
 class _ClientProfileScreen extends State<ClientProfileScreen> {
   bool state = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

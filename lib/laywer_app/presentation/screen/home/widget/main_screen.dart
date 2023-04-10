@@ -7,28 +7,33 @@ import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_s
 
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/strings_manager.dart';
+import '../screens/home.dart';
 
 class LawyerHomeScreen extends StatelessWidget {
-   LawyerHomeScreen({Key? key}) : super(key: key);
+  const LawyerHomeScreen({Key? key}) : super(key: key);
+
+  static List<Widget> screens = [const HomeLawyerScreen()];
+  static int currentIndex = 0;
+  static int navSelectedIndex = 0;
+
+  changeNavIndex(int index) {
+    currentIndex = index;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainLawyerCubit, MainLawyerState>(builder: (context, state)
-    {
-      var cubit = context.read<MainLawyerCubit>();
-      return Scaffold(
-        body: cubit.screens[cubit.currentIndex],
-        bottomNavigationBar: _bottomNav(),
-      );
-
-    });
+    return Scaffold(
+      body: screens[currentIndex],
+      bottomNavigationBar: _bottomNav(),
+    );
   }
+
   MainBottomNavBar _bottomNav() => const MainBottomNavBar();
 }
 
 List<String> bottomNavStrings = [
   AppStrings.main,
-  AppStrings.cases  ,
+  AppStrings.cases,
   AppStrings.massages,
   AppStrings.contactUs,
   AppStrings.exit,
@@ -37,7 +42,7 @@ List<String> bottomNavStrings = [
 List<IconData> bottomNavIcons = [
   FontAwesomeIcons.house,
   FontAwesomeIcons.magnifyingGlass,
-    FontAwesomeIcons.fileLines,
+  FontAwesomeIcons.fileLines,
   FontAwesomeIcons.headset,
   FontAwesomeIcons.arrowRightFromBracket,
 ];
@@ -63,21 +68,20 @@ class MainBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
               bottomNavStrings.length,
-                  (index) => Row(
+              (index) => Row(
                 children: [
                   SizedBox(
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        context.read<MainLawyerCubit>().changeNavIndex(index);
+                        const LawyerHomeScreen().changeNavIndex(index);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             bottomNavIcons[index],
-                            color: context.read<MainLawyerCubit>().currentIndex ==
-                                index
+                            color: LawyerHomeScreen.currentIndex == index
                                 ? ColorManager.primary
                                 : ColorManager.white,
                           ),
@@ -89,13 +93,11 @@ class MainBottomNavBar extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                color: context
-                                    .read<MainLawyerCubit>()
-                                    .navSelectedIndex ==
-                                    index
-                                    ? ColorManager.primary
-                                    : ColorManager.white,
-                              ),
+                                    color: LawyerHomeScreen.navSelectedIndex ==
+                                            index
+                                        ? ColorManager.primary
+                                        : ColorManager.white,
+                                  ),
                             ),
                           ),
                         ],

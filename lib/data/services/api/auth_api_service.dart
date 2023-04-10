@@ -6,7 +6,7 @@ import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/models/user_local_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 
 class AuthApiService {
@@ -22,7 +22,7 @@ class AuthApiService {
   Future<Map<String, dynamic>> sendOptNumberService(
       Map<String, dynamic> phoneNumber) async {
     try {
-      Response response = await CurdApiHelper.instance
+      Response response = await CrudApiHelper.instance
           .postRequest(path: LOGIN_OPT_REQUEST_PATH, data: phoneNumber);
       printDone("the send opt using number done => ${response.data}");
       return successRequest(response.data);
@@ -41,13 +41,15 @@ class AuthApiService {
   Future<Map<String, dynamic>> loginPhoneNumberService(
       Map<String, dynamic> data) async {
     try {
-      Response response = await CurdApiHelper.instance
+      Response response = await CrudApiHelper.instance
           .postRequest(path: LOGIN_REQUEST_PATH, data: data);
       printDone("the login using number done => ${response.data}");
+      printInfo("the type => ${response.data["data"]["type"]}");
       UserLocalModel userModel = UserLocalModel.fromJson(response.data);
+      printInfo("the user type => ${userModel.data!.userType}");
       UserData? userData = userModel.data;
       Map<String, dynamic> userMap = userData!.toJson();
-      printInfo("the userlocal model is $userMap");
+      printInfo("the userlocal model is ${userMap["type"]}");
       final result =
           await UserInfoLocalService.instance().saveUserInfo(userMap);
       printDone("the response is $result");
@@ -66,7 +68,7 @@ class AuthApiService {
 
   Future<Map<String, dynamic>> register(Map<String, dynamic> data) async {
     try {
-      Response response = await CurdApiHelper.instance
+      Response response = await CrudApiHelper.instance
           .postRequest(path: REGISTER_REQUEST_PATH, data: data);
       printDone("the register done => ${response.data}");
 
@@ -97,7 +99,7 @@ class AuthApiService {
       UserData userData = UserData.fromJson(userMap);
       Options options =
           Options(headers: {"authorization": "Bearer ${userData.token}"});
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: LOGOUT_REQUEST_PATH,
         options: options,
       );

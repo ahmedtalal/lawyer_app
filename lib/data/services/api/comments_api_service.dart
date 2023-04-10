@@ -5,7 +5,7 @@ import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/data/models/comment_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/comment_entity.dart';
 
@@ -25,7 +25,7 @@ class CommentsAPiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_COMMENTS_REQUEST_PATH,
         options: options,
       );
@@ -50,7 +50,7 @@ class CommentsAPiService {
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
       Map<String, dynamic> data = model.toJson();
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: ADD_COMMENT_REQUEST_PATH,
         options: options,
         data: data,

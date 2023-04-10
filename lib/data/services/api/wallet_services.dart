@@ -4,7 +4,7 @@ import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/data/models/transaction_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/transaction_entity.dart';
 import 'package:hokok/domain/entities/wallet_entity.dart';
@@ -25,7 +25,7 @@ class WalletServices {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_WALLET_REQUEST_PATH,
         options: options,
       );
@@ -47,7 +47,7 @@ class WalletServices {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_TRANSACTIONS_REQUEST_PATH,
         options: options,
         parameters: {"status": status},
