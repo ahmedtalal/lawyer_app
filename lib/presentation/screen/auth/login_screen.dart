@@ -10,8 +10,8 @@ import 'package:hokok/presentation/widget/shared_widget.dart';
 import '../../../core/routes_manager.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({authType, Key? key}) : super(key: key);
-  final bool authType = false;
+  const LoginScreen({required this.parameters, Key? key}) : super(key: key);
+  final Map<String, dynamic>? parameters;
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               state.authNaviation(
                   RouteSettings(
                     name: Routes.otpRoute,
-                    arguments: widget.authType,
+                    arguments: widget.parameters,
                   ),
                   context);
             }
@@ -134,8 +134,8 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({this.authType, Key? key}) : super(key: key);
-  final bool? authType;
+  const OTPScreen({this.parameters, Key? key}) : super(key: key);
+  final Map<String, dynamic>? parameters;
   @override
   State<OTPScreen> createState() => _OTPScreenState();
 }
@@ -180,18 +180,12 @@ class _OTPScreenState extends State<OTPScreen> {
                   }
                   if (state is AuthSuccessState) {
                     show = false;
-                    widget.authType == false
-                        ? state.authNaviation(
-                            const RouteSettings(
-                              name: Routes.layoutRoute,
-                            ),
-                            context)
-                        : state.authNaviation(
-                            RouteSettings(
-                              name: Routes.welcomeRoute,
-                              arguments: AuthHelper.instance().name,
-                            ),
-                            context);
+                    state.authNaviation(
+                        RouteSettings(
+                          name: Routes.welcomeRoute,
+                          arguments: state.result["data"]["type"],
+                        ),
+                        context);
                   }
                 }, builder: (context, state) {
                   if (state is AuthLoadingState) {

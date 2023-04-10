@@ -39,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
         .creator<AuthApiRepository>(AuthApiRepository.instance())
         .loginOpt(_phoneMapModel());
     if (result[mapKey] == successReposne) {
-      emit(AuthSuccessState());
+      emit(AuthSuccessState(result: result[mapValue]));
     } else {
       emit(AuthFailedState(result[mapValue]));
     }
@@ -52,7 +52,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
         .creator<AuthApiRepository>(AuthApiRepository.instance())
         .login(_phoneOtpMapModel());
     if (result[mapKey] == successReposne) {
-      emit(AuthSuccessState());
+      emit(AuthSuccessState(result: result[mapValue]));
     } else {
       emit(AuthFailedState(result[mapValue]));
     }
@@ -65,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
         .creator<AuthApiRepository>(AuthApiRepository.instance())
         .register(_clientMapModel());
     if (result[mapKey] == successReposne) {
-      emit(AuthSuccessState());
+      emit(AuthSuccessState(result: result[mapValue]));
     } else {
       emit(AuthFailedState(result[mapValue]));
     }
@@ -78,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
         .creator<AuthApiRepository>(AuthApiRepository.instance())
         .register(_lawyerMapModel());
     if (result[mapKey] == successReposne) {
-      emit(AuthSuccessState());
+      emit(AuthSuccessState(result: result[mapValue]));
     } else {
       emit(AuthFailedState(result[mapValue]));
     }

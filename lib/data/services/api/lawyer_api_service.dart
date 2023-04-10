@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/data/models/lawyer_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/lawyer_entity.dart';
 
@@ -27,7 +27,7 @@ class LawyerApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_LAWYERS_REQUEST_PATH,
         options: options,
         parameters: data,

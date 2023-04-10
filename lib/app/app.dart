@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_cubit_lawyer.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_bloc.dart';
@@ -67,6 +68,7 @@ class MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => LawyersBloc()..add(GetAllLawyersEvent()),
         ),
+        BlocProvider(create: (context) => MainLawyerCubit()),
       ],
       child: ScreenUtilInit(
         splitScreenMode: true,

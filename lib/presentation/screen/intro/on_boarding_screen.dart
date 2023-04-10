@@ -74,7 +74,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           PageView.builder(
               onPageChanged: (index) {
                 if (index == textSpanList.length - 1) {
-                  Navigator.of(context).pushReplacementNamed(Routes.loginRoute);
+                  Navigator.of(context).pushReplacementNamed(
+                    Routes.loginRoute,
+                    arguments: {"authType": true, "auth": "client"},
+                  );
                 }
               },
               controller: _controller!,

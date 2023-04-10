@@ -6,11 +6,11 @@ import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hokok/core/api_paths.dart';
 
-class CurdApiHelper {
+class CrudApiHelper {
   // here using singleton pattern
-  static final CurdApiHelper _curdApiHelper = CurdApiHelper._internal();
-  CurdApiHelper._internal();
-  static CurdApiHelper get instance => _curdApiHelper;
+  static final CrudApiHelper _crudApiHelper = CrudApiHelper._internal();
+  CrudApiHelper._internal();
+  static CrudApiHelper get instance => _crudApiHelper;
 
   Dio _initDio() {
     Dio dio = Dio(
@@ -23,7 +23,7 @@ class CurdApiHelper {
       ),
     );
     if (BASE_URL.toLowerCase().startsWith('https') && !kIsWeb) {
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+      (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
           (HttpClient dioClient) {
         dioClient.badCertificateCallback =
             ((X509Certificate cert, String host, int port) => true);

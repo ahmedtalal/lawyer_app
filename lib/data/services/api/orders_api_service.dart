@@ -8,7 +8,7 @@ import 'package:hokok/data/models/client_request_order_model.dart';
 import 'package:hokok/data/models/order_for_client_model.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/data/models/request_order_for_lawyer_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/client__requests_order_entity.dart';
 import 'package:hokok/domain/entities/order_for_client_entity.dart';
@@ -40,7 +40,7 @@ class OrdersApiService {
         "city": city,
         "major_id": majorId,
       };
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_LAWYER_PUBLIC_ORDERS_REQUEST_PATH,
         parameters: data,
         options: options,
@@ -69,7 +69,7 @@ class OrdersApiService {
         "major_id": majorId,
         "status": status,
       };
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_LAWYER_OWN_ORDERS_REQUEST_PATH,
         parameters: data,
         options: options,
@@ -94,7 +94,7 @@ class OrdersApiService {
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
 
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_LAWYER_OWN_ORDERS_REQUEST_PATH,
         options: options,
       );
@@ -117,7 +117,7 @@ class OrdersApiService {
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
 
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_REQUEST_LAWYER_ORDERS_REQUEST_PATH,
         options: options,
       );
@@ -145,7 +145,7 @@ class OrdersApiService {
       Map<String, dynamic> data = {
         "status": status,
       };
-      Response response = await CurdApiHelper.instance.putRequest(
+      Response response = await CrudApiHelper.instance.putRequest(
         path: UPDATE_LAWYER_ORDER_REQUEST_PATH + "$id".toString(),
         options: options,
         data: data,
@@ -178,7 +178,7 @@ class OrdersApiService {
         "lawyer_feedback": lawyerFeedback,
         "lawyer_feedback_rate": rate,
       };
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: UPDATE_LAWYER_ORDER_REQUEST_PATH,
         options: options,
         data: data,
@@ -209,7 +209,7 @@ class OrdersApiService {
           : model.toJsonWithLawyerId();
       printInfo("the create order model => $data");
 
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: CREATE_CLIENT_ORDER_REQUEST_PATH,
         options: options,
         data: data,
@@ -232,7 +232,7 @@ class OrdersApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_CLIENT_ORDERS_REQUEST_PATH,
         options: options,
       );
@@ -256,7 +256,7 @@ class OrdersApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_CLIENT_ORDER_REQUESTS_REQUEST_PATH +
             "$orderId".toString() +
             "/requests".toString(),
@@ -282,7 +282,7 @@ class OrdersApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: ACCEPT_REQUESTS_FOR_CLIENTS_REQUEST_PATH +
             "$orderId".toString() +
             "/accept".toString(),
@@ -307,7 +307,7 @@ class OrdersApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: UPDATE_CLIENT_ORDER_STATUS_REQUEST_PATH +
             "$orderId".toString() +
             "/$status".toString(),
@@ -341,7 +341,7 @@ class OrdersApiService {
         "client_feedback": clientFeedback,
         "client_feedback_rate": rate,
       };
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: ADD_CLIENT_FEED_BACK_REQUEST_PATH,
         options: options,
         data: data,

@@ -6,7 +6,7 @@ import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/data/models/feed_back_model.dart';
 import 'package:hokok/data/models/user_local_model.dart';
-import 'package:hokok/data/services/api/api_helper.dart';
+import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 
 class FeedbackAPiService {
@@ -25,7 +25,7 @@ class FeedbackAPiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.getRequest(
+      Response response = await CrudApiHelper.instance.getRequest(
         path: GET_ALL_FEEDBACKS_REQUEST_PATH,
         options: options,
       );
@@ -51,7 +51,7 @@ class FeedbackAPiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      Response response = await CurdApiHelper.instance.postRequest(
+      Response response = await CrudApiHelper.instance.postRequest(
         path: ADD_FEEDBACK_REQUESt_PATH,
         data: data,
         options: options,

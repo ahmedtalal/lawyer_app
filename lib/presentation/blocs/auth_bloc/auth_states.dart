@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hokok/core/routes_manager.dart';
-import 'package:hokok/core/shared_widget/circler_loader_shared_widget.dart';
 import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
 
 abstract class AuthStates {}
@@ -14,6 +13,8 @@ class AuthLoadingState extends AuthStates {
 }
 
 class AuthSuccessState extends AuthStates {
+  var result;
+  AuthSuccessState({this.result});
   authNaviation(RouteSettings settings, BuildContext context) {
     return Navigator.of(context).push(RouteGenerator.getRoute(settings));
   }
