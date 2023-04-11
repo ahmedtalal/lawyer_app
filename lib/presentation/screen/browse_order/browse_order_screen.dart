@@ -44,7 +44,7 @@ class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {},
-                child: BroswerOrderView(
+                child: OrderView(
                   clientOrder: state.clientOrders![index],
                 ),
               );
@@ -60,8 +60,8 @@ class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
   }
 }
 
-class BroswerOrderView extends StatelessWidget {
-  const BroswerOrderView({
+class OrderView extends StatelessWidget {
+  const OrderView({
     required this.clientOrder,
     super.key,
   });
