@@ -205,18 +205,19 @@ class _OTPScreenState extends State<OTPScreen> {
                           height: 60,
                         ),
                         defaultTextFiled(
-                            controller: otpCode,
-                            onChange: (value) {
-                              AuthHelper.instance().optNumber = value;
-                            },
-                            inputType: TextInputType.number,
-                            labelText: 'ادخل الكود',
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'من فضلك ادخل الكود';
-                              }
-                              return null;
-                            }),
+                          controller: otpCode,
+                          onChange: (value) {
+                            AuthHelper.instance().optNumber = value;
+                          },
+                          inputType: TextInputType.number,
+                          labelText: 'ادخل الكود',
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'من فضلك ادخل الكود';
+                            }
+                            return null;
+                          },
+                        ),
                         const SizedBox(
                           height: 60,
                         ),

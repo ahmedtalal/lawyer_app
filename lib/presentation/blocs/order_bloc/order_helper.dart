@@ -16,6 +16,7 @@ class OrderHelper {
   String city = '';
   int status = 0;
   int majorId = 0;
+  String? majorValue;
   int orderId = 0;
   String orderFeedback = "";
   double orderRate = 0;

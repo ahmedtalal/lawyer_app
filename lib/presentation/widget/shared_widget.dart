@@ -83,7 +83,7 @@ Widget mainButton(
 }
 
 Widget defaultTextFiled({
-  required TextEditingController controller,
+  TextEditingController? controller,
   required TextInputType inputType,
   required String labelText,
   void Function(String)? onChange,

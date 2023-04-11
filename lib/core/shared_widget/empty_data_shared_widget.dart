@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/font_manager.dart';
 
 Widget emptyDataSharedWidget() {
   return Container(
-    height: 300,
+    height: 300.h,
     width: double.maxFinite,
     padding: const EdgeInsets.all(10),
     child: Column(
@@ -17,10 +18,10 @@ Widget emptyDataSharedWidget() {
           height: 250,
           fit: BoxFit.cover,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
           "there is no data",
           style: TextStyle(
             fontSize: 20,

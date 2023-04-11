@@ -42,7 +42,7 @@ class OrdersApiService {
       };
       Response response = await CrudApiHelper.instance.getRequest(
         path: GET_LAWYER_PUBLIC_ORDERS_REQUEST_PATH,
-        parameters: data,
+        parameters: city == "" ? null : data,
         options: options,
       );
       printDone("the get all public lawyer orders => ${response.data}");

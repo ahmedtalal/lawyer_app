@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,17 +11,26 @@ import '../screens/home.dart';
 class LawyerHomeScreen extends StatelessWidget {
   const LawyerHomeScreen({Key? key}) : super(key: key);
 
+  static List<Widget> screens = [const HomeLawyerScreen()];
+  static int currentIndex = 0;
+  static int navSelectedIndex = 0;
+
+  changeNavIndex(int index) {
+    currentIndex = index;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainLawyerCubit, MainLawyerState>(builder: (context, state) {
+    return BlocBuilder<MainLawyerCubit, MainLawyerState>(
+        builder: (context, state) {
       var cubit = context.read<MainLawyerCubit>();
       return Scaffold(
-  body: cubit.screens[cubit.currentIndex],
-  bottomNavigationBar: _bottomNav(),
+        body: cubit.screens[cubit.currentIndex],
+        bottomNavigationBar: _bottomNav(),
       );
     });
   }
+
   MainBottomNavBar _bottomNav() => const MainBottomNavBar();
 }
 
@@ -42,9 +50,14 @@ List<IconData> bottomNavIcons = [
   FontAwesomeIcons.arrowRightFromBracket,
 ];
 
-class MainBottomNavBar extends StatelessWidget {
+class MainBottomNavBar extends StatefulWidget {
   const MainBottomNavBar({super.key});
 
+  @override
+  State<MainBottomNavBar> createState() => _MainBottomNavBarState();
+}
+
+class _MainBottomNavBarState extends State<MainBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainLawyerCubit, MainLawyerState>(
@@ -69,16 +82,18 @@ class MainBottomNavBar extends StatelessWidget {
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        context.read<MainLawyerCubit>().changeNavIndex(index);
+                        const LawyerHomeScreen().changeNavIndex(index);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             bottomNavIcons[index],
-                            color: context.read<MainLawyerCubit>().currentIndex == index
-                                ? ColorManager.primary
-                                : ColorManager.white,
+                            color:
+                                context.read<MainLawyerCubit>().currentIndex ==
+                                        index
+                                    ? ColorManager.primary
+                                    : ColorManager.white,
                           ),
                           const SizedBox(height: 5),
                           FittedBox(
@@ -89,8 +104,8 @@ class MainBottomNavBar extends StatelessWidget {
                                   .bodyMedium
                                   ?.copyWith(
                                     color: context
-                                        .read<MainLawyerCubit>()
-                                        .navSelectedIndex ==
+                                                .read<MainLawyerCubit>()
+                                                .navSelectedIndex ==
                                             index
                                         ? ColorManager.primary
                                         : ColorManager.white,
@@ -108,6 +123,19 @@ class MainBottomNavBar extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text("date"),
+      ),
     );
   }
 }
