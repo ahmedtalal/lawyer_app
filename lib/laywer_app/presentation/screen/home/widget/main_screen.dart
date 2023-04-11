@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_cubit_lawyer.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_states_lawyer.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues_screen.dart';
 
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/strings_manager.dart';
@@ -11,7 +12,10 @@ import '../screens/home.dart';
 class LawyerHomeScreen extends StatelessWidget {
   const LawyerHomeScreen({Key? key}) : super(key: key);
 
-  static List<Widget> screens = [const HomeLawyerScreen()];
+  static List<Widget> screens = [
+    const HomeLawyerScreen(),
+    const LawyerIssuesScreen(),
+  ];
   static int currentIndex = 0;
   static int navSelectedIndex = 0;
 
@@ -82,7 +86,9 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        const LawyerHomeScreen().changeNavIndex(index);
+                        setState(() {
+                          const LawyerHomeScreen().changeNavIndex(index);
+                        });
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -123,19 +129,6 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
           ),
         );
       },
-    );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("date"),
-      ),
     );
   }
 }
