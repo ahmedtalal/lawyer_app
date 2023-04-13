@@ -90,7 +90,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                           child: const Tab(
                             text: AppStrings.profile,
                           ),
-                        ),
+                        ),//
                         Container(
                           width: double.infinity,
                           height: AppSize.s40,
