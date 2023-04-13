@@ -18,7 +18,7 @@ class LawyerHomeScreen extends StatelessWidget {
     const HomeLawyerScreen(),
     const LawyerIssuesScreen(),
     const OrdersScreen(),
-    const MassagesScreen(),
+     const MassagesScreen(),
     const LogOut(),
   ];
   static int currentIndex = 0;

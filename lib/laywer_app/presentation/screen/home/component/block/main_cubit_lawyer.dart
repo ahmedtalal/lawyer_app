@@ -13,7 +13,8 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
   List<Widget> screens = [
     const HomeLawyerScreen(),
     const OrdersScreen(),
-    const MassagesScreen(),
+     const MassagesScreen(),
+    const ContactUsScreen(),
     const LogOut(),
   ];
   int currentIndex = 0;

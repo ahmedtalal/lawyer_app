@@ -5,6 +5,8 @@ class AssetsManager {
   //image
   static String logoImage = '$imagePath/logo.png';
   static String advertisementImage = '$imagePath/advertisement.svg';
+  static String logoEnsaf = '$imagePath/logo-ensaf.png';
+
 
   //icon
   static String logoIcon = '$iconPath/logo.svg';
