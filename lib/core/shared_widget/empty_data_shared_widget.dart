@@ -21,10 +21,10 @@ Widget emptyDataSharedWidget() {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          "there is no data",
+        Text(
+          "Oops,something is wrong",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 15.sp,
             fontFamily: FontConstants.fontFamily,
           ),
         ),

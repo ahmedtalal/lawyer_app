@@ -35,7 +35,7 @@ class OwnOrdersInfoModel {
   double? lawyerProposedBudget;
   String? assignedToLawyerAt;
   Null? deliveredAt;
-  Null? lastBudget;
+  double? lastBudget;
   int? requests;
   Null? clientFeedback;
   int? clientFeedbackRate;

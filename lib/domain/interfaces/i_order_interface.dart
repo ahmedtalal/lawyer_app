@@ -15,7 +15,7 @@ abstract class IOrderInterface {
       String city, int majorId, int status);
   FutureOr<List<PrivateOrdersInfoModel>> getPrivateOrdersForLawyer();
   FutureOr<dynamic> addOrderForLawyer(PublicOrderEntity entity);
-  FutureOr<List<RequestsOrderInfo>> getAllRequestesOrderForLawyer();
+  FutureOr<List<RequestsLawyerOrderInfo>> getAllRequestesOrderForLawyer();
   FutureOr<dynamic> updateOrderForLawyer(int status, int orderId);
   FutureOr<dynamic> addOrderForClient(CreateOrderModel model);
   FutureOr<List<ClientOrderInfo>> getAllOrdersForClient();

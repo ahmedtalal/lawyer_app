@@ -4,9 +4,9 @@ class RequestsOrderForLawyerModel extends RequestsOrderForLawyerEntity {
   RequestsOrderForLawyerModel({super.data});
   RequestsOrderForLawyerModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <RequestsOrderInfo>[];
+      data = <RequestsLawyerOrderInfo>[];
       json['data'].forEach((v) {
-        data!.add(new RequestsOrderInfo.fromJson(v));
+        data!.add(new RequestsLawyerOrderInfo.fromJson(v));
       });
     }
   }

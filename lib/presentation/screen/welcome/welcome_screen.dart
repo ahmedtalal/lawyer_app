@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/constant.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/strings_manager.dart';
@@ -15,6 +16,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    printInfo("the user => $name");
     return Scaffold(
       backgroundColor: ConstantColor.whiteColor,
       body: SingleChildScrollView(

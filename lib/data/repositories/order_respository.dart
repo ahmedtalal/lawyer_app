@@ -50,7 +50,8 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr<List<RequestsOrderInfo>> getAllRequestesOrderForLawyer() async {
+  FutureOr<List<RequestsLawyerOrderInfo>>
+      getAllRequestesOrderForLawyer() async {
     return await OrdersApiService.instance().getAllRequestOrderLawyerSer();
   }
 

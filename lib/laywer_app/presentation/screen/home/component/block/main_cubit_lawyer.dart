@@ -4,18 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/laywer_app/presentation/screen/cotact_us/contact_us_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/massages/massages_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/orders/orders_scree.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_settings_screen.dart';
 
 import '../../screens/home.dart';
+import '../../screens/lawyer_issues_screen.dart';
 import 'main_states_lawyer.dart';
 
 class MainLawyerCubit extends Cubit<MainLawyerState> {
   MainLawyerCubit() : super(MainLawyerInitial());
   List<Widget> screens = [
     const HomeLawyerScreen(),
-    const OrdersScreen(),
-     const MassagesScreen(),
+    const LawyerIssuesScreen(),
+    const MassagesScreen(),
     const ContactUsScreen(),
-    const LogOut(),
+    const LawyerSettingsScreen(),
   ];
   int currentIndex = 0;
   int navSelectedIndex = 0;

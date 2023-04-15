@@ -10,8 +10,7 @@ import 'package:hokok/presentation/widget/shared_widget.dart';
 import '../../../core/routes_manager.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({required this.parameters, Key? key}) : super(key: key);
-  final Map<String, dynamic>? parameters;
+  const LoginScreen({Key? key}) : super(key: key);
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -40,9 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is AuthSuccessState) {
               showed = false;
               state.authNaviation(
-                  RouteSettings(
+                  const RouteSettings(
                     name: Routes.otpRoute,
-                    arguments: widget.parameters,
                   ),
                   context);
             }
@@ -180,6 +178,8 @@ class _OTPScreenState extends State<OTPScreen> {
                   }
                   if (state is AuthSuccessState) {
                     show = false;
+                    printInfo(
+                        "the user type => ${state.result["data"]["type"]}");
                     state.authNaviation(
                         RouteSettings(
                           name: Routes.welcomeRoute,

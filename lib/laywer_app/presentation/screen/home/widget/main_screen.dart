@@ -17,9 +17,9 @@ class LawyerHomeScreen extends StatelessWidget {
   static List<Widget> screens = [
     const HomeLawyerScreen(),
     const LawyerIssuesScreen(),
-    const OrdersScreen(),
-     const MassagesScreen(),
-    const LogOut(),
+    const LawyerIssuesScreen(),
+    const LawyerIssuesScreen(),
+    const LawyerIssuesScreen(),
   ];
   static int currentIndex = 0;
   static int navSelectedIndex = 0;
@@ -91,7 +91,9 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        context.read<MainLawyerCubit>().changeNavIndex(index);
+                        setState(() {
+                          context.read<MainLawyerCubit>().changeNavIndex(index);
+                        });
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

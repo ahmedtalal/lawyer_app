@@ -272,7 +272,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       if (state is LogOutSuccessState) {
                         state.authNaviation(
                             const RouteSettings(
-                              name: Routes.layoutRoute,
+                              name: Routes.splashRoute,
                             ),
                             context);
                       } else if (state is LogOutFailedState) {
