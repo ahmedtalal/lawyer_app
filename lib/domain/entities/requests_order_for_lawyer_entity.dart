@@ -1,10 +1,10 @@
 class RequestsOrderForLawyerEntity {
-  List<RequestsOrderInfo>? data;
+  List<RequestsLawyerOrderInfo>? data;
 
   RequestsOrderForLawyerEntity({this.data});
 }
 
-class RequestsOrderInfo {
+class RequestsLawyerOrderInfo {
   int? id;
   int? expectedDays;
   double? expectedBudget;
@@ -13,7 +13,7 @@ class RequestsOrderInfo {
   String? createdAt;
   RequesOrder? order;
 
-  RequestsOrderInfo(
+  RequestsLawyerOrderInfo(
       {this.id,
       this.expectedDays,
       this.expectedBudget,
@@ -22,7 +22,7 @@ class RequestsOrderInfo {
       this.createdAt,
       this.order});
 
-  RequestsOrderInfo.fromJson(Map<String, dynamic> json) {
+  RequestsLawyerOrderInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     expectedDays = json['expected_days'];
     expectedBudget = json['expected_budget'];

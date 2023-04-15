@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
@@ -54,7 +55,7 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
               const SizedBox(
                 height: 30,
               ),
-              Image.asset(ImageConstant.logoImage, height: 150, width: 200),
+              Image.asset(AssetsManager.logo, height: 150, width: 200),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 60),
@@ -76,7 +77,6 @@ class _CreateClientAccountScreenState extends State<CreateClientAccountScreen> {
                     state.authNaviation(
                         const RouteSettings(
                           name: Routes.loginRoute,
-                          arguments: {"type": "client", "authType": true},
                         ),
                         context);
                   }

@@ -71,7 +71,7 @@ class OrdersApiService {
       };
       Response response = await CrudApiHelper.instance.getRequest(
         path: GET_LAWYER_OWN_ORDERS_REQUEST_PATH,
-        parameters: data,
+        parameters: city.isEmpty ? null : data,
         options: options,
       );
       printDone("the get all own orders lawyer orders => ${response.data}");
@@ -95,7 +95,7 @@ class OrdersApiService {
       });
 
       Response response = await CrudApiHelper.instance.getRequest(
-        path: GET_LAWYER_OWN_ORDERS_REQUEST_PATH,
+        path: GET_LAWYER_private_ORDERS_REQUEST_PATH,
         options: options,
       );
       printDone("the get all private orders lawyer orders => ${response.data}");
@@ -110,7 +110,7 @@ class OrdersApiService {
     }
   }
 
-  FutureOr<List<RequestsOrderInfo>> getAllRequestOrderLawyerSer() async {
+  FutureOr<List<RequestsLawyerOrderInfo>> getAllRequestOrderLawyerSer() async {
     try {
       Options options = Options(headers: {
         "authorization":

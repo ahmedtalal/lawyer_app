@@ -16,7 +16,8 @@ class AuthSuccessState extends AuthStates {
   var result;
   AuthSuccessState({this.result});
   authNaviation(RouteSettings settings, BuildContext context) {
-    return Navigator.of(context).push(RouteGenerator.getRoute(settings));
+    return Navigator.of(context)
+        .pushReplacement(RouteGenerator.getRoute(settings));
   }
 }
 

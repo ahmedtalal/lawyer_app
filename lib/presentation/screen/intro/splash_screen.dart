@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: ConstantColor.primaryColor,
       body: Center(
         child: Image.asset(
-          ImageConstant.splashImage,
+          ImageConstant.logoImage,
           fit: BoxFit.fill,
         ),
       ),

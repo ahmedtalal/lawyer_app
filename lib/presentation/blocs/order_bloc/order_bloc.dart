@@ -49,7 +49,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
           OrderHelper.instance().status,
         );
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get own order for lawyer failed"));
+      emit(OrderFailedLoadedState("there is no data"));
     } else {
       emit(OwnOrderLoadedState(result));
     }
@@ -75,7 +75,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllRequestesOrderForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get own order for lawyer failed"));
+      emit(OrderFailedLoadedState("there is no data"));
     } else {
       emit(RequestOrderLoadedState(result));
     }

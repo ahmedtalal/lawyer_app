@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
+import 'package:intl/intl.dart';
 
 class OrderHelper {
   static OrderHelper? _orderHelper;
@@ -73,6 +75,12 @@ class OrderHelper {
 
   onGetAllClientOrdersFun(BuildContext context) =>
       context.read<OrderBloc>().add(GetAllClientOderEvent());
+
+  String publishedDateFormat(String date) {
+    String result = date.substring(0, 10);
+    printInfo("the published data => $result");
+    return result;
+  }
 }
 
 class CreateOrderModel {

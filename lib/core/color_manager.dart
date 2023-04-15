@@ -7,4 +7,5 @@ class ColorManager {
   static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color thirdy = Color.fromRGBO(253, 199, 165, 1);
+  static const Color fourth = Color.fromARGB(179, 31, 5, 102);
 }
