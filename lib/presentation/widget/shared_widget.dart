@@ -98,14 +98,17 @@ Widget defaultTextFiled({
     onChanged: onChange,
     decoration: InputDecoration(
       labelText: labelText,
-      labelStyle: TextStyle(color: ConstantColor.primaryColor),
+      labelStyle: TextStyle(
+        color: ConstantColor.primaryColor,
+        fontSize: 14,
+      ),
       hintText: labelText,
       suffixIcon: suffixIcon,
       suffixText: suffixText,
       suffixStyle: TextStyle(
           fontWeight: FontWeight.bold,
           color: ConstantColor.primaryColor,
-          fontSize: 20),
+          fontSize: 16),
       contentPadding: const EdgeInsets.all(20),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(SizedConstant.radiusAuthSize),

@@ -6,6 +6,6 @@ class ColorManager {
   static const Color grey = Color(0XFF707070);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
-  static const Color thirdy = Color.fromRGBO(253, 199, 165, 1);
+  static const Color thirdy = Color.fromRGBO(243, 149, 91, 1);
   static const Color fourth = Color.fromARGB(179, 31, 5, 102);
 }

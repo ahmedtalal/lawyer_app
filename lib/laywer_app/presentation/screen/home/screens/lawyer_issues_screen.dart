@@ -225,7 +225,8 @@ class _LawyerIssuesViewWidget extends StatelessWidget {
           Row(
             children: [
               Text(
-                order.clientExpectedDate!,
+                OrderHelper.instance().setCLientExpectedDate(
+                    order.clientExpectedDate!.toString()),
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontFamily: FontConstants.fontFamily,
@@ -237,7 +238,16 @@ class _LawyerIssuesViewWidget extends StatelessWidget {
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteGenerator.getRoute(
+                        RouteSettings(
+                          name: Routes.lawyerOwnOrderDetailsScreen,
+                          arguments: order,
+                        ),
+                      ),
+                    );
+                  },
                   child: Icon(
                     Icons.arrow_back,
                     size: 20.sp,
