@@ -7,8 +7,6 @@ import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues_
 
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/strings_manager.dart';
-import '../../massages/massages_screen.dart';
-import '../../orders/orders_scree.dart';
 import '../screens/home.dart';
 
 class LawyerHomeScreen extends StatelessWidget {

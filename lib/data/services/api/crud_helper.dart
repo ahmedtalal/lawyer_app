@@ -35,7 +35,7 @@ class CrudApiHelper {
   }
 
   Future<Response> postRequest({
-    Map<String, dynamic>? data,
+    dynamic data,
     required String path,
     Map<String, dynamic>? parameters,
     Options? options,

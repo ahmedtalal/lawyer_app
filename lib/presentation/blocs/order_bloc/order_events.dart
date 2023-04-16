@@ -23,3 +23,5 @@ class AcceptClientOrderEvent extends OrderEvents {}
 class UpdateCLientOrderStatusEvent extends OrderEvents {}
 
 class AddClientFeedbackEvent extends OrderEvents {}
+
+class SendLawyerRequestEvent extends OrderEvents {}

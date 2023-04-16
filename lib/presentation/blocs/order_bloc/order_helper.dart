@@ -1,9 +1,12 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
-import 'package:intl/intl.dart';
 
 class OrderHelper {
   static OrderHelper? _orderHelper;
@@ -33,7 +36,8 @@ class OrderHelper {
   String type = "0";
   int lawyerId = 0;
   String description1 = "";
-
+  int expectedDays = 0;
+  List<File> files = [];
   String _convetStrToDate() {
     return "$year-$month-$day";
   }
@@ -45,12 +49,46 @@ class OrderHelper {
         description1: description1,
         type: type,
         clientExpectedDate: _convetStrToDate(),
-        clientproposedbudget: clientProposedBudget,
+        clientProposedBudget: clientProposedBudget,
       );
+
+  FormData lawyerRequestModel() {
+    FormData formData = FormData.fromMap({
+      "order_id": orderId,
+      "expected_days": expectedDays,
+      "expected_budget": clientProposedBudget,
+      "info": description1,
+      "files": [files],
+    });
+    return formData;
+  }
+
+  Future<String> selectFileFromStorageFun() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    String filePath = '';
+    if (result != null) {
+      File file = File(result.files.single.path ?? "");
+      String fileName = file.path.split('/').last;
+      filePath = file.path;
+      printInfo("the file path is => $filePath");
+      printInfo("the file name => $fileName");
+    }
+    return filePath;
+  }
+
+  String setCLientExpectedDate(String date) {
+    printInfo("the client date =>$date");
+    String year = date.substring(0, 4);
+    printInfo("the year => $year");
+    String month = date.substring(4, 6);
+    printInfo("the month => $month");
+    String day = date.substring(6, 8);
+    printInfo("the day => $day");
+    return "$month-$day -$year";
+  }
 
   getPublicOrdersForLawyerAction(BuildContext context) =>
       context.read<OrderBloc>().add(GetPublicOrdersForLawyerEvent());
-
   getOwnOrdersForLawyerAction(BuildContext context) =>
       context.read<OrderBloc>().add(GetOwnOrdersForLawyerEvent());
 
@@ -73,6 +111,12 @@ class OrderHelper {
     }
   }
 
+  onSendLawyerRequestAction(BuildContext context, GlobalKey<FormState> form) {
+    if (form.currentState!.validate() && files.isNotEmpty) {
+      context.read<OrderBloc>().add(SendLawyerRequestEvent());
+    }
+  }
+
   onGetAllClientOrdersFun(BuildContext context) =>
       context.read<OrderBloc>().add(GetAllClientOderEvent());
 
@@ -86,7 +130,7 @@ class OrderHelper {
 class CreateOrderModel {
   final String title, description1, clientExpectedDate, type;
   final int? majorId, subMajorId, lawyerId;
-  final double clientproposedbudget;
+  final double clientProposedBudget;
   CreateOrderModel({
     required this.title,
     required this.majorId,
@@ -95,7 +139,7 @@ class CreateOrderModel {
     required this.type,
     this.lawyerId,
     required this.clientExpectedDate,
-    required this.clientproposedbudget,
+    required this.clientProposedBudget,
   });
 
   factory CreateOrderModel.fromJson(Map<String, dynamic> json) {
@@ -107,7 +151,7 @@ class CreateOrderModel {
       type: json["type"],
       lawyerId: json["lawyer_id"],
       clientExpectedDate: json["client_expected_date"],
-      clientproposedbudget: json["client_proposed_budget"],
+      clientProposedBudget: json["client_proposed_budget"],
     );
   }
   Map<String, dynamic> toJsonWithLawyerId() => {
@@ -118,7 +162,7 @@ class CreateOrderModel {
         "type": type,
         "lawyer_id": lawyerId,
         "client_expected_date": clientExpectedDate,
-        "client_proposed_budget": clientproposedbudget,
+        "client_proposed_budget": clientProposedBudget,
       };
 
   Map<String, dynamic> toJsonWithoutLawyerId() => {
@@ -128,6 +172,6 @@ class CreateOrderModel {
         "description": description1,
         "type": type,
         "client_expected_date": clientExpectedDate,
-        "client_proposed_budget": clientproposedbudget,
+        "client_proposed_budget": clientProposedBudget,
       };
 }
