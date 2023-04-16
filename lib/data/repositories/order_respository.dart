@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/data/services/api/orders_api_service.dart';
 import 'package:hokok/domain/entities/client__requests_order_entity.dart';
@@ -32,9 +33,8 @@ class OrderRepository implements IOrderInterface {
   }
 
   @override
-  FutureOr addOrderForLawyer(PublicOrderEntity entity) {
-    // TODO: implement addOrderForLawyer
-    throw UnimplementedError();
+  FutureOr<Map<String, dynamic>> addOrderForLawyer(FormData data) async {
+    return await OrdersApiService.instance().sendLawyerRequest(data);
   }
 
   @override
