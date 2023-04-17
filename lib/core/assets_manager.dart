@@ -41,4 +41,5 @@ class AssetsManager {
 
   static String emptyDataImage = "assets/images/emptydata.jpg";
   static const String lawyerImg = "assets/images/lawyer.png";
+  static const String logo = "assets/images/logo-ensaf.png";
 }

@@ -33,7 +33,7 @@ class AuthHelper {
   List<dynamic>? major;
   String? majorValue;
   int? id = null;
-  String token = "";
+  String? token = null;
   String? about = "";
   int? status = null;
   String? personalImage = "";
@@ -52,7 +52,7 @@ class AuthHelper {
         phoneNumber: phoneNumber,
         zone: zone,
         city: city,
-        majors: [UserMajors(id: int.parse(majorValue!))],
+        majors: [int.parse(majorValue!)],
         status: status,
         personalImage: personalImage,
         createdAt: createdAt,

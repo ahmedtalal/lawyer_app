@@ -29,13 +29,13 @@ class OwnOrdersInfoModel {
   String? status;
   int? statusCode;
   String? type;
-  String? clientExpectedDate;
+  int? clientExpectedDate;
   int? lawyerExpectedDays;
   double? clientProposedBudget;
   double? lawyerProposedBudget;
   String? assignedToLawyerAt;
   Null? deliveredAt;
-  Null? lastBudget;
+  double? lastBudget;
   int? requests;
   Null? clientFeedback;
   int? clientFeedbackRate;

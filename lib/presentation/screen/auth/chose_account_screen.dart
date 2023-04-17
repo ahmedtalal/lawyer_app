@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
@@ -19,7 +20,7 @@ class ChoseAccountScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              Image.asset(ImageConstant.logoImage, height: 150, width: 200),
+              Image.asset(AssetsManager.logo, height: 150, width: 200),
               Container(
                 width: double.infinity,
                 padding:

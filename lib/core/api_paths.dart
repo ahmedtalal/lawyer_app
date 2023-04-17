@@ -19,8 +19,9 @@ const String GET_PROFILE_REQUEST_PATH = "profile";
 const String GET_LAWYER_PUBLIC_ORDERS_REQUEST_PATH = "lawyer/public-orders";
 const String GET_LAWYER_OWN_ORDERS_REQUEST_PATH = "lawyer/orders";
 const String GET_LAWYER_private_ORDERS_REQUEST_PATH = "lawyer/private-orders";
-const String POST_LAWYER_ORDERS_REQUEST_PATH = "request-order";
-const String GET_ALL_REQUEST_LAWYER_ORDERS_REQUEST_PATH = "requests-to-orders";
+const String POST_LAWYER_ORDERS_REQUEST_PATH = "lawyer/request-order";
+const String GET_ALL_REQUEST_LAWYER_ORDERS_REQUEST_PATH =
+    "lawyer/requests-to-orders";
 const String UPDATE_LAWYER_ORDER_REQUEST_PATH = "lawyer/order/";
 const String ADD_LAWYER_ORDER_FEEDBACK_REQUEST_PATH = "lawyer/order/feedback";
 const String CREATE_CLIENT_ORDER_REQUEST_PATH = "order";

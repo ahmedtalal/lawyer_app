@@ -5,22 +5,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
+import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
 import 'package:hokok/domain/entities/major_entity.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_helper.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_states.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
-import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
-import 'package:hokok/presentation/blocs/profile_bloc/profile_states.dart';
 import '../../../../../core/assets_manager.dart';
 import '../../../../../core/color_manager.dart';
+import '../../../../../core/components/appbar_comp/app_bar_comp.dart';
 import '../../../../../core/values_manager.dart';
 import '../../../../../presentation/widget/shared_widget.dart';
 
@@ -42,6 +41,7 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
   }
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  static List<OrderInfoModel> publicOrders = [];
 
   @override
   Widget build(BuildContext context) {
@@ -73,25 +73,26 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                       listener: (context, state) {
                     if (state is OrderFailedLoadedState) {
                       state.authErrorMessage(context, state.error);
+                    } else if (state is PublicOrderLoadedState) {
+                      publicOrders = state.orders!;
                     }
                   }, builder: (context, state) {
-                    if (state is PublicOrderLoadedState) {
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: state.orders!.length,
-                          itemBuilder: (context, index) {
-                            return OrderView(order: state.orders![index]);
-                          },
-                        ),
-                      );
-                    } else if (state is OrderLoadingState) {
+                    if (state is OrderLoadingState) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else if (state is OrderFailedLoadedState) {
                       return emptyDataSharedWidget();
                     }
-                    return Container();
+                    return Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(top: 15.h),
+                        itemCount: publicOrders.length,
+                        itemBuilder: (context, index) {
+                          return OrderView(order: publicOrders[index]);
+                        },
+                      ),
+                    );
                   }),
                 ],
               ),
@@ -308,39 +309,19 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
         width: double.infinity,
         height: AppSize.s234,
         color: ColorManager.primary,
-        padding: const EdgeInsets.only(left: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Spacer(),
-            BlocConsumer<ProfileBloc, ProfileStates>(
-                listener: (context, state) {
-              if (state is ProfileFailedState) {
-                state.authErrorMessage(context, state.error);
-              }
-            }, builder: (context, state) {
-              if (state is ProfileLoadedState) {
-                return UserPorfileWidget(state: state.userEntity!);
-              } else if (state is ProfileFailedState) {
-                return const UserPorfileWidget(state: null);
-              } else if (state is ProfileLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Container();
-            }),
-            const Spacer(),
-            InkWell(
-              onTap: () {},
-              child: const Icon(
-                Icons.shopping_cart,
-                color: ColorManager.thirdy,
-                size: 30,
+        child: AppBarComp(
+          onTap: () {
+            Navigator.of(context).push(
+              RouteGenerator.getRoute(
+                const RouteSettings(name: Routes.notificatiosLawyersScreen),
               ),
-            ),
-          ],
+            );
+          },
+          icon: Icon(
+            Icons.notifications,
+            color: ColorManager.thirdy,
+            size: 30.sp,
+          ),
         ),
       );
 }
@@ -371,7 +352,9 @@ class UserPorfileWidget extends StatelessWidget {
               height: 50,
               width: 50,
               fit: BoxFit.cover,
-              imageUrl: state!.userModel!.personalImage!,
+              imageUrl: state == null
+                  ? AssetsManager.lawyerImg
+                  : state!.userModel!.personalImage!,
               placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => const Image(
@@ -447,7 +430,16 @@ class OrderView extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  RouteGenerator.getRoute(
+                    RouteSettings(
+                      name: Routes.lawyerOrderDetailsScreen,
+                      arguments: order,
+                    ),
+                  ),
+                );
+              },
               child: const Directionality(
                 textDirection: TextDirection.ltr,
                 child: Icon(

@@ -1,19 +1,19 @@
 class RequestsOrderForLawyerEntity {
-  List<RequestsOrderInfo>? data;
+  List<RequestsLawyerOrderInfo>? data;
 
   RequestsOrderForLawyerEntity({this.data});
 }
 
-class RequestsOrderInfo {
+class RequestsLawyerOrderInfo {
   int? id;
-  int? expectedDays;
-  double? expectedBudget;
+  dynamic expectedDays;
+  dynamic expectedBudget;
   String? info;
   List<String>? files;
   String? createdAt;
-  RequesOrder? order;
+  RequestOrder? order;
 
-  RequestsOrderInfo(
+  RequestsLawyerOrderInfo(
       {this.id,
       this.expectedDays,
       this.expectedBudget,
@@ -22,7 +22,7 @@ class RequestsOrderInfo {
       this.createdAt,
       this.order});
 
-  RequestsOrderInfo.fromJson(Map<String, dynamic> json) {
+  RequestsLawyerOrderInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     expectedDays = json['expected_days'];
     expectedBudget = json['expected_budget'];
@@ -30,7 +30,7 @@ class RequestsOrderInfo {
     files = json['files'].cast<String>();
     createdAt = json['created_at'];
     order =
-        json['order'] != null ? new RequesOrder.fromJson(json['order']) : null;
+        json['order'] != null ? new RequestOrder.fromJson(json['order']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -48,7 +48,7 @@ class RequestsOrderInfo {
   }
 }
 
-class RequesOrder {
+class RequestOrder {
   int? id;
   String? title;
   String? description;
@@ -57,7 +57,7 @@ class RequesOrder {
   bool? canRequest;
   String? createdAt;
 
-  RequesOrder(
+  RequestOrder(
       {this.id,
       this.title,
       this.description,
@@ -66,7 +66,7 @@ class RequesOrder {
       this.canRequest,
       this.createdAt});
 
-  RequesOrder.fromJson(Map<String, dynamic> json) {
+  RequestOrder.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];

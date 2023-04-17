@@ -18,14 +18,14 @@ class AppStrings {
   static const findLawyer = "ابحث عن محاميين";
   static const browse = "تصفح الطلبات";
   static const orders = "تصفح الطلبات";
-  static const exit = "تصفح الطلبات";
+  static const exit = "تسجيل الخروج";
 
   static const classification = "التصنيفات";
   static const commercial = "تجاري";
   static const administrative = "إداري";
   static const penal = "جزائية";
   static const fav = "المفضل";
-  static const myOrders = "طلباتي" ;
+  static const myOrders = "طلباتي";
 
   static const labor = "عمالي";
   static const execution = "تنفيذ أحكام";
@@ -88,13 +88,13 @@ class AppStrings {
   static const balance = 'رصيدي';
   static const offers = 'عروضي وتوكيلاتى';
   static const addOlder = 'اضف طلب';
-  static const Myagencies = 'توكيلاتي' ;
-  static const nameOrder = 'اسم الطلب' ;
-  static const datePublish = 'تاريخ النشر' ;
-  static const dateDeadline = 'تاريخ الانتهاء' ;
-  static const nameOrder_ = 'استشارة قانونيه' ;
-  static const datePublish_ = '22/3/2023' ;
-  static const dateDeadline_ = '22/5/2023' ;
+  static const Myagencies = 'توكيلاتي';
+  static const nameOrder = 'اسم الطلب';
+  static const datePublish = 'تاريخ النشر';
+  static const dateDeadline = 'تاريخ الانتهاء';
+  static const nameOrder_ = 'استشارة قانونيه';
+  static const datePublish_ = '22/3/2023';
+  static const dateDeadline_ = '22/5/2023';
   static const more_ = "عرض المزيد";
   static const finished = "المنجزة";
   static const consultation = "استشارة";
@@ -105,14 +105,4 @@ class AppStrings {
   static const cases = "القضايا";
   static const massages = "الرسائل";
   static const contactUs = "راسلنا";
-
-
-
-
-
-
-
-
-
-
 }

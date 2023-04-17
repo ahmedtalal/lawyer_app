@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:dio/dio.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/domain/entities/client__requests_order_entity.dart';
 import 'package:hokok/domain/entities/order_for_client_entity.dart';
@@ -14,8 +14,8 @@ abstract class IOrderInterface {
   FutureOr<List<OwnOrdersInfoModel>> getOwnOrdersForLawyer(
       String city, int majorId, int status);
   FutureOr<List<PrivateOrdersInfoModel>> getPrivateOrdersForLawyer();
-  FutureOr<dynamic> addOrderForLawyer(PublicOrderEntity entity);
-  FutureOr<List<RequestsOrderInfo>> getAllRequestesOrderForLawyer();
+  FutureOr<dynamic> addOrderForLawyer(FormData data);
+  FutureOr<List<RequestsLawyerOrderInfo>> getAllRequestesOrderForLawyer();
   FutureOr<dynamic> updateOrderForLawyer(int status, int orderId);
   FutureOr<dynamic> addOrderForClient(CreateOrderModel model);
   FutureOr<List<ClientOrderInfo>> getAllOrdersForClient();

@@ -34,7 +34,7 @@ class PrivateOrderLoadedState extends OrderStates {
 }
 
 class RequestOrderLoadedState extends OrderStates {
-  List<RequestsOrderInfo>? requestOrders;
+  List<RequestsLawyerOrderInfo>? requestOrders;
   RequestOrderLoadedState(this.requestOrders);
 }
 

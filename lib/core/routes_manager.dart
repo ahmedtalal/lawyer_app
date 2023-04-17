@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
+import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_notifications_screen.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_order_details_screen.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_own_order_details_screen.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_send_request_screen.dart';
 import 'package:hokok/presentation/screen/auth/create_client_account_screen.dart';
 import 'package:hokok/presentation/screen/auth/create_lawyer_account_screen.dart';
 import 'package:hokok/presentation/screen/auth/login_screen.dart';
@@ -44,6 +50,10 @@ class Routes {
   static const String subMajorsScreen = '/subMajors';
   static const String mainOrderScreen = '/mainOrderScreen';
   static const String lawyerHomeScreen = '/lawyerHomeScreen';
+  static const String notificatiosLawyersScreen = "/notificationsLawyersScreen";
+  static const String lawyerOrderDetailsScreen = "/lawyerOrderDetailsScreen";
+  static const String lawyerSendRequesrScreen = "/lawyerSendRequesrScreen";
+  static const String lawyerOwnOrderDetailsScreen = "/lawyerOwnOrdersScreen";
 }
 
 class RouteGenerator {
@@ -54,10 +64,7 @@ class RouteGenerator {
       case Routes.onboardingRoute:
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case Routes.loginRoute:
-        return MaterialPageRoute(
-            builder: (_) => LoginScreen(
-                  parameters: settings.arguments as Map<String, dynamic>,
-                ));
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
       case Routes.otpRoute:
         return MaterialPageRoute(
           builder: (_) => const OTPScreen(),
@@ -69,7 +76,10 @@ class RouteGenerator {
       case Routes.lawyerRoute:
         return MaterialPageRoute(builder: (_) => CreateLawyerAccountScreen());
       case Routes.welcomeRoute:
-        return MaterialPageRoute(builder: (_) => const WelcomeScreen());
+        return MaterialPageRoute(
+            builder: (_) => WelcomeScreen(
+                  name: settings.arguments as String,
+                ));
       case Routes.layoutRoute:
         return MaterialPageRoute(builder: (_) => const LayoutScreen());
       case Routes.talkWithUsRoute:
@@ -105,7 +115,27 @@ class RouteGenerator {
         );
       case Routes.lawyerHomeScreen:
         return MaterialPageRoute(builder: (_) => const LawyerHomeScreen());
-
+      case Routes.notificatiosLawyersScreen:
+        return MaterialPageRoute(
+            builder: (_) => const NotificationsLawyerScreen());
+      case Routes.lawyerOrderDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => LaweyrOrderDetailsScreen(
+            order: settings.arguments as OrderInfoModel,
+          ),
+        );
+      case Routes.lawyerSendRequesrScreen:
+        return MaterialPageRoute(
+          builder: (_) => LawyerSendRequestScreen(
+            order: settings.arguments as OrderInfoModel,
+          ),
+        );
+      case Routes.lawyerOwnOrderDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => LawyerOwnOrderDetailsScreen(
+            order: settings.arguments as OwnOrdersInfoModel,
+          ),
+        );
       default:
         return _unDefinedRoute();
     }

@@ -71,7 +71,7 @@ class OrdersApiService {
       };
       Response response = await CrudApiHelper.instance.getRequest(
         path: GET_LAWYER_OWN_ORDERS_REQUEST_PATH,
-        parameters: data,
+        parameters: city.isEmpty ? null : data,
         options: options,
       );
       printDone("the get all own orders lawyer orders => ${response.data}");
@@ -95,7 +95,7 @@ class OrdersApiService {
       });
 
       Response response = await CrudApiHelper.instance.getRequest(
-        path: GET_LAWYER_OWN_ORDERS_REQUEST_PATH,
+        path: GET_LAWYER_private_ORDERS_REQUEST_PATH,
         options: options,
       );
       printDone("the get all private orders lawyer orders => ${response.data}");
@@ -110,7 +110,7 @@ class OrdersApiService {
     }
   }
 
-  FutureOr<List<RequestsOrderInfo>> getAllRequestOrderLawyerSer() async {
+  FutureOr<List<RequestsLawyerOrderInfo>> getAllRequestOrderLawyerSer() async {
     try {
       Options options = Options(headers: {
         "authorization":
@@ -354,6 +354,31 @@ class OrdersApiService {
       return failedRequest(messsage);
     } catch (e) {
       printError("the add client feedback error from catch => $e");
+      return failedRequest(e.toString());
+    }
+  }
+
+  FutureOr<Map<String, dynamic>> sendLawyerRequest(FormData data) async {
+    try {
+      Options options = Options(headers: {
+        "authorization":
+            "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
+      });
+      printInfo("the model => $data");
+      Response response = await CrudApiHelper.instance.postRequest(
+        path: POST_LAWYER_ORDERS_REQUEST_PATH,
+        data: data,
+        options: options,
+      );
+      printDone("the send lawyer request done => ${response.data}");
+      return successRequest(response.data);
+    } on DioError catch (error) {
+      //printError("the status code => ${error.response!.statusCode}");
+      final message = DioExceptions.dioErrorHandling(error);
+      printError("the send lawyer request error from dio catch => $message");
+      return failedRequest(message);
+    } catch (e) {
+      printError("the send lawyer request error from catch => ${e.toString()}");
       return failedRequest(e.toString());
     }
   }
