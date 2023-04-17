@@ -168,13 +168,29 @@ Widget _issuesContainer({required List<OwnOrdersInfoModel> orders}) {
         ),
       ),
       Expanded(
-        child: ListView.builder(
-          padding: EdgeInsets.only(top: 10.h),
-          itemCount: orders.length,
-          itemBuilder: (context, index) {
-            return _LawyerIssuesViewWidget(order: orders[index]);
-          },
-        ),
+        child: OrderHelper.instance().getAllInPublishedOrders(orders).isEmpty
+            ? Center(
+                child: Text(
+                  "لا يوجد بيانات",
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontFamily: FontConstants.fontFamily,
+                    color: Colors.grey[400],
+                  ),
+                ),
+              )
+            : ListView.builder(
+                padding: EdgeInsets.only(top: 10.h),
+                itemCount: OrderHelper.instance()
+                    .getAllInPublishedOrders(orders)
+                    .length,
+                itemBuilder: (context, index) {
+                  return _LawyerIssuesViewWidget(
+                    order: OrderHelper.instance()
+                        .getAllInPublishedOrders(orders)[index],
+                  );
+                },
+              ),
       ),
       Align(
         alignment: Alignment.topRight,

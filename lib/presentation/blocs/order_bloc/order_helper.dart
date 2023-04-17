@@ -43,11 +43,22 @@ class OrderHelper {
     return "$year-$month-$day";
   }
 
+  List<OwnOrdersInfoModel> getAllInPublishedOrders(
+      List<OwnOrdersInfoModel> orders) {
+    List<OwnOrdersInfoModel> publishedOrders = [];
+    for (var order in orders) {
+      if (order.status!.toLowerCase() == "published") {
+        publishedOrders.add(order);
+      }
+    }
+    return publishedOrders;
+  }
+
   List<OwnOrdersInfoModel> getAllInProgressOrders(
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> inprogressOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "completed") {
+      if (order.status!.toLowerCase() == "inprogress") {
         inprogressOrders.add(order);
       }
     }
@@ -58,7 +69,7 @@ class OrderHelper {
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> completedOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "inprogress") {
+      if (order.status!.toLowerCase() == "completed") {
         completedOrders.add(order);
       }
     }
