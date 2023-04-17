@@ -21,41 +21,46 @@ class LayoutLawyerIssues extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: AppBarWidget(
-              onClick: () {
-                Navigator.of(context).push(
-                  RouteGenerator.getRoute(
-                    const RouteSettings(
-                      name: Routes.notificatiosLawyersScreen,
+    return DefaultTabController(
+      length: 2,
+      initialIndex: 1,  //optional, starts from 0, select the tab by default
+
+      child: Scaffold(
+        body: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: AppBarWidget(
+                onClick: () {
+                  Navigator.of(context).push(
+                    RouteGenerator.getRoute(
+                      const RouteSettings(
+                        name: Routes.notificatiosLawyersScreen,
+                      ),
                     ),
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.notifications,
-                color: ColorManager.thirdy,
-                size: 30.sp,
-              ),
-              child: Image(
-                image:  const AssetImage(
-                  AssetsManager.logo,
+                  );
+                },
+                icon: Icon(
+                  Icons.notifications,
+                  color: ColorManager.thirdy,
+                  size: 30.sp,
                 ),
-                width: 180.w,
-                height: 100.h,
+                child: Image(
+                  image:  const AssetImage(
+                    AssetsManager.logo,
+                  ),
+                  width: 180.w,
+                  height: 100.h,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          _tabsBar(),
-          _body(),
-        ],
+            SizedBox(
+              height: 10.h,
+            ),
+            _tabsBar(),
+            _body(),
+          ],
+        ),
       ),
     );
   }
@@ -84,18 +89,18 @@ BlocBuilder _tabsBar() => BlocBuilder<MainLawyerCubit, MainLawyerState>(
       unselectedLabelColor: ColorManager.secondary,
       indicatorColor: Colors.transparent,
       tabs: [
-        _tab(cubit.index, 0, AppStrings.main),
-        _tab(cubit.index, 1, AppStrings.findLawyer),
+        _tab(cubit.index, 0, "القضايا"),
+        _tab(cubit.index, 1, "طلباتى"),
       ],
     );
   },
 );
-Expanded _body() =>  const Expanded(
+Expanded _body() =>   Expanded(
   child: TabBarView(
     physics: NeverScrollableScrollPhysics(),
     children: [
+      OrderLawyerScreen(),
       LawyerIssuesScreen(),
-      OrderLawyerScreen()
     ],
   ),
 );

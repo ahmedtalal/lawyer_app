@@ -14,7 +14,6 @@ import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
 
 import '../../../../../../core/routes_manager.dart';
 
-
 class LawyerIssuesScreen extends StatefulWidget {
   const LawyerIssuesScreen({super.key});
 
@@ -37,35 +36,6 @@ class _LawyerIssuesScreenState extends State<LawyerIssuesScreen> {
         width: ScreenHandler.getScreenWidth(context),
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: AppBarWidget(
-                onClick: () {
-                  Navigator.of(context).push(
-                    RouteGenerator.getRoute(
-                      const RouteSettings(
-                        name: Routes.notificatiosLawyersScreen,
-                      ),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.notifications,
-                  color: ColorManager.thirdy,
-                  size: 30.sp,
-                ),
-                child: Image(
-                  image: const AssetImage(
-                    AssetsManager.logo,
-                  ),
-                  width: 180.w,
-                  height: 100.h,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
             const Expanded(
               flex: 3,
               child: _BodyWidget(),
@@ -103,7 +73,7 @@ class _BodyWidget extends StatelessWidget {
         const _TableColumnsWidget(),
         Expanded(
           child:
-              BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
+          BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
             if (state is OrderFailedLoadedState) {
               state.authErrorMessage(context, state.error);
             } else if (state is OwnOrderLoadedState) {
@@ -119,6 +89,7 @@ class _BodyWidget extends StatelessWidget {
             } else if (state is OrderFailedLoadedState) {
               return emptyDataSharedWidget();
             }
+            return _issuesContainer(orders: ownOrders);
             return ListView.builder(
               padding: EdgeInsets.only(top: 10.h),
               itemCount: ownOrders.length,
@@ -131,6 +102,170 @@ class _BodyWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget _issuesContainer({required List<OwnOrdersInfoModel> orders}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(
+        height: 15.h,
+      ),
+      Align(
+        alignment: Alignment.topRight,
+        child: Container(
+          height: 35.h,
+          width: 85.w,
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(right: 3.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.sp),
+              bottomLeft: Radius.circular(
+                20.sp,
+              ),
+            ),
+            color: ColorManager.thirdy,
+          ),
+          child: Text(
+            "طلباتي",
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontFamily: FontConstants.fontFamily,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        child: OrderHelper.instance().getAllInPublishedOrders(orders).isEmpty
+            ? Center(
+          child: Text(
+            "لا يوجد بيانات",
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontFamily: FontConstants.fontFamily,
+              color: Colors.grey[400],
+            ),
+          ),
+        )
+            : ListView.builder(
+          padding: EdgeInsets.only(top: 10.h),
+          itemCount: OrderHelper.instance()
+              .getAllInPublishedOrders(orders)
+              .length,
+          itemBuilder: (context, index) {
+            return _LawyerIssuesViewWidget(
+              order: OrderHelper.instance()
+                  .getAllInPublishedOrders(orders)[index],
+            );
+          },
+        ),
+      ),
+      Align(
+        alignment: Alignment.topRight,
+        child: Container(
+          height: 35.h,
+          width: 85.w,
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(right: 3.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.sp),
+              bottomLeft: Radius.circular(
+                20.sp,
+              ),
+            ),
+            color: ColorManager.thirdy,
+          ),
+          child: Text(
+            "قيد التنفيذ",
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontFamily: FontConstants.fontFamily,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        child: OrderHelper.instance().getAllInProgressOrders(orders).isEmpty
+            ? Center(
+          child: Text(
+            "لا يوجد بيانات",
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontFamily: FontConstants.fontFamily,
+              color: Colors.grey[400],
+            ),
+          ),
+        )
+            : ListView.builder(
+          padding: EdgeInsets.only(top: 10.h),
+          itemCount: OrderHelper.instance()
+              .getAllInProgressOrders(orders)
+              .length,
+          itemBuilder: (context, index) {
+            return _LawyerIssuesViewWidget(
+              order: OrderHelper.instance()
+                  .getAllInProgressOrders(orders)[index],
+            );
+          },
+        ),
+      ),
+      Align(
+        alignment: Alignment.topRight,
+        child: Container(
+          height: 35.h,
+          width: 85.w,
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(right: 3.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.sp),
+              bottomLeft: Radius.circular(
+                20.sp,
+              ),
+            ),
+            color: ColorManager.thirdy,
+          ),
+          child: Text(
+            "المنجز",
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontFamily: FontConstants.fontFamily,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        child: OrderHelper.instance().getAllCompletedOrders(orders).isEmpty
+            ? Center(
+          child: Text(
+            "لا يوجد بيانات",
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontFamily: FontConstants.fontFamily,
+              color: Colors.grey[400],
+            ),
+          ),
+        )
+            : ListView.builder(
+          padding: EdgeInsets.only(top: 10.h),
+          itemCount:
+          OrderHelper.instance().getAllCompletedOrders(orders).length,
+          itemBuilder: (context, index) {
+            return _LawyerIssuesViewWidget(
+              order: OrderHelper.instance()
+                  .getAllCompletedOrders(orders)[index],
+            );
+          },
+        ),
+      ),
+    ],
+  );
 }
 
 class _TableColumnsWidget extends StatelessWidget {
@@ -262,5 +397,3 @@ class _LawyerIssuesViewWidget extends StatelessWidget {
     );
   }
 }
-
-

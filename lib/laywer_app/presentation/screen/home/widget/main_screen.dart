@@ -3,17 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_cubit_lawyer.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_states_lawyer.dart';
-import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues/lawyer_issues_screen.dart';
 
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/strings_manager.dart';
 import '../screens/home.dart';
+import '../screens/lawyer_issues/lawyer_issues_screen.dart';
 
 class LawyerHomeScreen extends StatelessWidget {
   const LawyerHomeScreen({Key? key}) : super(key: key);
 
+  static List<Widget> screens = [
+    const HomeLawyerScreen(),
+    const LawyerIssuesScreen(),
+    const LawyerIssuesScreen(),
+    const LawyerIssuesScreen(),
+    const LawyerIssuesScreen(),
+  ];
+  static int currentIndex = 0;
+  static int navSelectedIndex = 0;
 
-
+  changeNavIndex(int index) {
+    currentIndex = index;
+  }
 
   @override
   Widget build(BuildContext context) {

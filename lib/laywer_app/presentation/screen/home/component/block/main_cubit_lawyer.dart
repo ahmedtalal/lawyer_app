@@ -8,13 +8,14 @@ import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_setting
 
 import '../../screens/home.dart';
 import '../../screens/lawyer_issues/lawyer_issues_screen.dart';
+import '../../screens/lawyer_issues/layout_lawyer_issues.dart';
 import 'main_states_lawyer.dart';
 
 class MainLawyerCubit extends Cubit<MainLawyerState> {
   MainLawyerCubit() : super(MainLawyerInitial());
   List<Widget> screens = [
     const HomeLawyerScreen(),
-    const LawyerIssuesScreen(),
+    const LayoutLawyerIssues(),
     const MassagesScreen(),
     const ContactUsScreen(),
     const LawyerSettingsScreen(),
@@ -33,10 +34,6 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
     emit(ChangeIndexState());
   }
 }
-
-
-
-
 
 class LogOut extends StatelessWidget {
   const LogOut({Key? key}) : super(key: key);
