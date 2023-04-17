@@ -9,83 +9,76 @@ import '../../../../core/shared_widget/text.dart';
 import '../../../../core/values_manager.dart';
 
 class MassagesScreen extends StatelessWidget {
-   const MassagesScreen({Key? key}) : super(key: key);
+  const MassagesScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     body: Column(
-       mainAxisAlignment: MainAxisAlignment.start,
-       crossAxisAlignment: CrossAxisAlignment.start,
-       children: [
-         _appBar(context),
-         const SizedBox(
-           height: AppSize.s15,
-         ),
-
-         Row(
-           mainAxisAlignment: MainAxisAlignment.end,
-           children: [
-             const DefaultText(
-               "الرسائل",
-               fontSize: 25,
-             ),
-             SizedBox(
-               width: AppSize.s133,
-             ),
-             Padding(
-               padding: const EdgeInsets.only(
-                 left: AppPadding.p25
-
-               ),
-               child: SvgPicture.asset(
-                 AssetsManager.searchIcon,
-                 colorFilter: const ColorFilter.mode(
-                   ColorManager.primary,
-                   BlendMode.srcIn,
-
-                 ),
-               ),
-             ),
-
-           ],
-         ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _appBar(context),
+          const SizedBox(
+            height: AppSize.s15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const DefaultText(
+                "الرسائل",
+                fontSize: 25,
+              ),
+              SizedBox(
+                width: AppSize.s133,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: AppPadding.p25),
+                child: SvgPicture.asset(
+                  AssetsManager.searchIcon,
+                  colorFilter: const ColorFilter.mode(
+                    ColorManager.primary,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ],
+          ),
           buildListView()
-
-       ],
-     ),
+        ],
+      ),
     );
   }
+
   Container _appBar(BuildContext context) => Container(
-    width: double.infinity,
-    height: AppSize.s150,
-    color: ColorManager.primary,
-    padding: const EdgeInsets.only(left: 20),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Spacer(),
-        Image.asset(
-          AssetsManager.logoEnsaf,
-          fit: BoxFit.cover,
-          width: AppSize.s177,
-          height: AppSize.s88,
-
+        width: double.infinity,
+        height: AppSize.s150,
+        color: ColorManager.primary,
+        padding: const EdgeInsets.only(left: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Spacer(),
+            Image.asset(
+              AssetsManager.logoEnsaf,
+              fit: BoxFit.cover,
+              width: AppSize.s177,
+              height: AppSize.s88,
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: () {},
+              child: const Icon(
+                Icons.shopping_cart,
+                color: ColorManager.thirdy,
+                size: 30,
+              ),
+            ),
+          ],
         ),
-        const Spacer(),
-        InkWell(
-          onTap: () {},
-          child: const Icon(
-            Icons.shopping_cart,
-            color: ColorManager.thirdy,
-            size: 30,
-          ),
-        ),
-      ],
-    ),
-  );
+      );
 
-   Widget buildListView() {
+  Widget buildListView() {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -103,12 +96,10 @@ class MassagesScreen extends StatelessWidget {
                   child: Image.asset(AssetsManager.lawyerImg),
                 ),
                 Column(
-children: [
-  DefaultText(AppStrings.name),
-  DefaultText(AppStrings.more),
-
-
-],
+                  children: [
+                    DefaultText(AppStrings.name),
+                    DefaultText(AppStrings.more),
+                  ],
                 ),
                 SizedBox(
                   width: AppSize.s31,
@@ -121,5 +112,4 @@ children: [
       },
     );
   }
-
 }

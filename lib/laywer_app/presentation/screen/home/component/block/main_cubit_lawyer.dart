@@ -7,7 +7,7 @@ import 'package:hokok/laywer_app/presentation/screen/orders/orders_scree.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_settings_screen.dart';
 
 import '../../screens/home.dart';
-import '../../screens/lawyer_issues_screen.dart';
+import '../../screens/lawyer_issues/lawyer_issues_screen.dart';
 import 'main_states_lawyer.dart';
 
 class MainLawyerCubit extends Cubit<MainLawyerState> {
@@ -26,7 +26,17 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
     currentIndex = index;
     emit(BottomNavIndexChanged());
   }
+  int index = 0;
+
+  void changeIndex(int newIndex) {
+    index = newIndex;
+    emit(ChangeIndexState());
+  }
 }
+
+
+
+
 
 class LogOut extends StatelessWidget {
   const LogOut({Key? key}) : super(key: key);

@@ -136,66 +136,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
     );
   }
 
-  Container _header(String header, [double fontSize = FontSize.s28]) =>
-      Container(
-        height: AppSize.s51,
-        width: AppSize.s140,
-        alignment: AlignmentDirectional.centerStart,
-        margin: const EdgeInsets.only(top: AppMargin.m31),
-        decoration: const BoxDecoration(
-          color: ColorManager.primary,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(AppSize.s30),
-            bottomLeft: Radius.circular(AppSize.s30),
-          ),
-        ),
-        child: DefaultText(
-          header,
-          fontSize: fontSize,
-          color: ColorManager.white,
-        ),
-      );
 
-  Align _about() => Align(
-        alignment: AlignmentDirectional.center,
-        child: Container(
-          width: AppSize.s272,
-          height: AppSize.s180,
-          margin: const EdgeInsets.only(top: AppMargin.m19),
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: AppSize.s2,
-              color: ColorManager.secondary.withOpacity(AppOpacity.c0_65),
-            ),
-            borderRadius: BorderRadius.circular(AppSize.s50),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: AppPadding.p15,
-                  right: AppPadding.p31,
-                ),
-                child: SvgPicture.asset(
-                  AssetsManager.penIcon,
-                  height: AppSize.s20,
-                  width: AppSize.s20,
-                  fit: BoxFit.none,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(AppPadding.p10),
-                child: DefaultText(
-                  AppStrings.about,
-                  fontSize: FontSize.s16,
-                  color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
+
 
   Container _appBar(UserEntity userEntity) => Container(
         width: double.infinity,
