@@ -14,6 +14,7 @@ import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
 
 import '../../../../../core/font_manager.dart';
+import '../../../../../presentation/screen/browse_order/browse_order_screen.dart';
 
 class NotificationsLawyerScreen extends StatefulWidget {
   const NotificationsLawyerScreen({super.key});

@@ -14,6 +14,7 @@ import '../../../../../../core/values_manager.dart';
 import '../../component/block/main_cubit_lawyer.dart';
 import '../../component/block/main_states_lawyer.dart';
 import 'lawyer_issues_screen.dart';
+import 'orders_screen.dart';
 
 class LayoutLawyerIssues extends StatelessWidget {
   const LayoutLawyerIssues({Key? key}) : super(key: key);
@@ -89,11 +90,12 @@ BlocBuilder _tabsBar() => BlocBuilder<MainLawyerCubit, MainLawyerState>(
     );
   },
 );
-Expanded _body() =>  Expanded(
+Expanded _body() =>  const Expanded(
   child: TabBarView(
     physics: NeverScrollableScrollPhysics(),
     children: [
       LawyerIssuesScreen(),
+      OrderLawyerScreen()
     ],
   ),
 );
