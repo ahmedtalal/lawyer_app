@@ -17,10 +17,13 @@ import '../../../../core/routes_manager.dart';
 import '../../../../core/shared_widget/button.dart';
 import '../../../../core/strings_manager.dart';
 import '../../../../core/values_manager.dart';
+import '../../../../domain/entities/major_entity.dart';
 
 class SubMajorsScreen extends StatefulWidget {
-  const SubMajorsScreen({this.id, Key? key}) : super(key: key);
-  final int? id;
+  const SubMajorsScreen({required this.model, Key? key}) : super(key: key);
+  // final int? id;
+ final MajorData model;
+  // final String name;
 
   @override
   State<SubMajorsScreen> createState() => _SubMajorsScreenState();
@@ -29,7 +32,7 @@ class SubMajorsScreen extends StatefulWidget {
 class _SubMajorsScreenState extends State<SubMajorsScreen> {
   @override
   void initState() {
-    printInfo("the major id ${widget.id}");
+    printInfo("the major id ${widget.model.id}");
     MajorHelper.instance().getSubMajorsActionCon(context);
     super.initState();
   }
@@ -73,16 +76,17 @@ class _SubMajorsScreenState extends State<SubMajorsScreen> {
               top: 70,
               right: 85,
               child: Container(
+                clipBehavior: Clip.hardEdge,
                 height: 120,
                 width: 200,
                 decoration: BoxDecoration(
                     color: ConstantColor.whiteColor,
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black)),
-                child: const Center(
+                child:  Center(
                   child: DefaultText(
-                    AppStrings.commercial,
-                    fontSize: AppSize.s27,
+                    widget.model.name!,
+                    // fontSize: AppSize.s20,
                   ),
                 ),
               ),
@@ -136,8 +140,10 @@ class _SubMajorsScreenState extends State<SubMajorsScreen> {
                   RouteSettings(
                     name: Routes.mainOrderScreen,
                     arguments: {
-                      "majorId": widget.id,
+                      "majorId": widget.model.id,
+                      "majorName": widget.model.name,
                       "subMajorId": subMajors[index].id,
+                      "subMajorName": subMajors[index].name,
                     },
                   ),
                 ),

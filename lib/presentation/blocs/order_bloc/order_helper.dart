@@ -23,9 +23,7 @@ class OrderHelper {
   String orderFeedback = "";
   double orderRate = 0;
   String title = "";
-  String year = "";
-  String month = "";
-  String day = "";
+  String clientExpectedDate = "";
   double clientProposedBudget = 0;
   String clientDescription1 = "";
   String clientDescription2 = "";
@@ -34,9 +32,6 @@ class OrderHelper {
   int lawyerId = 0;
   String description1 = "";
 
-  String _convetStrToDate() {
-    return "$year-$month-$day";
-  }
 
   CreateOrderModel prepareClientOrderModel() => CreateOrderModel(
         title: title,
@@ -44,7 +39,7 @@ class OrderHelper {
         subMajorId: subMajorId,
         description1: description1,
         type: type,
-        clientExpectedDate: _convetStrToDate(),
+        clientExpectedDate: clientExpectedDate,
         clientproposedbudget: clientProposedBudget,
       );
 

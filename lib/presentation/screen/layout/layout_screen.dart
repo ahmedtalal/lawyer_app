@@ -136,7 +136,7 @@ class MainBottomNavBar extends StatelessWidget {
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        context.read<LayoutCubit>().changeNavIndex(index);
+                        context.read<LayoutCubit>().changeNavIndex(index, context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
