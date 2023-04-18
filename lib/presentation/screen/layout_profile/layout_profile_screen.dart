@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
@@ -252,8 +253,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  width: 100,
+                 SizedBox(
+                  width: 130.w,
                 ),
                 Row(
                   children: [
@@ -264,29 +265,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       icon: const Icon(Icons.home),
                       iconSize: AppSize.s40,
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    BlocConsumer<AuthBloc, AuthStates>(
-                        listener: (context, state) {
-                      if (state is LogOutSuccessState) {
-                        state.authNaviation(
-                            const RouteSettings(
-                              name: Routes.splashRoute,
-                            ),
-                            context);
-                      } else if (state is LogOutFailedState) {
-                        state.authErrorMessage(context, "logout exception");
-                      }
-                    }, builder: (context, state) {
-                      return IconButton(
-                        onPressed: () {
-                          AuthHelper.instance().onLogOutAction(context);
-                        },
-                        icon: const Icon(Icons.logout),
-                        iconSize: AppSize.s40,
-                      );
-                    }),
+
+
                   ],
                 ),
               ],

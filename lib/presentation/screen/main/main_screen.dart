@@ -144,7 +144,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
             RouteGenerator.getRoute(
               RouteSettings(
                 name: Routes.subMajorsScreen,
-                arguments: model.id,
+                arguments: model,
               ),
             ),
           );
