@@ -106,7 +106,7 @@ class FindLawyerScreen extends StatelessWidget {
                     _lawyers.addAll(state.lawyers);
                     LawyerHelper.instance().isLoadMoreLawyer = false;
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  } else if (state is LawyersFailedLoadedState &&
+                  } else if (state is LawyerFailedLoadedState &&
                       _lawyers.isEmpty) {
                     return state.showEmptyList();
                   }

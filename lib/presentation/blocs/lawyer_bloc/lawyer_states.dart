@@ -14,7 +14,12 @@ class LawyersLoadedState extends LawyerStates {
   LawyersLoadedState({required this.lawyers});
 }
 
-class LawyersFailedLoadedState extends LawyerStates {
+class StatisticsLawyersLoadedState extends LawyerStates {
+  Map<String, dynamic> statistics;
+  StatisticsLawyersLoadedState({required this.statistics});
+}
+
+class LawyerFailedLoadedState extends LawyerStates {
   Widget showEmptyList() => emptyDataSharedWidget();
 }
 

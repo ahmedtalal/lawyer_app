@@ -27,7 +27,6 @@ class _MainOrderScreen extends State<MainOrderScreen> {
     printInfo("the model is ${widget.data}");
     OrderHelper.instance().majorId = widget.data!["majorId"];
     OrderHelper.instance().subMajorId = widget.data!["subMajorId"];
-
     super.initState();
   }
 
@@ -78,9 +77,10 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                     color: ConstantColor.whiteColor,
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black)),
-                child:  Center(
+                child: const Center(
                   child: DefaultText(
-                    widget.data!["majorName"],
+                    AppStrings.commercial,
+                    fontSize: AppSize.s27,
                   ),
                 ),
               ),
@@ -140,7 +140,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                     Column(
                       children: [
                         DefaultElevatedButton2(
-                          widget.data!["subMajorName"],
+                          AppStrings.consultation,
                           onPressed: () {},
                           size: const Size(AppSize.s140, AppSize.s40),
                           fontSize: FontSize.s14,
@@ -187,14 +187,37 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                         ),
                         Column(
                           children: [
-
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                      color: ColorManager.primary,
+                                      fontSize: FontSize.s14,
+                                      fontWeight: FontWeightManager.w400,
+                                      fontFamily: FontConstants.fontFamily,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'المدة المتوقعة',
+                                    style: TextStyle(
+                                      color: ColorManager.secondary,
+                                      fontSize: FontSize.s12,
+                                      fontWeight: FontWeightManager.w400,
+                                      fontFamily: FontConstants.fontFamily,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
                                   height: AppSize.s36,
-                                  width: AppSize.s242,
-                                  margin: const EdgeInsets.only(bottom: AppMargin.m12),
+                                  width: AppSize.s127,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       width: AppSize.s1,
@@ -202,184 +225,149 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                                     ),
                                   ),
                                   child: TextFormField(
-                                    style: const TextStyle(fontSize: FontSize.s13),
+                                    style:
+                                        const TextStyle(fontSize: FontSize.s13),
+                                    keyboardType: TextInputType.number,
                                     maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    keyboardType :  TextInputType.number,
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
+                                    decoration: InputDecoration(
+                                      label: Text(
+                                        'السنه',
+                                        style: TextStyle(
+                                            color: ConstantColor.primaryColor,
+                                            fontSize: AppSize.s14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
                                         horizontal: AppPadding.p5,
                                         vertical: AppPadding.p15,
                                       ),
-                                      hintText: 'المدة المتوقعة',
-                                      hintStyle: TextStyle(fontSize: FontSize.s13),
+                                      hintStyle: const TextStyle(
+                                          fontSize: FontSize.s13),
                                       border: InputBorder.none,
                                     ),
                                     onChanged: (value) {
                                       setState(() {
-                                        OrderHelper.instance().clientExpectedDate = value;
+                                        OrderHelper.instance().year = value;
                                       });
                                     },
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "this field is required";
+                                      } else if (int.parse(value) <
+                                          DateTime.now().year) {
+                                        return "the year must be greater than or equal current year";
                                       }
                                       return null;
                                     },
                                   ),
                                 ),
-                                // Container(
-                                //   height: AppSize.s36,
-                                //   width: AppSize.s127,
-                                //   decoration: BoxDecoration(
-                                //     border: Border.all(
-                                //       width: AppSize.s1,
-                                //       color: ColorManager.grey,
-                                //     ),
-                                //   ),
-                                //   child: TextFormField(
-                                //     style:
-                                //         const TextStyle(fontSize: FontSize.s13),
-                                //     keyboardType: TextInputType.number,
-                                //     maxLines: 1,
-                                //     decoration: InputDecoration(
-                                //       label: Text(
-                                //         'السنه',
-                                //         style: TextStyle(
-                                //             color: ConstantColor.primaryColor,
-                                //             fontSize: AppSize.s14,
-                                //             fontWeight: FontWeight.bold),
-                                //       ),
-                                //       contentPadding:
-                                //           const EdgeInsets.symmetric(
-                                //         horizontal: AppPadding.p5,
-                                //         vertical: AppPadding.p15,
-                                //       ),
-                                //       hintStyle: const TextStyle(
-                                //           fontSize: FontSize.s13),
-                                //       border: InputBorder.none,
-                                //     ),
-                                //     onChanged: (value) {
-                                //       setState(() {
-                                //       });
-                                //     },
-                                //     validator: (value) {
-                                //       if (value!.isEmpty) {
-                                //         return "this field is required";
-                                //       } else if (int.parse(value) <
-                                //           DateTime.now().year) {
-                                //         return "the year must be greater than or equal current year";
-                                //       }
-                                //       return null;
-                                //     },
-                                //   ),
-                                // ),
-                                // Container(
-                                //   height: AppSize.s36,
-                                //   width: AppSize.s70,
-                                //   decoration: BoxDecoration(
-                                //     border: Border.all(
-                                //       width: AppSize.s1,
-                                //       color: ColorManager.grey,
-                                //     ),
-                                //   ),
-                                //   child: TextFormField(
-                                //     style:
-                                //         const TextStyle(fontSize: FontSize.s13),
-                                //     keyboardType: TextInputType.number,
-                                //     maxLines: 1,
-                                //     decoration: InputDecoration(
-                                //       label: Text(
-                                //         'الشهر',
-                                //         style: TextStyle(
-                                //             color: ConstantColor.primaryColor,
-                                //             fontSize: AppSize.s14,
-                                //             fontWeight: FontWeight.bold),
-                                //       ),
-                                //       contentPadding:
-                                //           const EdgeInsets.symmetric(
-                                //         horizontal: AppPadding.p5,
-                                //         vertical: AppPadding.p15,
-                                //       ),
-                                //       hintStyle: const TextStyle(
-                                //           fontSize: FontSize.s13),
-                                //       border: InputBorder.none,
-                                //     ),
-                                //     onChanged: (value) {
-                                //       String result = "0";
-                                //       if (value.length == 1) {
-                                //         result = result + value;
-                                //       } else {
-                                //         result = value;
-                                //       }
-                                //       setState(() {
-                                //         OrderHelper.instance().month = result;
-                                //       });
-                                //     },
-                                //     validator: (value) {
-                                //       if (value!.isEmpty) {
-                                //         return "this field is required";
-                                //       } else if (int.parse(value) <
-                                //           DateTime.now().month) {
-                                //         return "the month must be greater than or equal current year";
-                                //       }
-                                //       return null;
-                                //     },
-                                //   ),
-                                // ),
-                                // Container(
-                                //   height: AppSize.s36,
-                                //   width: AppSize.s70,
-                                //   decoration: BoxDecoration(
-                                //     border: Border.all(
-                                //       width: AppSize.s1,
-                                //       color: ColorManager.grey,
-                                //     ),
-                                //   ),
-                                //   child: TextFormField(
-                                //     style:
-                                //         const TextStyle(fontSize: FontSize.s13),
-                                //     keyboardType: TextInputType.number,
-                                //     maxLines: 1,
-                                //     decoration: InputDecoration(
-                                //       label: Text(
-                                //         'اليوم',
-                                //         style: TextStyle(
-                                //             color: ConstantColor.primaryColor,
-                                //             fontSize: AppSize.s14,
-                                //             fontWeight: FontWeight.bold),
-                                //       ),
-                                //       contentPadding:
-                                //           const EdgeInsets.symmetric(
-                                //         horizontal: AppPadding.p5,
-                                //         vertical: AppPadding.p15,
-                                //       ),
-                                //       hintStyle: const TextStyle(
-                                //           fontSize: FontSize.s13),
-                                //       border: InputBorder.none,
-                                //     ),
-                                //     onChanged: (value) {
-                                //       String result = "0";
-                                //       if (value.length == 1) {
-                                //         result = result + value;
-                                //       } else {
-                                //         result = value;
-                                //       }
-                                //       setState(() {
-                                //         OrderHelper.instance().day = result;
-                                //       });
-                                //     },
-                                //     validator: (value) {
-                                //       if (value!.isEmpty) {
-                                //         return "this field is required";
-                                //       } else if (int.parse(value) <
-                                //           DateTime.now().day) {
-                                //         return "the day must be greater than or equal current year";
-                                //       }
-                                //       return null;
-                                //     },
-                                //   ),
-                                // ),
+                                Container(
+                                  height: AppSize.s36,
+                                  width: AppSize.s70,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: AppSize.s1,
+                                      color: ColorManager.grey,
+                                    ),
+                                  ),
+                                  child: TextFormField(
+                                    style:
+                                        const TextStyle(fontSize: FontSize.s13),
+                                    keyboardType: TextInputType.number,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      label: Text(
+                                        'الشهر',
+                                        style: TextStyle(
+                                            color: ConstantColor.primaryColor,
+                                            fontSize: AppSize.s14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        horizontal: AppPadding.p5,
+                                        vertical: AppPadding.p15,
+                                      ),
+                                      hintStyle: const TextStyle(
+                                          fontSize: FontSize.s13),
+                                      border: InputBorder.none,
+                                    ),
+                                    onChanged: (value) {
+                                      String result = "0";
+                                      if (value.length == 1) {
+                                        result = result + value;
+                                      } else {
+                                        result = value;
+                                      }
+                                      setState(() {
+                                        OrderHelper.instance().month = result;
+                                      });
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "this field is required";
+                                      } else if (int.parse(value) <
+                                          DateTime.now().month) {
+                                        return "the month must be greater than or equal current year";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  height: AppSize.s36,
+                                  width: AppSize.s70,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: AppSize.s1,
+                                      color: ColorManager.grey,
+                                    ),
+                                  ),
+                                  child: TextFormField(
+                                    style:
+                                        const TextStyle(fontSize: FontSize.s13),
+                                    keyboardType: TextInputType.number,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      label: Text(
+                                        'اليوم',
+                                        style: TextStyle(
+                                            color: ConstantColor.primaryColor,
+                                            fontSize: AppSize.s14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        horizontal: AppPadding.p5,
+                                        vertical: AppPadding.p15,
+                                      ),
+                                      hintStyle: const TextStyle(
+                                          fontSize: FontSize.s13),
+                                      border: InputBorder.none,
+                                    ),
+                                    onChanged: (value) {
+                                      String result = "0";
+                                      if (value.length == 1) {
+                                        result = result + value;
+                                      } else {
+                                        result = value;
+                                      }
+                                      setState(() {
+                                        OrderHelper.instance().day = result;
+                                      });
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "this field is required";
+                                      } else if (int.parse(value) <
+                                          DateTime.now().day) {
+                                        return "the day must be greater than or equal current year";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ],
