@@ -357,4 +357,29 @@ class OrdersApiService {
       return failedRequest(e.toString());
     }
   }
+
+  FutureOr<Map<String, dynamic>> sendLawyerRequest(FormData data) async {
+    try {
+      Options options = Options(headers: {
+        "authorization":
+            "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
+      });
+      printInfo("the model => $data");
+      Response response = await CrudApiHelper.instance.postRequest(
+        path: POST_LAWYER_ORDERS_REQUEST_PATH,
+        data: data,
+        options: options,
+      );
+      printDone("the send lawyer request done => ${response.data}");
+      return successRequest(response.data);
+    } on DioError catch (error) {
+      //printError("the status code => ${error.response!.statusCode}");
+      final message = DioExceptions.dioErrorHandling(error);
+      printError("the send lawyer request error from dio catch => $message");
+      return failedRequest(message);
+    } catch (e) {
+      printError("the send lawyer request error from catch => ${e.toString()}");
+      return failedRequest(e.toString());
+    }
+  }
 }

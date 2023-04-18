@@ -4,6 +4,7 @@ import 'package:hokok/config/screen_handler.dart';
 import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/components/appbar_comp/app_bar_widget.dart';
 import 'package:hokok/core/font_manager.dart';
+import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 
 import '../../../../../core/values_manager.dart';
@@ -27,44 +28,49 @@ class _LaweyrOrderDetailsScreenState extends State<LaweyrOrderDetailsScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _AppbarWidget(widget: widget),
+            _AppbarWidget(order: widget.order!),
             SizedBox(
-              height: 10.h,
+              height: 30.h,
             ),
             _BodyWidget(
-              order: widget.order!.title!,
+              order: widget.order!.city!,
               title: "البلد",
             ),
             SizedBox(
-              height: 13.h,
+              height: 20.h,
             ),
             _BodyWidget(
               order: widget.order!.major,
               title: "التصنيف",
             ),
             SizedBox(
-              height: 13.h,
+              height: 20.h,
             ),
             _BodyWidget(
-              order: widget.order!.createdAt,
-              title: "التوقيت",
+              order: widget.order!.requests.toString(),
+              title: "عدد المحامين",
             ),
             SizedBox(
-              height: 13.h,
+              height: 40.h,
             ),
             Container(
-              height: 30.h,
-              width: 100.w,
+              height: 40.h,
+              width: 130.w,
               alignment: Alignment.centerRight,
               padding: EdgeInsets.all(5.sp),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.sp),
+                  bottomLeft: Radius.circular(
+                    20.sp,
+                  ),
+                ),
                 color: ColorManager.primary,
               ),
               child: Text(
                 "التفاصيل",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   fontFamily: FontConstants.fontFamily,
                   color: Colors.white,
                 ),
@@ -77,13 +83,17 @@ class _LaweyrOrderDetailsScreenState extends State<LaweyrOrderDetailsScreen> {
               alignment: Alignment.center,
               child: Container(
                 height: 130.h,
-                width: 200.w,
-                padding: EdgeInsets.all(10.sp),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 1),
-                  borderRadius: BorderRadius.circular(16),
+                width: 230.w,
+                padding: EdgeInsets.only(
+                  top: 20.sp,
+                  right: 20.sp,
+                  left: 10.sp,
                 ),
-                alignment: Alignment.centerRight,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                alignment: Alignment.topRight,
                 child: Text(
                   widget.order!.description!,
                   style: TextStyle(
@@ -94,19 +104,28 @@ class _LaweyrOrderDetailsScreenState extends State<LaweyrOrderDetailsScreen> {
               ),
             ),
             SizedBox(
-              height: 12.h,
+              height: 20.h,
             ),
             Align(
               alignment: Alignment.center,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    RouteGenerator.getRoute(
+                      RouteSettings(
+                        name: Routes.lawyerSendRequesrScreen,
+                        arguments: widget.order,
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
                   height: 30.h,
-                  width: 120.w,
+                  width: 130.w,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: ColorManager.fourth,
-                    borderRadius: BorderRadius.circular(13),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     "تقديم الطلب",
@@ -129,10 +148,10 @@ class _LaweyrOrderDetailsScreenState extends State<LaweyrOrderDetailsScreen> {
 class _AppbarWidget extends StatelessWidget {
   const _AppbarWidget({
     super.key,
-    required this.widget,
+    required this.order,
   });
 
-  final LaweyrOrderDetailsScreen widget;
+  final OrderInfoModel order;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +165,7 @@ class _AppbarWidget extends StatelessWidget {
         },
         icon: Icon(
           Icons.home,
-          size: 20.h,
+          size: 25.h,
           color: Colors.black45,
         ),
         child: Column(
@@ -154,7 +173,7 @@ class _AppbarWidget extends StatelessWidget {
           children: [
             const Spacer(),
             Text(
-              widget.order!.title!,
+              order.title!,
               style: TextStyle(
                 fontSize: 25.sp,
                 fontFamily: FontConstants.fontFamily,
@@ -166,7 +185,7 @@ class _AppbarWidget extends StatelessWidget {
               height: 20.h,
             ),
             Container(
-              width: 130.w,
+              width: 120.w,
               height: 20.h,
               padding: EdgeInsets.all(3.sp),
               alignment: Alignment.center,
@@ -175,10 +194,10 @@ class _AppbarWidget extends StatelessWidget {
                 color: ColorManager.fourth,
               ),
               child: Text(
-                "نشط منذو نصف ساعه",
+                order.createdAt!,
                 style: TextStyle(
                   fontFamily: FontConstants.fontFamily,
-                  fontSize: 8.sp,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
                 ),
@@ -200,31 +219,33 @@ class _BodyWidget extends StatelessWidget {
   final String? title;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
+    return Container(
+      margin: EdgeInsets.only(right: 10.w),
+      width: 220.w,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
               title.toString(),
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: 14.sp,
                 fontFamily: FontConstants.fontFamily,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(
-              width: 20.w,
-            ),
-            Container(
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Expanded(
+            child: Container(
               height: 30.h,
-              width: 70.w,
+              width: 110.w,
               decoration: BoxDecoration(
                 color: ColorManager.primary,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
               ),
               alignment: Alignment.center,
               child: Text(
@@ -236,9 +257,9 @@ class _BodyWidget extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

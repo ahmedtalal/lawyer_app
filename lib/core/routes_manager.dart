@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_notifications_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_order_details_screen.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_own_order_details_screen.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_send_request_screen.dart';
 import 'package:hokok/presentation/screen/auth/create_client_account_screen.dart';
 import 'package:hokok/presentation/screen/auth/create_lawyer_account_screen.dart';
 import 'package:hokok/presentation/screen/auth/login_screen.dart';
@@ -50,6 +53,8 @@ class Routes {
   static const String lawyerHomeScreen = '/lawyerHomeScreen';
   static const String notificatiosLawyersScreen = "/notificationsLawyersScreen";
   static const String lawyerOrderDetailsScreen = "/lawyerOrderDetailsScreen";
+  static const String lawyerSendRequesrScreen = "/lawyerSendRequesrScreen";
+  static const String lawyerOwnOrderDetailsScreen = "/lawyerOwnOrdersScreen";
 }
 
 class RouteGenerator {
@@ -117,9 +122,22 @@ class RouteGenerator {
             builder: (_) => const NotificationsLawyerScreen());
       case Routes.lawyerOrderDetailsScreen:
         return MaterialPageRoute(
-            builder: (_) => LaweyrOrderDetailsScreen(
-                  order: settings.arguments as OrderInfoModel,
-                ));
+          builder: (_) => LaweyrOrderDetailsScreen(
+            order: settings.arguments as OrderInfoModel,
+          ),
+        );
+      case Routes.lawyerSendRequesrScreen:
+        return MaterialPageRoute(
+          builder: (_) => LawyerSendRequestScreen(
+            order: settings.arguments as OrderInfoModel,
+          ),
+        );
+      case Routes.lawyerOwnOrderDetailsScreen:
+        return MaterialPageRoute(
+          builder: (_) => LawyerOwnOrderDetailsScreen(
+            order: settings.arguments as OwnOrdersInfoModel,
+          ),
+        );
       default:
         return _unDefinedRoute();
     }

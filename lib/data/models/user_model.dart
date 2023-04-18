@@ -41,7 +41,7 @@ class UserModelInfo {
   String? licenseImg;
   int? idNumber;
   String? idExpiryDate;
-  List<UserMajors>? majors;
+  List<int>? majors;
 
   UserModelInfo({
     this.id,
@@ -80,12 +80,8 @@ class UserModelInfo {
     licenseImg = json['license_img'];
     idNumber = json['id_number'];
     idExpiryDate = json['id_expiry_date'];
-    if (json['majors'] != null) {
-      majors = <UserMajors>[];
-      json['majors'].forEach((v) {
-        majors!.add(new UserMajors.fromJson(v));
-      });
-    }
+    majors:
+    json['majors'];
   }
 
   Map<String, dynamic> lawyerToJson() {
@@ -106,9 +102,7 @@ class UserModelInfo {
     data['license_img'] = this.licenseImg;
     data['id_number'] = this.idNumber;
     data['id_expiry_date'] = this.idExpiryDate;
-    if (this.majors != null) {
-      data['majors'] = this.majors!.map((v) => v.toJson()).toList();
-    }
+    data["majors"] = this.majors;
     return data;
   }
 

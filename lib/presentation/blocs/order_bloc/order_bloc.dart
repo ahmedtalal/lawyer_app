@@ -22,6 +22,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     on<AcceptClientOrderEvent>(acceptClientOrder);
     on<UpdateCLientOrderStatusEvent>(updateClientOrderSatus);
     on<AddClientFeedbackEvent>(addClientFeedback);
+    on<SendLawyerRequestEvent>(sendLawyerRequest);
   }
 
   FutureOr<void> getPublicOrdersForLawyer(
@@ -194,6 +195,19 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
           OrderHelper.instance().orderFeedback,
           OrderHelper.instance().orderRate,
         );
+    if (result[mapKey] == successReposne) {
+      emit(OrderActionSuccessState());
+    } else {
+      emit(OrderActionFailedState(error: result[mapValue]));
+    }
+  }
+
+  FutureOr<void> sendLawyerRequest(
+      SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
+    emit(OrderLoadingState());
+    final result = await UseCaseProvider.instance()
+        .creator<OrderRepository>(OrderRepository.instance())
+        .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
