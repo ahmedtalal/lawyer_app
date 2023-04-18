@@ -34,3 +34,4 @@ const String GET_ALL_PLANS_REQUEST_PATH = "plans";
 const String GET_ALL_WALLET_REQUEST_PATH = "wallet";
 const String GET_ALL_TRANSACTIONS_REQUEST_PATH = "transactions";
 const String GET_ALL_LAWYERS_REQUEST_PATH = "lawyer/all?";
+const String GET_ALL_statistics_REQUEST_PATH = "client/statistics";

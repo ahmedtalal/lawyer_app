@@ -6,4 +6,6 @@ abstract class ILawyerInterface {
   FutureOr<List<LawyerAttributes>> getAllLawyers(
     Map<String, dynamic> data,
   );
+
+  FutureOr<Map<String, dynamic>> getStatistics();
 }
