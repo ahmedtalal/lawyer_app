@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/debug_prints.dart';
+import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
 
@@ -40,6 +41,39 @@ class OrderHelper {
   List<File> files = [];
   String _convetStrToDate() {
     return "$year-$month-$day";
+  }
+
+  List<OwnOrdersInfoModel> getAllInPublishedOrders(
+      List<OwnOrdersInfoModel> orders) {
+    List<OwnOrdersInfoModel> publishedOrders = [];
+    for (var order in orders) {
+      if (order.status!.toLowerCase() == "published") {
+        publishedOrders.add(order);
+      }
+    }
+    return publishedOrders;
+  }
+
+  List<OwnOrdersInfoModel> getAllInProgressOrders(
+      List<OwnOrdersInfoModel> orders) {
+    List<OwnOrdersInfoModel> inprogressOrders = [];
+    for (var order in orders) {
+      if (order.status!.toLowerCase() == "inprogress") {
+        inprogressOrders.add(order);
+      }
+    }
+    return inprogressOrders;
+  }
+
+  List<OwnOrdersInfoModel> getAllCompletedOrders(
+      List<OwnOrdersInfoModel> orders) {
+    List<OwnOrdersInfoModel> completedOrders = [];
+    for (var order in orders) {
+      if (order.status!.toLowerCase() == "completed") {
+        completedOrders.add(order);
+      }
+    }
+    return completedOrders;
   }
 
   CreateOrderModel prepareClientOrderModel() => CreateOrderModel(

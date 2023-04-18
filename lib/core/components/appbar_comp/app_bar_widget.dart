@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -7,18 +8,19 @@ class AppBarWidget extends StatelessWidget {
     required this.onClick,
     required this.child,
     required this.icon,
+    this.optionChild,
     super.key,
   });
 
   final void Function()? onClick;
-  final Widget? child, icon;
+  final Widget? child, icon, optionChild;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: ColorManager.primary,
       padding: EdgeInsets.only(
-        left: 30.w,
+        left: 10.w,
         top: 20.h,
       ),
       child: Row(
@@ -26,12 +28,18 @@ class AppBarWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Spacer(),
-          child!,
-          const Spacer(),
+          optionChild == null ? Container() : optionChild!,
+          SizedBox(
+            width: 20.w,
+          ),
           InkWell(
             onTap: onClick,
             child: icon,
           ),
+          SizedBox(
+            width: 12.w,
+          ),
+          child!,
         ],
       ),
     );

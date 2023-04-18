@@ -35,6 +35,9 @@ class LawyerHelper {
   onGetAllLawyers(BuildContext context) =>
       context.read<LawyersBloc>().add(GetAllLawyersEvent());
 
+  onGetAllLawyerStatistics(BuildContext context) =>
+      context.read<LawyersBloc>().add(GetAllLawyerStatisticsEvent());
+
   ScrollController paginationListener(BuildContext context) {
     return scrollController
       ..addListener(() {
