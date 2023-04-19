@@ -27,9 +27,7 @@ class OrderHelper {
   String orderFeedback = "";
   double orderRate = 0;
   String title = "";
-  String year = "";
-  String month = "";
-  String day = "";
+  String expextedTime = "";
   double clientProposedBudget = 0;
   String clientDescription1 = "";
   String clientDescription2 = "";
@@ -39,9 +37,7 @@ class OrderHelper {
   String description1 = "";
   int expectedDays = 0;
   List<File> files = [];
-  String _convetStrToDate() {
-    return "$year-$month-$day";
-  }
+
 
   List<OwnOrdersInfoModel> getAllInPublishedOrders(
       List<OwnOrdersInfoModel> orders) {
@@ -82,7 +78,7 @@ class OrderHelper {
         subMajorId: subMajorId,
         description1: description1,
         type: type,
-        clientExpectedDate: _convetStrToDate(),
+        clientExpectedDate: expextedTime,
         clientProposedBudget: clientProposedBudget,
       );
 
