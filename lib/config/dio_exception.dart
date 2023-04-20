@@ -25,11 +25,11 @@ class DioExceptions implements Exception {
       int? statusCode, Map<String, dynamic> error) {
     switch (statusCode) {
       case 400:
-        return error["message"];
+        return error["error"];
       case 404:
-        return error["message"];
+        return error["error"];
       case 409:
-        return error["message"];
+        return error["error"];
       case 500:
         return "internal server error";
       case 401:

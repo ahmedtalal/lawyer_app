@@ -22,10 +22,10 @@ class LayoutCubit extends Cubit<LayoutState> {
   LayoutCubit() : super(LayoutInitial());
 
   List<Widget> screens = [
-    MainScreen(),
-    FindLawyerScreen(),
-    BrowseOrderScreen(),
-    TalkWithUsScreen(),
+    const MainScreen(),
+    const FindLawyerScreen(),
+    const BrowseOrderScreen(),
+    const TalkWithUsScreen(),
     const Scaffold(
       body: Center(child: Text('log Out')),
     ),
@@ -51,10 +51,10 @@ class LayoutCubit extends Cubit<LayoutState> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
+              const Center(
                 child: Text(
                   'هل أنت متأكد من تسجيل الخروج؟',
-                  style: const TextStyle(
+                  style:  TextStyle(
                       color: ColorManager.primary,
                       fontSize: FontSize.s22,
                       fontFamily: FontConstants.fontFamily),

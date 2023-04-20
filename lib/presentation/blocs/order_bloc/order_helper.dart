@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
+import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
 
@@ -47,7 +48,7 @@ class OrderHelper {
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> publishedOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "published") {
+      if (order.statusCode! == 1) {
         publishedOrders.add(order);
       }
     }
@@ -56,24 +57,35 @@ class OrderHelper {
 
   List<OwnOrdersInfoModel> getAllInProgressOrders(
       List<OwnOrdersInfoModel> orders) {
-    List<OwnOrdersInfoModel> inprogressOrders = [];
+    List<OwnOrdersInfoModel> inProgressOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "inprogress") {
-        inprogressOrders.add(order);
+      if (order.statusCode! == 2) {
+        inProgressOrders.add(order);
       }
     }
-    return inprogressOrders;
+    return inProgressOrders;
   }
 
   List<OwnOrdersInfoModel> getAllCompletedOrders(
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> completedOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "completed") {
+      if (order.statusCode! == 8) {
         completedOrders.add(order);
       }
     }
     return completedOrders;
+  }
+
+  List<RequestsLawyerOrderInfo> getAllMyOrders(
+      List<RequestsLawyerOrderInfo> orders) {
+    List<RequestsLawyerOrderInfo> myOrders = [];
+    for (var order in orders) {
+      if (order.status == 0) {
+        myOrders.add(order);
+      }
+    }
+    return myOrders;
   }
 
   CreateOrderModel prepareClientOrderModel() => CreateOrderModel(

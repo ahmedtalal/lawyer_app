@@ -33,7 +33,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .getPublicOrdersForLawyer(
             OrderHelper.instance().city, OrderHelper.instance().majorId);
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get public order for lawyer failed"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(PublicOrderLoadedState(result));
     }
@@ -50,7 +50,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
           OrderHelper.instance().status,
         );
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("there is no data"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(OwnOrderLoadedState(result));
     }
@@ -63,7 +63,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getPrivateOrdersForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get own order for lawyer failed"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(PrivateOrderLoadedState(result));
     }
@@ -76,7 +76,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllRequestesOrderForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("there is no data"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(RequestOrderLoadedState(result));
     }
@@ -137,7 +137,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllOrdersForClient();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get all client orders failed"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(ClientOrdersLoadedState(result));
     }
@@ -150,7 +150,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllOrderRequestsForClient(OrderHelper.instance().orderId);
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get all requests order error"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(ClientOrdersRequestLoadedState(result));
     }

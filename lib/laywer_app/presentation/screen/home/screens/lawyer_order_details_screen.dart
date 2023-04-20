@@ -159,55 +159,65 @@ class _AppbarWidget extends StatelessWidget {
       width: double.infinity,
       height: AppSize.s234,
       color: ColorManager.primary,
-      child: AppBarWidget(
-        onClick: () {
-          Navigator.of(context).pop();
-        },
-        icon: Icon(
-          Icons.home,
-          size: 25.h,
-          color: Colors.black45,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const Spacer(),
-            Text(
-              order.title!,
-              style: TextStyle(
-                fontSize: 25.sp,
-                fontFamily: FontConstants.fontFamily,
-                fontWeight: FontWeight.w400,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Container(
-              width: 120.w,
-              height: 20.h,
-              padding: EdgeInsets.all(3.sp),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: ColorManager.fourth,
-              ),
-              child: Text(
-                order.createdAt!,
+      padding: EdgeInsets.only(left: 10.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 30.h,),
+              Text(
+                order.title!,
                 style: TextStyle(
+                  fontSize: 25.sp,
                   fontFamily: FontConstants.fontFamily,
-                  fontSize: 10.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
                 ),
               ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                width: 120.w,
+                height: 20.h,
+                padding: EdgeInsets.all(3.sp),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: ColorManager.fourth,
+                ),
+                child: Text(
+                  order.createdAt!,
+                  style: TextStyle(
+                    fontFamily: FontConstants.fontFamily,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30.h,
+              ),
+            ],
+          ),
+          SizedBox(width: 100.w,),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+
+            },
+            child: Icon(
+              Icons.home,
+              size: 32.h,
+              color: Colors.black45,
             ),
-            SizedBox(
-              height: 30.h,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

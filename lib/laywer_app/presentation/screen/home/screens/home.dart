@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hokok/core/assets_manager.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues/orders_screen.dart';
 import 'package:hokok/presentation/blocs/lawyer_bloc/lawyer_bloc.dart';
 import 'package:hokok/presentation/blocs/lawyer_bloc/lawyer_helper.dart';
 import 'package:hokok/presentation/blocs/lawyer_bloc/lawyer_states.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
+import 'package:hokok/presentation/blocs/profile_bloc/profile_states.dart';
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/components/appbar_comp/app_bar_comp.dart';
 import '../../../../../core/values_manager.dart';
@@ -21,6 +27,7 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
   @override
   void initState() {
     LawyerHelper.instance().onGetAllLawyerStatistics(context);
+    ProfileHelper.instance().getLawyerProfileAction(context);
     super.initState();
   }
 
@@ -51,7 +58,7 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
           }, builder: (context, state) {
             if (state is LawyerFailedLoadedState) {
               statistics;
-            } else if (state is LawyersLoadedState) {
+            } else if (state is LawyersLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -161,19 +168,59 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
         width: double.infinity,
         height: AppSize.s234,
         color: ColorManager.primary,
-        child: AppBarComp(
-          onTap: () {
-            Navigator.of(context).push(
-              RouteGenerator.getRoute(
-                const RouteSettings(name: Routes.notificatiosLawyersScreen),
+        padding: EdgeInsets.only(top: 10.h,left: 5.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+             Image(
+              image: const AssetImage(
+                AssetsManager.logo,
               ),
-            );
-          },
-          icon: Icon(
-            Icons.notifications,
-            color: ColorManager.thirdy,
-            size: 30.sp,
-          ),
+              width: 200.w,
+               fit: BoxFit.cover,
+            ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      RouteGenerator.getRoute(
+                        const RouteSettings(name: Routes.notificatiosLawyersScreen),
+                      ),
+                    );
+                  },
+                  child: Icon(
+                    Icons.notifications,
+                    color: ColorManager.thirdy,
+                    size: 30.sp,
+                  ),
+                ),
+                SizedBox(width: 10.w,),
+                BlocConsumer<ProfileBloc, ProfileStates>(
+                  listener: (context, state) {
+                    if (state is ProfileFailedState) {
+                      state.authErrorMessage(context, state.error);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is ProfileLoadedState) {
+                      return UserPorfileWidget(state: state.userEntity!);
+                    } else if (state is ProfileFailedState) {
+                      return  const UserPorfileWidget(state: null);
+                    } else if (state is ProfileLoadingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+
+              ],
+            ),
+
+          ],
         ),
       );
 }
