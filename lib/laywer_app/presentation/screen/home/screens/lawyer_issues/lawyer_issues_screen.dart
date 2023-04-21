@@ -5,7 +5,6 @@ import 'package:hokok/config/screen_handler.dart';
 import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
-import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
@@ -76,7 +75,9 @@ class _BodyWidget extends StatelessWidget {
         Expanded(
           child:
               BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
-            if (state is OrderFailedLoadedState) {
+            if (state is OwnOrderFailedLoadedState) {
+              state.authErrorMessage(context, state.error);
+            }else if(state is RequesrOrderFailedLoadedState){
               state.authErrorMessage(context, state.error);
             } else if (state is OwnOrderLoadedState) {
               ownOrders = state.ownOrdes!;
@@ -89,22 +90,20 @@ class _BodyWidget extends StatelessWidget {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is OrderFailedLoadedState) {
+            } else if (state is OwnOrderFailedLoadedState) {
               return   _issuesContainer(
-                orders:ownOrders.isEmpty? []:ownOrders,
-                requestOrders:requestOrders.isEmpty ? [] : requestOrders  ,
+                orders:ownOrders,
+                requestOrders: requestOrders  ,
+              );
+            }else if (state is RequesrOrderFailedLoadedState) {
+              return   _issuesContainer(
+                orders:ownOrders,
+                requestOrders:requestOrders  ,
               );
             }
             return _issuesContainer(
               orders: ownOrders,
               requestOrders: requestOrders,
-            );
-            return ListView.builder(
-              padding: EdgeInsets.only(top: 10.h),
-              itemCount: ownOrders.length,
-              itemBuilder: (context, index) {
-                return _LawyerIssuesViewWidget(order: ownOrders[index]);
-              },
             );
           }),
         )

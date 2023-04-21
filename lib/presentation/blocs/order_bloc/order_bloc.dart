@@ -33,7 +33,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .getPublicOrdersForLawyer(
             OrderHelper.instance().city, OrderHelper.instance().majorId);
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("لا يوجد بيانات"));
+      emit(PublicOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(PublicOrderLoadedState(result));
     }
@@ -50,7 +50,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
           OrderHelper.instance().status,
         );
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("لا يوجد بيانات"));
+      emit(OwnOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(OwnOrderLoadedState(result));
     }
@@ -63,7 +63,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getPrivateOrdersForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("لا يوجد بيانات"));
+      emit(PrivateOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(PrivateOrderLoadedState(result));
     }
@@ -76,7 +76,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllRequestesOrderForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("لا يوجد بيانات"));
+      emit(RequesrOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(RequestOrderLoadedState(result));
     }
@@ -137,7 +137,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllOrdersForClient();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("لا يوجد بيانات"));
+      emit(ClientOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(ClientOrdersLoadedState(result));
     }

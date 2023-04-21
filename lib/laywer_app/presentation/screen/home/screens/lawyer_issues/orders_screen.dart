@@ -71,7 +71,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                   ),
                   BlocConsumer<OrderBloc, OrderStates>(
                       listener: (context, state) {
-                        if (state is OrderFailedLoadedState) {
+                        if (state is PublicOrderFailedLoadedState) {
                           state.authErrorMessage(context, state.error);
                         } else if (state is PublicOrderLoadedState) {
                           publicOrders = state.orders!;

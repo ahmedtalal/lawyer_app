@@ -24,33 +24,35 @@ class _LawyerOffersScreenState extends State<LawyerOffersScreen> {
     super.initState();
   }
 
+  static List<RequestsLawyerOrderInfo> requestOrders = [];
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OrderBloc, OrderStates>(
       listener: (context, state) {
-        if (state is OrderFailedLoadedState) {
+        if (state is RequesrOrderFailedLoadedState) {
           state.authErrorMessage(context, state.error);
+        } else if (state is RequestOrderLoadedState) {
+          requestOrders = state.requestOrders!;
         }
       },
       builder: (context, state) {
-        if (state is RequestOrderLoadedState) {
-          return Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.only(top: 15.h),
-              itemCount: state.requestOrders!.length,
-              itemBuilder: (context, index) {
-                return RequestOrderView(order: state.requestOrders![index]);
-              },
-            ),
-          );
-        } else if (state is OrderLoadingState) {
+        if (state is OrderLoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state is OrderFailedLoadedState) {
           return emptyDataSharedWidget();
         }
-        return Container();
+        return Container(
+          child: ListView.builder(
+            padding: EdgeInsets.only(top: 15.h),
+            itemCount: requestOrders.length,
+            itemBuilder: (context, index) {
+              return RequestOrderView(order: requestOrders[index]);
+            },
+          ),
+        );
       },
     );
   }

@@ -40,7 +40,7 @@ class OrderHelper {
   String description1 = "";
   int expectedDays = 0;
   List<File> files = [];
-  String _convetStrToDate() {
+  String _convertStrToDate() {
     return "$year-$month-$day";
   }
 
@@ -94,7 +94,7 @@ class OrderHelper {
         subMajorId: subMajorId,
         description1: description1,
         type: type,
-        clientExpectedDate: _convetStrToDate(),
+        clientExpectedDate: _convertStrToDate(),
         clientProposedBudget: clientProposedBudget,
       );
 

@@ -6,7 +6,6 @@ import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
 import 'package:hokok/domain/entities/private_order_for_lawyer_entity.dart';
-import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/home.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
@@ -42,7 +41,7 @@ class _NotificationsLawyerScreenState extends State<NotificationsLawyerScreen> {
               height: 15.h,
             ),
             BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
-              if (state is OrderFailedLoadedState) {
+              if (state is PrivateOrderFailedLoadedState) {
                 state.authErrorMessage(context, state.error);
               }
             }, builder: (context, state) {
@@ -61,7 +60,7 @@ class _NotificationsLawyerScreenState extends State<NotificationsLawyerScreen> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is OrderFailedLoadedState) {
+              } else if (state is PrivateOrderFailedLoadedState) {
                 return emptyDataSharedWidget();
               }
               return Container();
