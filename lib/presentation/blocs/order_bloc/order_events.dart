@@ -14,6 +14,8 @@ class AddOrderFeedbackForLawyerEvent extends OrderEvents {}
 
 class CreateClientOrderEvent extends OrderEvents {}
 
+class CreatePrivateOrderEvent extends OrderEvents {}
+
 class GetAllClientOderEvent extends OrderEvents {}
 
 class GetClientOrderRequestEvent extends OrderEvents {}

@@ -100,7 +100,8 @@ class _SubMajorsScreenState extends State<SubMajorsScreen> {
   SizedBox _space(double space) => SizedBox(height: space);
 
   Widget _body(BuildContext context) =>
-      BlocConsumer<MajorBloc, MajorStates>(listener: (context, state) {
+      BlocConsumer<MajorBloc, MajorStates>(
+          listener: (context, state) {
         if (state is SubMajorSuccessLoadedState) {
           subMajors = state.subMajorsList;
         }

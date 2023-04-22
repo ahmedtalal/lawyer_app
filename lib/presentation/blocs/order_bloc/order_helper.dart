@@ -27,7 +27,7 @@ class OrderHelper {
   String orderFeedback = "";
   double orderRate = 0;
   String title = "";
-  String expextedTime = "";
+  String expectedTime = "";
   double clientProposedBudget = 0;
   String clientDescription1 = "";
   String clientDescription2 = "";
@@ -78,9 +78,19 @@ class OrderHelper {
         subMajorId: subMajorId,
         description1: description1,
         type: type,
-        clientExpectedDate: expextedTime,
+        clientExpectedDate: expectedTime,
         clientProposedBudget: clientProposedBudget,
       );
+  CreateOrderModel preparePrivateOrderModel() => CreateOrderModel(
+    title: title,
+    majorId: majorId,
+    subMajorId: subMajorId,
+    description1: description1,
+    type: type,
+    lawyerId: lawyerId,
+    clientExpectedDate: expectedTime,
+    clientProposedBudget: clientProposedBudget,
+  );
 
   FormData lawyerRequestModel() {
     FormData formData = FormData.fromMap({
@@ -138,6 +148,12 @@ class OrderHelper {
       BuildContext context, GlobalKey<FormState> form) {
     if (form.currentState!.validate()) {
       context.read<OrderBloc>().add(CreateClientOrderEvent());
+    }
+  }
+  onCreatePrivateOrderActionForClient(
+      BuildContext context, GlobalKey<FormState> form) {
+    if (form.currentState!.validate()) {
+      context.read<OrderBloc>().add(CreatePrivateOrderEvent());
     }
   }
 

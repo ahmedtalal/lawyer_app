@@ -239,7 +239,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                                   setState(() {
                                     if (value.isNotEmpty) {
                                       OrderHelper.instance()
-                                          .expextedTime =
+                                          .expectedTime =
                                           value;
                                     }
                                   });
