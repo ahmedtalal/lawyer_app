@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hokok/core/components/shared_widget.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
 import 'package:hokok/domain/entities/major_entity.dart';
@@ -17,6 +18,7 @@ import 'package:hokok/core/strings_manager.dart';
 import 'package:hokok/presentation/screen/orders/sub_major/sub_majors_screen.dart';
 
 import '../../../core/constants_manager.dart';
+import '../../../core/shared_widget/button.dart';
 import '../../../core/shared_widget/text.dart';
 import '../../../core/values_manager.dart';
 
@@ -102,17 +104,10 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
             return emptyDataSharedWidget();
           }
           return Container(
-            height: 380.h,
+            height: 450.h,
             padding: const EdgeInsets.all(8),
             width: AppSize.s312,
             alignment: AlignmentDirectional.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.grey,
-                width: 0.5,
-              ),
-            ),
             child: GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -157,34 +152,97 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
             color: primeColor ? ColorManager.primary : ColorManager.secondary,
             borderRadius: BorderRadius.circular(AppSize.s16),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
+            alignment: AlignmentDirectional.topCenter,
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p5,
-                    vertical: AppPadding.p2_6,
-                  ),
-                  child: Text(
-                    model.name!,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: AppIntegerNum.i2,
-                    style: const TextStyle(
-                        color: ColorManager.white,
-                        fontFamily: FontConstants.fontFamily),
-                  ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      barrierLabel: '',
+                      builder: (BuildContext context) {
+                        return Center(
+                          child: Container(
+                            width: 200,
+                            height: 200,
+                            color: Colors.white,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                 Text(
+                                  model.name!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                const Text(
+                                  'content',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(height: 20),
+                                Container(
+                                  width: 120,
+                                  height: 30,
+                                  child: DefaultElevatedButton(
+                                      'اغلاق',
+                                    fontSize:  FontSize.s10,
+
+
+                                    onPressed: () => Navigator.of(context).pop(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Icon(color: Colors.white, Icons.info_outline,size: 14,),
                 ),
               ),
-              CircleAvatar(
-                radius: AppSize.s15,
-                backgroundColor: Colors.grey[50],
-                child: Image.network(
-                  model.icon!,
-                  height: AppSize.s15,
-                ),
-              ),
+              Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p3,
+                        vertical: AppPadding.p2_6,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            model.name!,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: AppIntegerNum.i1,
+                            style: const TextStyle(
+                                color: ColorManager.white,
+                                fontSize: 12,
+                                fontFamily: FontConstants.fontFamily),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: AppSize.s15,
+                    backgroundColor: Colors.grey[50],
+                    child: Image.network(
+                      model.icon!,
+                      height: AppSize.s15,
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
