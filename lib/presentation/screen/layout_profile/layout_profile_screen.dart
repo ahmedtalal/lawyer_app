@@ -254,7 +254,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                   ],
                 ),
                  SizedBox(
-                  width: 130.w,
+                  width: 80.w,
                 ),
                 Row(
                   children: [

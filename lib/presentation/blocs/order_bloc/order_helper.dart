@@ -9,6 +9,8 @@ import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
 
+import '../../../domain/entities/order_for_client_entity.dart';
+
 class OrderHelper {
   static OrderHelper? _orderHelper;
   OrderHelper._internal();
@@ -39,22 +41,53 @@ class OrderHelper {
   List<File> files = [];
 
 
+  List<ClientOrderInfo> getClientAllPublishedOrders(
+      List<ClientOrderInfo> orders) {
+    List<ClientOrderInfo> publishedOrders = [];
+    for (var order in orders) {
+      if (order.statusCode! ==  1) {
+        publishedOrders.add(order);
+      }
+    }
+    return  publishedOrders;
+  }
+  List<ClientOrderInfo> getClientAllInProgressOrders(
+      List<ClientOrderInfo> orders) {
+    List<ClientOrderInfo> publishedOrders = [];
+    for (var order in orders) {
+      if (order.statusCode! ==  2) {
+        publishedOrders.add(order);
+      }
+    }
+    return  publishedOrders;
+  }
+  List<ClientOrderInfo> getClientAllCompletedOrders(
+      List<ClientOrderInfo> orders) {
+    List<ClientOrderInfo> publishedOrders = [];
+    for (var order in orders) {
+      if (order.statusCode! ==  8) {
+        publishedOrders.add(order);
+      }
+    }
+    return  publishedOrders;
+  }
+
   List<OwnOrdersInfoModel> getAllInPublishedOrders(
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> publishedOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "published") {
+      if (order.statusCode! ==  2) {
         publishedOrders.add(order);
       }
     }
-    return publishedOrders;
+    return  publishedOrders;
   }
 
   List<OwnOrdersInfoModel> getAllInProgressOrders(
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> inprogressOrders = [];
     for (var order in orders) {
-      if (order.status!.toLowerCase() == "inprogress") {
+      if (order.statusCode! ==  2) {
         inprogressOrders.add(order);
       }
     }
@@ -131,6 +164,8 @@ class OrderHelper {
       context.read<OrderBloc>().add(GetPublicOrdersForLawyerEvent());
   getOwnOrdersForLawyerAction(BuildContext context) =>
       context.read<OrderBloc>().add(GetOwnOrdersForLawyerEvent());
+  getAllOrderForClient(BuildContext context) =>
+      context.read<OrderBloc>().add(GetAllClientOderEvent());
 
   getPrivateOrdersForLawyerAction(BuildContext context) =>
       context.read<OrderBloc>().add(GetPrivateOrdersForLawyerEvent());
