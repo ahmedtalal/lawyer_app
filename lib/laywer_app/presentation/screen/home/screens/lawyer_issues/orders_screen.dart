@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/assets_manager.dart';
 import '../../../../../../core/color_manager.dart';
-import '../../../../../../core/components/appbar_comp/app_bar_comp.dart';
 import '../../../../../../core/constant.dart';
 import '../../../../../../core/debug_prints.dart';
 import '../../../../../../core/font_manager.dart';
@@ -53,7 +52,6 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Expanded(
             child: Container(
               padding: const EdgeInsets.only(right: 20),
@@ -415,7 +413,7 @@ class OrderView extends StatelessWidget {
                 Navigator.of(context).push(
                   RouteGenerator.getRoute(
                     RouteSettings(
-                      name: Routes.lawyerOrderDetailsScreen,
+                      name: Routes.lawyerOwnOrderDetailsScreen,
                       arguments: order,
                     ),
                   ),

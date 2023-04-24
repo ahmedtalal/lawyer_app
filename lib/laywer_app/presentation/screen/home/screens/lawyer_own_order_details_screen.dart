@@ -34,7 +34,7 @@ class _LawyerOwnOrderDetailsScreenState
               SizedBox(
                 height: 20.h,
               ),
-              _bodyWIdget(order: widget.order, context: context),
+              _bodyWidget(order: widget.order, context: context),
             ],
           ),
         ),
@@ -42,7 +42,7 @@ class _LawyerOwnOrderDetailsScreenState
     );
   }
 
-  Widget _bodyWIdget(
+  Widget _bodyWidget(
       {required OwnOrdersInfoModel order, required BuildContext context}) {
     return Container(
       padding: EdgeInsets.only(top: 5.sp, right: 5.w),

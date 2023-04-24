@@ -44,7 +44,7 @@ class _LawyerOffersScreenState extends State<LawyerOffersScreen> {
         } else if (state is OrderFailedLoadedState) {
           return emptyDataSharedWidget();
         }
-        return Container(
+        return SizedBox(
           child: ListView.builder(
             padding: EdgeInsets.only(top: 15.h),
             itemCount: requestOrders.length,
@@ -89,7 +89,9 @@ class RequestOrderView extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+
+              },
               child: const Directionality(
                 textDirection: TextDirection.ltr,
                 child: Icon(
