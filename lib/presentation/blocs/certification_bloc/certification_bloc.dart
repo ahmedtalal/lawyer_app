@@ -8,7 +8,7 @@ import 'package:hokok/presentation/blocs/certification_bloc/certification_events
 import 'package:hokok/presentation/blocs/certification_bloc/certification_states.dart';
 
 class CertificationBloc extends Bloc<CertificationEvents, CertificationStates> {
-  CertificationBloc() : super(CertificationFailedLoadedState()) {
+  CertificationBloc() : super(CertificationInitState()) {
     on<AddLawyerCertificationEvent>(addLawyerCertification);
     on<GetLawyerCertificationsEvent>(getLawyerCertification);
     on<DeleteCertificationEvent>(deleteLawyerCertification);
@@ -43,7 +43,7 @@ String cerId = '';
 
   FutureOr<void> deleteLawyerCertification(
       DeleteCertificationEvent event, Emitter<CertificationStates> emit) async {
-    emit(CertificationLoadingState());
+    emit(LawyerCertificationActionState());
     final result = await UseCaseProvider.instance()
         .creator<CertificationRepository>(CertificationRepository.instance())
         .deleteLawyerCertification(cerId);

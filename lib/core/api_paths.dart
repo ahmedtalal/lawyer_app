@@ -35,3 +35,6 @@ const String GET_ALL_WALLET_REQUEST_PATH = "wallet";
 const String GET_ALL_TRANSACTIONS_REQUEST_PATH = "transactions";
 const String GET_ALL_LAWYERS_REQUEST_PATH = "lawyer/all?";
 const String GET_ALL_statistics_REQUEST_PATH = "client/statistics";
+const String GET_ALL_FAVORITES_REQUEST_PATH = "favorites";
+const String ADD_TO_FAVORITE_REQUEST_PATH = "favorites";
+const String DELETE_FAVORITE_REQUEST_PATH = "favorites/";
