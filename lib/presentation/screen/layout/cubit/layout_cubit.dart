@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../browse_order/browse_order_screen.dart';
+import '../../browse_order/order_details_screen.dart';
 import '../../find_lawyer/find_lawyer_screen.dart';
 import '../../main/main_screen.dart';
 import '../../talk_with_us/talk_with_us_screen.dart';
@@ -14,7 +15,8 @@ class LayoutCubit extends Cubit<LayoutState> {
   List<Widget> screens = [
     MainScreen(),
     FindLawyerScreen(),
-    BrowseOrderScreen(),
+    OrderDetailsScreen(),
+    //BrowseOrderScreen(),
     TalkWithUsScreen(),
   ];
   int currentIndex = 0;
