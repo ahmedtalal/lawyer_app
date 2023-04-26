@@ -54,11 +54,13 @@ class CrudApiHelper {
     required String path,
     Map<String, dynamic>? parameters,
     Options? options,
+    dynamic data,
   }) async {
     return await _initDio().get(
       path,
       queryParameters: parameters,
       options: options,
+      data: data,
     );
   }
 
