@@ -130,21 +130,21 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
       emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
+
   FutureOr<void> createPrivateOrder(
       CreatePrivateOrderEvent event, Emitter<OrderStates> emit) async {
     emit(OrderLoadingState());
     final result = await UseCaseProvider.instance()
         .creator<OrderRepository>(OrderRepository.instance())
         .addOrderForClient(
-      OrderHelper.instance().preparePrivateOrderModel(),
-    );
+          OrderHelper.instance().preparePrivateOrderModel(),
+        );
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
       emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
-
 
   FutureOr<void> getAllOrdersForClient(
       GetAllClientOderEvent event, Emitter<OrderStates> emit) async {

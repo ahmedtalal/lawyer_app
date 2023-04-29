@@ -339,21 +339,93 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        defaultTextFiled(
-                            controller: locationController,
-                            onChange: (value) {
-                              AuthHelper.instance().city = value;
+                        Container(
+                          height: 65,
+                          padding: const EdgeInsets.all(2),
+                          margin: const EdgeInsets.only(bottom: 10, top: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60),
+                            border: Border.all(color: Colors.grey, width: 1),
+                          ),
+                          child: FormField<String>(
+                            builder: (FormFieldState<String> state) {
+                              return InputDecorator(
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    //errorStyle: TextStyle(color: Colors.red[900], fontSize: 16.0),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(30.0))),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    dropdownColor: Colors.white,
+                                    iconSize: 30,
+                                    iconEnabledColor: Colors.red[900],
+                                    hint: Text(
+                                      'المدن',
+                                      style: TextStyle(
+                                          color: ConstantColor.primaryColor),
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: FontConstants.fontFamily,
+                                      color: ConstantColor.primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    value: AuthHelper.instance().city,
+                                    isDense: true,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        printInfo(
+                                            "the value of city is $value");
+                                        AuthHelper.instance().city = value;
+                                      });
+                                      printInfo(
+                                          "the value of city inside auth helper=>${AuthHelper.instance().city}");
+                                    },
+                                    items: AuthHelper.instance()
+                                        .cities
+                                        .map((String value) {
+                                      return DropdownMenuItem(
+                                          value: value.toString(),
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5.0, right: 5.0),
+                                              child: Text(
+                                                value.toString(),
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                          ));
+                                    }).toList(),
+                                  ),
+                                ),
+                              );
                             },
-                            inputType: TextInputType.text,
-                            labelText: 'المدينة',
-                            suffixIcon: Icon(Icons.map_outlined,
-                                color: ConstantColor.primaryColor),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'من فضلك ادخل الموقع';
-                              }
-                              return null;
-                            }),
+                          ),
+                        ),
+                        // defaultTextFiled(
+                        //   controller: locationController,
+                        //   onChange: (value) {
+                        //     AuthHelper.instance().city = value;
+                        //   },
+                        //   inputType: TextInputType.text,
+                        //   labelText: 'المدينة',
+                        //   suffixIcon: Icon(Icons.map_outlined,
+                        //       color: ConstantColor.primaryColor),
+                        //   validator: (value) {
+                        //     if (value!.isEmpty) {
+                        //       return 'من فضلك ادخل الموقع';
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
                         const SizedBox(
                           height: 10,
                         ),

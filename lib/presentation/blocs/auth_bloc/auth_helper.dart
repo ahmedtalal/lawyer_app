@@ -29,7 +29,7 @@ class AuthHelper {
   String name = "";
   String email = "";
   String zone = "";
-  String city = "";
+  String? city;
   List<dynamic>? major;
   String? majorValue;
   int? id;
@@ -42,6 +42,52 @@ class AuthHelper {
   String? licenseImg = "";
   int? idNumber;
   String? idExpireDate = "";
+  List<String> cities = [
+    " الرياض",
+    "جده",
+    "المدينه المنوره",
+    "تبوك",
+    "الدمام",
+    "الاحساء",
+    "القطيف",
+    "خميس مشيط",
+    "المظيلف",
+    "الهفوف",
+    "المبرز",
+    "الطائف",
+    "نجران",
+    "حفر الباطن",
+    "الجبيل",
+    "ضباء",
+    "الخرج",
+    "الثقبة",
+    "ينبع البحر",
+    "الخبر",
+    "عرعر",
+    "الحوية",
+    "عنيزه",
+    "سكاكا",
+    "جيزان",
+    "القريات",
+    "الظهران",
+    "الباحة",
+    "الزلفي",
+    "الرس",
+    "وادى الدواسر",
+    "بيشه",
+    "سيهات",
+    "شروره",
+    "بحره",
+    "تاروت",
+    "الدوادمى",
+    "صبياء",
+    "بيش",
+    "احد رفيدة",
+    "الفريش",
+    "بارق",
+    "الحوطه",
+    "الافلاج",
+  ];
 
   UserModelInfo prepareLawyerInfo() => UserModelInfo(
         id: id,
@@ -51,7 +97,7 @@ class AuthHelper {
         email: email,
         phoneNumber: phoneNumber,
         zone: zone,
-        city: city,
+        city: city ?? cities[0],
         majors: [int.parse(majorValue!)],
         status: status,
         personalImage: personalImage,
