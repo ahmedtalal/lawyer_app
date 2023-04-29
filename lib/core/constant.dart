@@ -7,6 +7,8 @@ class ConstantColor{
   //static Color primaryColor= HexColor("#A16E53");
   static Color secondaryColor=const Color(0XFF17173C);
   static Color greyColor=const Color(0XFF707070);
+  static Color greyWColor=const Color(0XFFe2e2e2);
+
   static Color whiteColor= Colors.white;
 }
 

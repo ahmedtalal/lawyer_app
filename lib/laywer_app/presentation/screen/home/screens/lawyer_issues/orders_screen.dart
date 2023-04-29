@@ -433,7 +433,9 @@ class OrderView extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+          children: [>>>>>> master
+506
+​
             Row(
               children: [
                 RowItems(

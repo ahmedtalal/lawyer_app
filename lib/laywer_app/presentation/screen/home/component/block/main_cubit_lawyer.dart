@@ -15,7 +15,6 @@ import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
 import '../../screens/home.dart';
-import 'main_states_lawyer.dart';
 
 class MainLawyerCubit extends Cubit<MainLawyerState> {
   MainLawyerCubit() : super(MainLawyerInitial());
@@ -117,6 +116,12 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
   changeNav2Index(int index) {
     currentIndex1 = index;
     emit(BottomNavIndexChanged());
+  }
+  int index = 0;
+
+  void changeIndex(int newIndex) {
+    index = newIndex;
+    emit(ChangeIndexState());
   }
 }
 

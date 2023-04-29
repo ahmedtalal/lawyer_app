@@ -13,6 +13,7 @@ import '../../../blocs/auth_bloc/auth_bloc.dart';
 import '../../../blocs/auth_bloc/auth_helper.dart';
 import '../../../blocs/auth_bloc/auth_states.dart';
 import '../../browse_order/browse_order_screen.dart';
+import '../../browse_order/order_details_screen.dart';
 import '../../find_lawyer/find_lawyer_screen.dart';
 import '../../main/main_screen.dart';
 import '../../talk_with_us/talk_with_us_screen.dart';
