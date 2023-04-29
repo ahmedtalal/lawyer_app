@@ -17,6 +17,7 @@ import 'package:hokok/presentation/screen/profile/profile_screen.dart';
 import 'package:hokok/presentation/screen/talk_with_us/talk_with_us_screen.dart';
 import 'package:hokok/core/strings_manager.dart';
 
+import '../domain/entities/major_entity.dart';
 import '../laywer_app/presentation/screen/home/widget/main_screen.dart';
 import '../presentation/screen/auth/chose_account_screen.dart';
 import '../presentation/screen/browse_order/choose_lawyer_screen.dart';
@@ -110,7 +111,8 @@ class RouteGenerator {
       case Routes.subMajorsScreen:
         return MaterialPageRoute(
           builder: (_) => SubMajorsScreen(
-            id: settings.arguments as int,
+            model: settings.arguments as MajorData,
+
           ),
         );
       case Routes.mainOrderScreen:

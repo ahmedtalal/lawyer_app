@@ -15,8 +15,6 @@ import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/strings_manager.dart';
-import 'package:hokok/presentation/screen/orders/sub_major/sub_majors_screen.dart';
-
 import '../../../core/constants_manager.dart';
 import '../../../core/shared_widget/button.dart';
 import '../../../core/shared_widget/text.dart';
@@ -139,7 +137,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
             RouteGenerator.getRoute(
               RouteSettings(
                 name: Routes.subMajorsScreen,
-                arguments: model.id,
+                arguments: model,
               ),
             ),
           );

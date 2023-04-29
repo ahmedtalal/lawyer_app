@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/assets_manager.dart';
 import '../../../../../../core/color_manager.dart';
-import '../../../../../../core/components/appbar_comp/app_bar_comp.dart';
 import '../../../../../../core/constant.dart';
 import '../../../../../../core/debug_prints.dart';
 import '../../../../../../core/font_manager.dart';
@@ -53,7 +52,6 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Expanded(
             child: Container(
               padding: const EdgeInsets.only(right: 20),
@@ -71,7 +69,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                   ),
                   BlocConsumer<OrderBloc, OrderStates>(
                       listener: (context, state) {
-                        if (state is OrderFailedLoadedState) {
+                        if (state is PublicOrderFailedLoadedState) {
                           state.authErrorMessage(context, state.error);
                         } else if (state is PublicOrderLoadedState) {
                           publicOrders = state.orders!;
@@ -415,7 +413,7 @@ class OrderView extends StatelessWidget {
                 Navigator.of(context).push(
                   RouteGenerator.getRoute(
                     RouteSettings(
-                      name: Routes.lawyerOrderDetailsScreen,
+                      name: Routes.lawyerOwnOrderDetailsScreen,
                       arguments: order,
                     ),
                   ),
@@ -435,7 +433,9 @@ class OrderView extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [
+          children: [>>>>>> master
+506
+​
             Row(
               children: [
                 RowItems(

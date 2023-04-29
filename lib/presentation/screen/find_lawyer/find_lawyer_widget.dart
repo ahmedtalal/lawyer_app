@@ -12,6 +12,8 @@ import 'package:hokok/core/values_manager.dart';
 import 'package:hokok/domain/entities/lawyer_entity.dart';
 import 'package:hokok/presentation/screen/welcome/welcome_screen.dart';
 
+import '../orders/private_order/private_order.dart';
+
 class FindLawyerView extends StatelessWidget {
   const FindLawyerView({required this.lawyerAttributes, super.key});
   final LawyerAttributes lawyerAttributes;
@@ -56,7 +58,8 @@ class FindLawyerView extends StatelessWidget {
                 const SizedBox(
                   height: 7,
                 ),
-                RatingBar.builder(
+                RatingBar.builder
+                  (
                   itemSize: 14,
                   initialRating: lawyerAttributes.ratesNum!.toDouble(),
                   minRating: 1,
@@ -75,7 +78,7 @@ class FindLawyerView extends StatelessWidget {
                 const SizedBox(
                   height: 7,
                 ),
-                const DefaultText("مرحبا بكام انا فيصل حاصل علر.....",
+                 DefaultText(lawyerAttributes.about.toString(),
                     fontSize: 11),
                 const SizedBox(
                   height: 5,
@@ -137,7 +140,7 @@ class FindLawyerView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(22.0),
               ),
               color: ColorManager.primary,
-              onSelected: (item) => onSelected(context, item),
+              onSelected: (item) => onSelected(context, item , lawyerAttributes),
               itemBuilder: (context) => [
                 PopupMenuItem<int>(
                   value: 0,
@@ -188,12 +191,12 @@ class FindLawyerView extends StatelessWidget {
     );
   }
 
-  void onSelected(BuildContext context, int item) {
+  void onSelected(BuildContext context, int item , LawyerAttributes lawerAttributes) {
     switch (item) {
       case 0:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const WelcomeScreen(),
+            builder: (context) =>  PrivateOrderScreen(lawerAttributes:lawerAttributes ),
           ),
         );
         break;

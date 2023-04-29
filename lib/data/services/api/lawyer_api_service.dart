@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/debug_prints.dart';
+import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/models/lawyer_model.dart';
 import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
@@ -39,8 +40,30 @@ class LawyerApiService {
       printError("the get all lawyers error from dio error => $message");
       return [];
     } catch (e) {
-      printError("the get all lawyers errors from catch => $e");
+      printError("the get all lawyers errors from catchs => $e");
       return [];
+    }
+  }
+
+  FutureOr<Map<String, dynamic>> getStatisticsSer() async {
+    try {
+      Options options = Options(headers: {
+        "authorization":
+            "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
+      });
+      Response response = await CrudApiHelper.instance.getRequest(
+        path: GET_ALL_statistics_REQUEST_PATH,
+        options: options,
+      );
+      printDone("the get all statistics success => ${response.data}");
+      return successRequest(response.data);
+    } on DioError catch (error) {
+      final message = DioExceptions.dioErrorHandling(error);
+      printError("the get statistics error from dio catch => $message");
+      return failedRequest(message);
+    } catch (e) {
+      printError("the get statistics error from dio catch => $e");
+      return failedRequest(e.toString());
     }
   }
 }

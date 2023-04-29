@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hokok/core/color_manager.dart';
+import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/components/appbar_comp/app_bar_widget.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_states.dart';
-
-import '../../../laywer_app/presentation/screen/home/screens/home.dart';
-import '../../../laywer_app/presentation/screen/home/screens/lawyer_issues/orders_screen.dart';
 import '../../../presentation/blocs/profile_bloc/profile_helper.dart';
 
 class AppBarComp extends StatefulWidget {
@@ -38,6 +34,11 @@ class _AppBarCompState extends State<AppBarComp> {
           return AppBarWidget(
             onClick: widget.onTap,
             icon: widget.icon,
+            optionChild: const Image(
+              image: AssetImage(
+                AssetsManager.logo,
+              ),
+            ),
             child: UserPorfileWidget(state: state.userEntity!),
           );
         } else if (state is ProfileFailedState) {

@@ -17,12 +17,13 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     on<UpdateOrdersForLawyerEvent>(updateOrdersForLawyer);
     on<AddOrderFeedbackForLawyerEvent>(addOrdersFeedbackForLawyer);
     on<CreateClientOrderEvent>(createClientOrder);
+    on<CreatePrivateOrderEvent>(createPrivateOrder);
     on<GetAllClientOderEvent>(getAllOrdersForClient);
     on<GetClientOrderRequestEvent>(getOrdersRequestForClient);
     on<AcceptClientOrderEvent>(acceptClientOrder);
     on<UpdateCLientOrderStatusEvent>(updateClientOrderSatus);
     on<AddClientFeedbackEvent>(addClientFeedback);
-    on<SendLawyerRequestEvent>(sendLawyerRequest);
+    // on<SendLawyerRequestEvent>(sendLawyerRequest);
   }
 
   FutureOr<void> getPublicOrdersForLawyer(
@@ -33,7 +34,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .getPublicOrdersForLawyer(
             OrderHelper.instance().city, OrderHelper.instance().majorId);
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get public order for lawyer failed"));
+      emit(PublicOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(PublicOrderLoadedState(result));
     }
@@ -50,7 +51,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
           OrderHelper.instance().status,
         );
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("there is no data"));
+      emit(OwnOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(OwnOrderLoadedState(result));
     }
@@ -63,7 +64,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getPrivateOrdersForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get own order for lawyer failed"));
+      emit(PrivateOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(PrivateOrderLoadedState(result));
     }
@@ -76,7 +77,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllRequestesOrderForLawyer();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("there is no data"));
+      emit(RequesrOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(RequestOrderLoadedState(result));
     }
@@ -129,6 +130,21 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
       emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
+  FutureOr<void> createPrivateOrder(
+      CreatePrivateOrderEvent event, Emitter<OrderStates> emit) async {
+    emit(OrderLoadingState());
+    final result = await UseCaseProvider.instance()
+        .creator<OrderRepository>(OrderRepository.instance())
+        .addOrderForClient(
+      OrderHelper.instance().preparePrivateOrderModel(),
+    );
+    if (result[mapKey] == successReposne) {
+      emit(OrderActionSuccessState());
+    } else {
+      emit(OrderActionFailedState(error: result[mapValue]));
+    }
+  }
+
 
   FutureOr<void> getAllOrdersForClient(
       GetAllClientOderEvent event, Emitter<OrderStates> emit) async {
@@ -137,7 +153,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllOrdersForClient();
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get all client orders failed"));
+      emit(ClientOrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(ClientOrdersLoadedState(result));
     }
@@ -150,7 +166,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
         .creator<OrderRepository>(OrderRepository.instance())
         .getAllOrderRequestsForClient(OrderHelper.instance().orderId);
     if (result.isEmpty) {
-      emit(OrderFailedLoadedState("get all requests order error"));
+      emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
       emit(ClientOrdersRequestLoadedState(result));
     }
@@ -202,16 +218,16 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     }
   }
 
-  FutureOr<void> sendLawyerRequest(
-      SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
-    emit(OrderLoadingState());
-    final result = await UseCaseProvider.instance()
-        .creator<OrderRepository>(OrderRepository.instance())
-        .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
-    if (result[mapKey] == successReposne) {
-      emit(OrderActionSuccessState());
-    } else {
-      emit(OrderActionFailedState(error: result[mapValue]));
-    }
-  }
+  // FutureOr<void> sendLawyerRequest(
+  //     SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
+  //   emit(OrderLoadingState());
+  //   final result = await UseCaseProvider.instance()
+  //       .creator<OrderRepository>(OrderRepository.instance())
+  //       .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
+  //   if (result[mapKey] == successReposne) {
+  //     emit(OrderActionSuccessState());
+  //   } else {
+  //     emit(OrderActionFailedState(error: result[mapValue]));
+  //   }
+  // }
 }

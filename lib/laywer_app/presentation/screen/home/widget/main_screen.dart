@@ -12,20 +12,6 @@ import '../screens/lawyer_issues/lawyer_issues_screen.dart';
 class LawyerHomeScreen extends StatelessWidget {
   const LawyerHomeScreen({Key? key}) : super(key: key);
 
-  static List<Widget> screens = [
-    const HomeLawyerScreen(),
-    const LawyerIssuesScreen(),
-    const LawyerIssuesScreen(),
-    const LawyerIssuesScreen(),
-    const LawyerIssuesScreen(),
-  ];
-  static int currentIndex = 0;
-  static int navSelectedIndex = 0;
-
-  changeNavIndex(int index) {
-    currentIndex = index;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainLawyerCubit, MainLawyerState>(
@@ -90,7 +76,7 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          context.read<MainLawyerCubit>().changeNavIndex(index);
+                          context.read<MainLawyerCubit>().changeNavIndex(index,context);
                         });
                       },
                       child: Column(
@@ -114,7 +100,7 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
                                   ?.copyWith(
                                     color: context
                                                 .read<MainLawyerCubit>()
-                                                .navSelectedIndex ==
+                                                .currentIndex ==
                                             index
                                         ? ColorManager.primary
                                         : ColorManager.white,

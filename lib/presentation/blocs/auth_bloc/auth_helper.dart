@@ -32,15 +32,15 @@ class AuthHelper {
   String city = "";
   List<dynamic>? major;
   String? majorValue;
-  int? id = null;
-  String? token = null;
+  int? id;
+  String? token;
   String? about = "";
-  int? status = null;
+  int? status;
   String? personalImage = "";
   String? createdAt = "";
-  int? lawyerId = null;
+  int? lawyerId;
   String? licenseImg = "";
-  int? idNumber = null;
+  int? idNumber;
   String? idExpireDate = "";
 
   UserModelInfo prepareLawyerInfo() => UserModelInfo(

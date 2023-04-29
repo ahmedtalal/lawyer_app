@@ -40,7 +40,7 @@ class LawyerAttributes {
   String? city;
   String? zone;
   String? about;
-  int? averageFees;
+  double? averageFees;
   int? legalAdvice;
   int? completedOrders;
   int? pendingOrders;

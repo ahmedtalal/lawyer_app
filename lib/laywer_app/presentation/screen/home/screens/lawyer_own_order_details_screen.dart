@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/config/screen_handler.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
-import 'package:hokok/core/components/appbar_comp/app_bar_widget.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/values_manager.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
@@ -35,7 +34,7 @@ class _LawyerOwnOrderDetailsScreenState
               SizedBox(
                 height: 20.h,
               ),
-              _bodyWIdget(order: widget.order, context: context),
+              _bodyWidget(order: widget.order, context: context),
             ],
           ),
         ),
@@ -43,7 +42,7 @@ class _LawyerOwnOrderDetailsScreenState
     );
   }
 
-  Widget _bodyWIdget(
+  Widget _bodyWidget(
       {required OwnOrdersInfoModel order, required BuildContext context}) {
     return Container(
       padding: EdgeInsets.only(top: 5.sp, right: 5.w),
@@ -318,8 +317,8 @@ class _LawyerOwnOrderDetailsScreenState
           SizedBox(
             height: 6.h,
           ),
-          order.status!.toLowerCase() == "completed_by_lawyer" ||
-                  order.status!.toLowerCase() == "in progress"
+          order.statusCode! == 8 ||
+                  order.statusCode! == 2
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -416,8 +415,8 @@ class _LawyerOwnOrderDetailsScreenState
               ),
             ],
           ),
-          order.status!.toLowerCase() == "completed" ||
-                  order.status!.toLowerCase() == "in progress"
+          order.statusCode! == 8 ||
+                  order.statusCode! == 2
               ? _clientInfoSection(clientModel: order.client!)
               : _unknownUser(),
           SizedBox(
@@ -620,14 +619,28 @@ Widget _clientInfoSection({required Client clientModel}) {
 }
 
 Widget _appBar(BuildContext context) => Container(
-      width: double.infinity,
-      height: 170.h,
-      color: ColorManager.primary,
-      child: AppBarWidget(
-        onClick: () {
+  width: double.infinity,
+  height: 170.h,
+  color: ColorManager.primary,
+  padding: EdgeInsets.only(top: 15.h,left: 20.w),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Image(
+        image: const AssetImage(
+          AssetsManager.logo,
+        ),
+        width: 200.w,
+        height: 100.h,
+        fit: BoxFit.cover,
+      ),
+      SizedBox(width: 60.w,),
+      InkWell(
+        onTap: () {
           Navigator.of(context).pop();
         },
-        icon: Directionality(
+        child: Directionality(
           textDirection: TextDirection.ltr,
           child: Icon(
             Icons.arrow_back_ios,
@@ -635,12 +648,9 @@ Widget _appBar(BuildContext context) => Container(
             size: 30.sp,
           ),
         ),
-        child: Image(
-          image: const AssetImage(
-            AssetsManager.logo,
-          ),
-          width: 180.w,
-          height: 100.h,
-        ),
       ),
-    );
+
+    ],
+  ),
+);
+

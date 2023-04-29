@@ -77,10 +77,9 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                     color: ConstantColor.whiteColor,
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black)),
-                child: const Center(
+                child:  Center(
                   child: DefaultText(
-                    AppStrings.commercial,
-                    fontSize: AppSize.s27,
+                    widget.data!["majorName"],
                   ),
                 ),
               ),
@@ -140,7 +139,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                     Column(
                       children: [
                         DefaultElevatedButton2(
-                          AppStrings.consultation,
+                          widget.data!["subMajorName"],
                           onPressed: () {},
                           size: const Size(AppSize.s140, AppSize.s40),
                           fontSize: FontSize.s14,
@@ -212,168 +211,48 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                                 ],
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  height: AppSize.s36,
-                                  width: AppSize.s127,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: AppSize.s1,
-                                      color: ColorManager.grey,
-                                    ),
-                                  ),
-                                  child: TextFormField(
-                                    style:
-                                        const TextStyle(fontSize: FontSize.s13),
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    decoration: InputDecoration(
-                                      label: Text(
-                                        'السنه',
-                                        style: TextStyle(
-                                            color: ConstantColor.primaryColor,
-                                            fontSize: AppSize.s14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                        horizontal: AppPadding.p5,
-                                        vertical: AppPadding.p15,
-                                      ),
-                                      hintStyle: const TextStyle(
-                                          fontSize: FontSize.s13),
-                                      border: InputBorder.none,
-                                    ),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        OrderHelper.instance().year = value;
-                                      });
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "this field is required";
-                                      } else if (int.parse(value) <
-                                          DateTime.now().year) {
-                                        return "the year must be greater than or equal current year";
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                            Container(
+                              height: AppSize.s36,
+                              width: AppSize.s242,
+                              margin:
+                              const EdgeInsets.only(bottom: AppMargin.m27),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: AppSize.s1,
+                                  color: ColorManager.grey,
                                 ),
-                                Container(
-                                  height: AppSize.s36,
-                                  width: AppSize.s70,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: AppSize.s1,
-                                      color: ColorManager.grey,
-                                    ),
+                              ),
+                              child: TextFormField(
+                                style: const TextStyle(fontSize: FontSize.s13),
+                                keyboardType: TextInputType.phone,
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: AppPadding.p5,
+                                    vertical: AppPadding.p15,
                                   ),
-                                  child: TextFormField(
-                                    style:
-                                        const TextStyle(fontSize: FontSize.s13),
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    decoration: InputDecoration(
-                                      label: Text(
-                                        'الشهر',
-                                        style: TextStyle(
-                                            color: ConstantColor.primaryColor,
-                                            fontSize: AppSize.s14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                        horizontal: AppPadding.p5,
-                                        vertical: AppPadding.p15,
-                                      ),
-                                      hintStyle: const TextStyle(
-                                          fontSize: FontSize.s13),
-                                      border: InputBorder.none,
-                                    ),
-                                    onChanged: (value) {
-                                      String result = "0";
-                                      if (value.length == 1) {
-                                        result = result + value;
-                                      } else {
-                                        result = value;
-                                      }
-                                      setState(() {
-                                        OrderHelper.instance().month = result;
-                                      });
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "this field is required";
-                                      } else if (int.parse(value) <
-                                          DateTime.now().month) {
-                                        return "the month must be greater than or equal current year";
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                  hintStyle: TextStyle(fontSize: FontSize.s13),
+                                  border: InputBorder.none,
                                 ),
-                                Container(
-                                  height: AppSize.s36,
-                                  width: AppSize.s70,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: AppSize.s1,
-                                      color: ColorManager.grey,
-                                    ),
-                                  ),
-                                  child: TextFormField(
-                                    style:
-                                        const TextStyle(fontSize: FontSize.s13),
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    decoration: InputDecoration(
-                                      label: Text(
-                                        'اليوم',
-                                        style: TextStyle(
-                                            color: ConstantColor.primaryColor,
-                                            fontSize: AppSize.s14,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                        horizontal: AppPadding.p5,
-                                        vertical: AppPadding.p15,
-                                      ),
-                                      hintStyle: const TextStyle(
-                                          fontSize: FontSize.s13),
-                                      border: InputBorder.none,
-                                    ),
-                                    onChanged: (value) {
-                                      String result = "0";
-                                      if (value.length == 1) {
-                                        result = result + value;
-                                      } else {
-                                        result = value;
-                                      }
-                                      setState(() {
-                                        OrderHelper.instance().day = result;
-                                      });
-                                    },
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "this field is required";
-                                      } else if (int.parse(value) <
-                                          DateTime.now().day) {
-                                        return "the day must be greater than or equal current year";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (value.isNotEmpty) {
+                                      OrderHelper.instance()
+                                          .expectedTime =
+                                          value;
+                                    }
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "this field is required";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                           ],
-                        ),
-                        const SizedBox(
-                          height: AppSize.s20,
                         ),
                         Column(
                           children: [
