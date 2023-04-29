@@ -173,3 +173,77 @@ class DefaultOUtLinedButton extends StatelessWidget {
     );
   }
 }
+
+class DefaultTextFormField extends StatelessWidget {
+  final String title;
+  final String hintText;
+  final Widget? prefixIcon;
+  final GestureTapCallback? onTap;
+  final bool readOnly;
+  final TextEditingController? controller;
+  final TextInputAction? textInputAction;
+  final TextInputType? keyboardType;
+  final bool obscureText;
+  final String? messageValidate;
+  final int? maxLines;
+  final double ? bottomPadding;
+
+  const DefaultTextFormField({
+    Key? key,
+    required this.title,
+    required this.hintText,
+    this.prefixIcon,
+    this.onTap,
+    this.readOnly = false,
+    this.controller,
+    this.textInputAction,
+    this.keyboardType,
+    this.obscureText = false,
+    this.messageValidate,
+    this.maxLines,required this.bottomPadding,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding:  EdgeInsets.only(bottom: bottomPadding!),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+        TextFormField(
+          cursorHeight: 20,
+          onTap: onTap,
+          obscureText: obscureText,
+          textInputAction: textInputAction,
+          readOnly: readOnly,
+          controller: controller,
+          keyboardType: keyboardType,
+          maxLines: maxLines,
+          // cursorHeight: 20,
+          textAlignVertical: TextAlignVertical.center,
+          style: Theme.of(context).textTheme.displayMedium,
+          textAlign: TextAlign.start,
+          validator: (String? value){
+            if(value == null || value.isEmpty){
+              return messageValidate;
+            }
+            return null;
+          },
+          decoration: InputDecoration(
+            hintText: hintText,
+            suffixIcon: prefixIcon,
+            // isDense: true,
+
+            // hintTextDirection: TextDirection.ltr
+          ),
+        ),
+      ],
+    );
+  }
+}

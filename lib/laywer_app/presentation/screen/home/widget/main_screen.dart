@@ -7,6 +7,7 @@ import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_s
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/strings_manager.dart';
 import '../screens/home.dart';
+import '../screens/lawyer_issues/lawyer_issues_screen.dart';
 
 class LawyerHomeScreen extends StatelessWidget {
   const LawyerHomeScreen({Key? key}) : super(key: key);

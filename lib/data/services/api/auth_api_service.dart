@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
 import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';

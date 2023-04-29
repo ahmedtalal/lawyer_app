@@ -97,6 +97,7 @@ class AppStrings {
   static const dateDeadline_ = '22/5/2023';
   static const more_ = "عرض المزيد";
   static const finished = "المنجزة";
+  static const inProgress = "قيد التنفيذ";
   static const consultation = "استشارة";
   static const note = "كتابة مذكرة رد/ لوائح";
   static const studyCase = "دراسة القضية";

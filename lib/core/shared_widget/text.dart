@@ -32,3 +32,36 @@ class DefaultText extends StatelessWidget {
     );
   }
 }
+
+
+
+class DefaultText2 extends StatelessWidget {
+  const DefaultText2(
+      this.text,{
+        this.fontSize,
+        this.color,
+        this.fontWeight,
+        this.textAlign,
+        Key? key,
+      }) : super(key: key);
+
+  final String text;
+  final double? fontSize;
+  final Color? color;
+  final FontWeight? fontWeight;
+  final TextAlign? textAlign;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: textAlign ?? TextAlign.start,
+      style: TextStyle(
+        fontSize: fontSize ?? FontSize.s14,
+        color: color ?? ConstantColor.primaryColor,
+        fontWeight: fontWeight ?? FontWeightManager.w400,
+        fontFamily: FontConstants.fontFamily,
+      ),
+    );
+  }
+}
+
