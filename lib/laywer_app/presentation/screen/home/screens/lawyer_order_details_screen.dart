@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/config/screen_handler.dart';
 import 'package:hokok/core/color_manager.dart';
-import 'package:hokok/core/components/appbar_comp/app_bar_widget.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
@@ -168,7 +167,9 @@ class _AppbarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               Text(
                 order.title!,
                 style: TextStyle(
@@ -205,11 +206,12 @@ class _AppbarWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 100.w,),
+          SizedBox(
+            width: 100.w,
+          ),
           InkWell(
             onTap: () {
               Navigator.of(context).pop();
-
             },
             child: Icon(
               Icons.home,

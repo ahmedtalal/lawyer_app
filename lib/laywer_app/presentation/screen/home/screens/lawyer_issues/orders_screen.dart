@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 
 import '../../../../../../core/assets_manager.dart';
 import '../../../../../../core/color_manager.dart';
@@ -162,24 +163,98 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                     key: formKey,
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 50,
-                          child: defaultTextFiled(
-                            onChange: (value) {
-                              setState(() {
-                                OrderHelper.instance().city = value;
-                              });
-                            },
-                            inputType: TextInputType.text,
-                            labelText: 'ادخل إسم المدينة',
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'من فضلك ادخل المدينة';
-                              }
-                              return null;
+                        Container(
+                          height: 65,
+                          padding: const EdgeInsets.all(2),
+                          margin: const EdgeInsets.only(bottom: 10, top: 6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(60),
+                            border: Border.all(color: Colors.grey, width: 1),
+                          ),
+                          child: FormField<String>(
+                            builder: (FormFieldState<String> state) {
+                              return InputDecorator(
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    //errorStyle: TextStyle(color: Colors.red[900], fontSize: 16.0),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(30.0))),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                    dropdownColor: Colors.white,
+                                    iconSize: 30,
+                                    iconEnabledColor: Colors.red[900],
+                                    hint: Text(
+                                      'المدن',
+                                      style: TextStyle(
+                                          color: ConstantColor.primaryColor),
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: FontConstants.fontFamily,
+                                      color: ConstantColor.primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    value:
+                                        OrderHelper.instance().city.isNotEmpty
+                                            ? OrderHelper.instance().city
+                                            : null,
+                                    isDense: true,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        printInfo(
+                                            "the value of city => $value");
+                                        OrderHelper.instance().city = value!;
+                                      });
+                                      printInfo(
+                                          "the value of city from order helper => ${OrderHelper.instance().city}");
+                                    },
+                                    items: AuthHelper.instance()
+                                        .cities
+                                        .map((String value) {
+                                      return DropdownMenuItem(
+                                          value: value.toString(),
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5.0, right: 5.0),
+                                              child: Text(
+                                                value.toString(),
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                          ));
+                                    }).toList(),
+                                  ),
+                                ),
+                              );
                             },
                           ),
                         ),
+                        // SizedBox(
+                        //   height: 50,
+                        //   child: defaultTextFiled(
+                        //     onChange: (value) {
+                        //       setState(() {
+                        //         OrderHelper.instance().city = value;
+                        //       });
+                        //     },
+                        //     inputType: TextInputType.text,
+                        //     labelText: 'ادخل إسم المدينة',
+                        //     validator: (value) {
+                        //       if (value!.isEmpty) {
+                        //         return 'من فضلك ادخل المدينة';
+                        //       }
+                        //       return null;
+                        //     },
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 5,
                         ),
@@ -411,7 +486,7 @@ class OrderView extends StatelessWidget {
                 Navigator.of(context).push(
                   RouteGenerator.getRoute(
                     RouteSettings(
-                      name: Routes.lawyerOwnOrderDetailsScreen,
+                      name: Routes.lawyerOrderDetailsScreen,
                       arguments: order,
                     ),
                   ),
