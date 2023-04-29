@@ -22,7 +22,7 @@ Widget emptyDataSharedWidget() {
           height: 10,
         ),
         Text(
-          "Oops,something is wrong",
+          "هناك خطاء ما",
           style: TextStyle(
             fontSize: 15.sp,
             fontFamily: FontConstants.fontFamily,

@@ -75,7 +75,7 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          context.read<MainLawyerCubit>().changeNavIndex(index);
+                          context.read<MainLawyerCubit>().changeNavIndex(index,context);
                         });
                       },
                       child: Column(

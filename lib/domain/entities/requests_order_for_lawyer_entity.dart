@@ -8,6 +8,7 @@ class RequestsLawyerOrderInfo {
   int? id;
   dynamic expectedDays;
   dynamic expectedBudget;
+  int? status;
   String? info;
   List<String>? files;
   String? createdAt;
@@ -17,6 +18,7 @@ class RequestsLawyerOrderInfo {
       {this.id,
       this.expectedDays,
       this.expectedBudget,
+      this.status,
       this.info,
       this.files,
       this.createdAt,
@@ -27,6 +29,7 @@ class RequestsLawyerOrderInfo {
     expectedDays = json['expected_days'];
     expectedBudget = json['expected_budget'];
     info = json['info'];
+    status = json['status'];
     files = json['files'].cast<String>();
     createdAt = json['created_at'];
     order =
@@ -35,14 +38,15 @@ class RequestsLawyerOrderInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['expected_days'] = this.expectedDays;
-    data['expected_budget'] = this.expectedBudget;
-    data['info'] = this.info;
-    data['files'] = this.files;
-    data['created_at'] = this.createdAt;
-    if (this.order != null) {
-      data['order'] = this.order!.toJson();
+    data['id'] = id;
+    data['expected_days'] = expectedDays;
+    data['expected_budget'] = expectedBudget;
+    data['status'] = status;
+    data['info'] = info;
+    data['files'] = files;
+    data['created_at'] = createdAt;
+    if (order != null) {
+      data['order'] = order!.toJson();
     }
     return data;
   }

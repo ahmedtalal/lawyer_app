@@ -4,10 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/config/screen_handler.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
-import 'package:hokok/core/components/appbar_comp/app_bar_widget.dart';
 import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
-import 'package:hokok/core/values_manager.dart';
-import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
+import 'package:hokok/domain/entities/private_order_for_lawyer_entity.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/home.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
@@ -26,7 +24,7 @@ class NotificationsLawyerScreen extends StatefulWidget {
 class _NotificationsLawyerScreenState extends State<NotificationsLawyerScreen> {
   @override
   void initState() {
-    OrderHelper.instance().getRequestOrdersForLawyerAction(context);
+    OrderHelper.instance().getPrivateOrdersForLawyerAction(context);
     super.initState();
   }
 
@@ -43,18 +41,18 @@ class _NotificationsLawyerScreenState extends State<NotificationsLawyerScreen> {
               height: 15.h,
             ),
             BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
-              if (state is OrderFailedLoadedState) {
+              if (state is PrivateOrderFailedLoadedState) {
                 state.authErrorMessage(context, state.error);
               }
             }, builder: (context, state) {
-              if (state is RequestOrderLoadedState) {
+              if (state is PrivateOrderLoadedState) {
                 return Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.only(top: 15.h),
-                    itemCount: state.requestOrders!.length,
+                    itemCount: state.privateOrders!.length,
                     itemBuilder: (context, index) {
-                      return RequestOrderView(
-                          order: state.requestOrders![index]);
+                      return PrivateOrderView(
+                          order: state.privateOrders![index]);
                     },
                   ),
                 );
@@ -62,7 +60,7 @@ class _NotificationsLawyerScreenState extends State<NotificationsLawyerScreen> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state is OrderFailedLoadedState) {
+              } else if (state is PrivateOrderFailedLoadedState) {
                 return emptyDataSharedWidget();
               }
               return Container();
@@ -78,34 +76,44 @@ Container _appBar(BuildContext context) => Container(
       width: double.infinity,
       height: 170.h,
       color: ColorManager.primary,
-      child: AppBarWidget(
-        onClick: () {
-          Navigator.of(context).pop();
-        },
-        icon: Directionality(
-          textDirection: TextDirection.ltr,
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: ColorManager.thirdy,
-            size: 30.sp,
+      padding: EdgeInsets.only(top: 15.h,left: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image(
+            image: const AssetImage(
+              AssetsManager.logo,
+            ),
+            width: 200.w,
+            height: 100.h,
+            fit: BoxFit.cover,
           ),
-        ),
-        child: Image(
-          image: const AssetImage(
-            AssetsManager.logo,
+          SizedBox(width: 60.w,),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: ColorManager.thirdy,
+                size: 30.sp,
+              ),
+            ),
           ),
-          width: 180.w,
-          height: 100.h,
-        ),
+
+        ],
       ),
     );
 
-class RequestOrderView extends StatelessWidget {
-  const RequestOrderView({
+class PrivateOrderView extends StatelessWidget {
+  const PrivateOrderView({
     required this.order,
     super.key,
   });
-  final RequestsLawyerOrderInfo order;
+  final PrivateOrdersInfoModel order;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -122,7 +130,7 @@ class RequestOrderView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              order.order!.title.toString(),
+              order!.title.toString(),
               style: const TextStyle(
                 fontSize: 20,
                 fontFamily: FontConstants.fontFamily,
@@ -158,7 +166,7 @@ class RequestOrderView extends StatelessWidget {
                 ),
                 RowItems(
                   icon: Icons.bookmark_border,
-                  title: "${order.order!.requests} عروض",
+                  title: "${order!.requests} عروض",
                 ),
                 const SizedBox(
                   width: 8,
@@ -169,7 +177,7 @@ class RequestOrderView extends StatelessWidget {
               height: 15.h,
             ),
             Text(
-              order.order!.description.toString(),
+              order!.description.toString(),
               style: const TextStyle(
                 fontFamily: FontConstants.fontFamily,
                 fontSize: 14,

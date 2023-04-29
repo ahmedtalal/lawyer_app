@@ -59,6 +59,61 @@ class OrderFailedLoadedState extends OrderStates {
   }
 }
 
+class ClientOrderFailedLoadedState extends OrderStates {
+  String error;
+  ClientOrderFailedLoadedState(this.error);
+
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
+
+class PublicOrderFailedLoadedState extends OrderStates {
+  String error;
+  PublicOrderFailedLoadedState(this.error);
+
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
+
+class OwnOrderFailedLoadedState extends OrderStates {
+  String error;
+  OwnOrderFailedLoadedState(this.error);
+
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
+
+class PrivateOrderFailedLoadedState extends OrderStates {
+  String error;
+  PrivateOrderFailedLoadedState(this.error);
+
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
+
+class RequesrOrderFailedLoadedState extends OrderStates {
+  String error;
+  RequesrOrderFailedLoadedState(this.error);
+
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
+
 class OrderActionSuccessState extends OrderStates {
   authErrorMessage(BuildContext context, String title) {
     ScaffoldMessenger.of(context).showSnackBar(

@@ -14,8 +14,6 @@ import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/strings_manager.dart';
-import 'package:hokok/presentation/screen/orders/sub_major/sub_majors_screen.dart';
-
 import '../../../core/constants_manager.dart';
 import '../../../core/shared_widget/text.dart';
 import '../../../core/values_manager.dart';
