@@ -7,6 +7,7 @@ import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/button.dart';
 import 'package:hokok/laywer_app/presentation/screen/cotact_us/contact_us_screen.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_states_lawyer.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues/layout_lawyer_issues.dart';
 import 'package:hokok/laywer_app/presentation/screen/massages/massages_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/orders/orders_scree.dart';
@@ -23,7 +24,9 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
     const LayoutLawyerIssues(),
     const MassagesScreen(),
     const ContactUsScreen(),
-    const Scaffold(body: Text("تسجيل الخروج"),)
+    const Scaffold(
+      body: Text("تسجيل الخروج"),
+    )
   ];
   int currentIndex = 0;
   int currentIndex1 = 0;
@@ -117,6 +120,7 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
     currentIndex1 = index;
     emit(BottomNavIndexChanged());
   }
+
   int index = 0;
 
   void changeIndex(int newIndex) {

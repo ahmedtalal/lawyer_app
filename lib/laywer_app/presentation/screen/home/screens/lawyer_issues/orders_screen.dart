@@ -31,7 +31,6 @@ class OrderLawyerScreen extends StatefulWidget {
   State<OrderLawyerScreen> createState() => _OrderLawyerScreenState();
 }
 
-
 class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
   @override
   void initState() {
@@ -69,12 +68,12 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                   ),
                   BlocConsumer<OrderBloc, OrderStates>(
                       listener: (context, state) {
-                        if (state is PublicOrderFailedLoadedState) {
-                          state.authErrorMessage(context, state.error);
-                        } else if (state is PublicOrderLoadedState) {
-                          publicOrders = state.orders!;
-                        }
-                      }, builder: (context, state) {
+                    if (state is PublicOrderFailedLoadedState) {
+                      state.authErrorMessage(context, state.error);
+                    } else if (state is PublicOrderLoadedState) {
+                      publicOrders = state.orders!;
+                    }
+                  }, builder: (context, state) {
                     if (state is OrderLoadingState) {
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -200,7 +199,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(60),
                                 border:
-                                Border.all(color: Colors.grey, width: 1),
+                                    Border.all(color: Colors.grey, width: 1),
                               ),
                               child: FormField<MajorData>(
                                 builder: (FormFieldState<MajorData> state) {
@@ -212,7 +211,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide.none,
                                             borderRadius:
-                                            BorderRadius.circular(30.0))),
+                                                BorderRadius.circular(30.0))),
                                     child: DropdownButtonHideUnderline(
                                       child: DropdownButton(
                                         dropdownColor: Colors.white,
@@ -222,7 +221,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                                           'نوع القضية',
                                           style: TextStyle(
                                               color:
-                                              ConstantColor.primaryColor),
+                                                  ConstantColor.primaryColor),
                                         ),
                                         style: TextStyle(
                                           fontSize: 14,
@@ -231,7 +230,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                         value:
-                                        OrderHelper.instance().majorValue,
+                                            OrderHelper.instance().majorValue,
                                         isDense: true,
                                         onChanged: (value) {
                                           setState(() {
@@ -250,16 +249,16 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                                               value: value.id.toString(),
                                               child: Container(
                                                 alignment:
-                                                Alignment.centerRight,
+                                                    Alignment.centerRight,
                                                 child: Padding(
                                                   padding:
-                                                  const EdgeInsets.only(
-                                                      left: 5.0,
-                                                      right: 5.0),
+                                                      const EdgeInsets.only(
+                                                          left: 5.0,
+                                                          right: 5.0),
                                                   child: Text(
                                                     value.name.toString(),
                                                     textDirection:
-                                                    TextDirection.rtl,
+                                                        TextDirection.rtl,
                                                     textAlign: TextAlign.right,
                                                   ),
                                                 ),
@@ -302,7 +301,6 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
       },
     );
   }
-
 }
 
 class UserPorfileWidget extends StatelessWidget {
@@ -335,7 +333,7 @@ class UserPorfileWidget extends StatelessWidget {
                   ? AssetsManager.lawyerImg
                   : state!.userModel!.personalImage!,
               placeholder: (context, url) =>
-              const Center(child: CircularProgressIndicator()),
+                  const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => const Image(
                 image: AssetImage(AssetsManager.lawyerImg),
               ),
@@ -433,9 +431,7 @@ class OrderView extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [>>>>>> master
-506
-​
+          children: [
             Row(
               children: [
                 RowItems(

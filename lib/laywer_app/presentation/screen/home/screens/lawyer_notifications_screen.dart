@@ -77,7 +77,7 @@ Container _appBar(BuildContext context) => Container(
       width: double.infinity,
       height: 170.h,
       color: ColorManager.primary,
-      padding: EdgeInsets.only(top: 15.h,left: 20.w),
+      padding: EdgeInsets.only(top: 15.h, left: 20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,7 +90,9 @@ Container _appBar(BuildContext context) => Container(
             height: 100.h,
             fit: BoxFit.cover,
           ),
-          SizedBox(width: 60.w,),
+          SizedBox(
+            width: 60.w,
+          ),
           InkWell(
             onTap: () {
               Navigator.of(context).pop();
@@ -104,7 +106,6 @@ Container _appBar(BuildContext context) => Container(
               ),
             ),
           ),
-
         ],
       ),
     );
@@ -131,7 +132,7 @@ class PrivateOrderView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              order!.title.toString(),
+              order.title.toString(),
               style: const TextStyle(
                 fontSize: 20,
                 fontFamily: FontConstants.fontFamily,
@@ -167,7 +168,7 @@ class PrivateOrderView extends StatelessWidget {
                 ),
                 RowItems(
                   icon: Icons.bookmark_border,
-                  title: "${order!.requests} عروض",
+                  title: "${order.requests} عروض",
                 ),
                 const SizedBox(
                   width: 8,
@@ -178,7 +179,7 @@ class PrivateOrderView extends StatelessWidget {
               height: 15.h,
             ),
             Text(
-              order!.description.toString(),
+              order.description.toString(),
               style: const TextStyle(
                 fontFamily: FontConstants.fontFamily,
                 fontSize: 14,
@@ -187,6 +188,40 @@ class PrivateOrderView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class RowItems extends StatelessWidget {
+  const RowItems({
+    required this.title,
+    required this.icon,
+    super.key,
+  });
+  final IconData? icon;
+  final String? title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          size: 14,
+          icon,
+          color: Colors.grey,
+        ),
+        const SizedBox(
+          width: 4,
+        ),
+        Text(
+          title.toString(),
+          style: const TextStyle(
+            fontFamily: FontConstants.fontFamily,
+            color: Colors.grey,
+            fontSize: 11,
+          ),
+        )
+      ],
     );
   }
 }
