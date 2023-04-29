@@ -51,51 +51,6 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
           SizedBox(
             height: 100.h,
           ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> showFilterPublicOrderSheet(BuildContext context) {
-    return showModalBottomSheet<void>(
-      isScrollControlled: true,
-      context: context,
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width -
-            40, // here increase or decrease in width
-      ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(25.0),
-        ),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: StatefulBuilder(builder: (context, setState) {
-            return Container(
-              height: 250.h,
-              margin: const EdgeInsets.only(
-                left: 30,
-                right: 30,
-              ),
-              padding: const EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Icon(
-                        Icons.clear,
-                        size: 30,
-                        color: Colors.red,
           BlocConsumer<LawyersBloc, LawyerStates>(listener: (context, state) {
             if (state is StatisticsLawyersLoadedState) {
               statistics = state.statistics;
@@ -213,30 +168,17 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
         width: double.infinity,
         height: AppSize.s234,
         color: ColorManager.primary,
-        child: AppBarComp(
-          onTap: () {
-            Navigator.of(context).push(
-              RouteGenerator.getRoute(
-                const RouteSettings(name: Routes.notificatiosLawyersScreen),
-              ),
-            );
-          },
-          icon: Icon(
-            Icons.notifications,
-            color: ColorManager.thirdy,
-            size: 30.sp,
-          ),
-        padding: EdgeInsets.only(top: 10.h,left: 5.w),
+        padding: EdgeInsets.only(top: 10.h, left: 5.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-             Image(
+            Image(
               image: const AssetImage(
                 AssetsManager.logo,
               ),
               width: 200.w,
-               fit: BoxFit.cover,
+              fit: BoxFit.cover,
             ),
             Row(
               children: [
@@ -244,7 +186,8 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                   onTap: () {
                     Navigator.of(context).push(
                       RouteGenerator.getRoute(
-                        const RouteSettings(name: Routes.notificatiosLawyersScreen),
+                        const RouteSettings(
+                            name: Routes.notificatiosLawyersScreen),
                       ),
                     );
                   },
@@ -254,7 +197,9 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                     size: 30.sp,
                   ),
                 ),
-                SizedBox(width: 10.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
                 BlocConsumer<ProfileBloc, ProfileStates>(
                   listener: (context, state) {
                     if (state is ProfileFailedState) {
@@ -265,7 +210,7 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                     if (state is ProfileLoadedState) {
                       return UserPorfileWidget(state: state.userEntity!);
                     } else if (state is ProfileFailedState) {
-                      return  const UserPorfileWidget(state: null);
+                      return const UserPorfileWidget(state: null);
                     } else if (state is ProfileLoadingState) {
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -274,12 +219,9 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                     return Container();
                   },
                 ),
-
               ],
             ),
-
           ],
-
         ),
       );
 }

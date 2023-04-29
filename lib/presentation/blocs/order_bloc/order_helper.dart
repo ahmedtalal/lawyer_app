@@ -10,6 +10,7 @@ import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
 
 import '../../../domain/entities/order_for_client_entity.dart';
+import '../../../domain/entities/requests_order_for_lawyer_entity.dart';
 
 class OrderHelper {
   static OrderHelper? _orderHelper;
@@ -39,55 +40,68 @@ class OrderHelper {
   String description1 = "";
   int expectedDays = 0;
   List<File> files = [];
-  
+
   List<ClientOrderInfo> getClientAllPublishedOrders(
       List<ClientOrderInfo> orders) {
     List<ClientOrderInfo> publishedOrders = [];
     for (var order in orders) {
-      if (order.statusCode! ==  1) {
+      if (order.statusCode! == 1) {
         publishedOrders.add(order);
       }
     }
-    return  publishedOrders;
+    return publishedOrders;
   }
+
   List<ClientOrderInfo> getClientAllInProgressOrders(
       List<ClientOrderInfo> orders) {
     List<ClientOrderInfo> publishedOrders = [];
     for (var order in orders) {
-      if (order.statusCode! ==  2) {
+      if (order.statusCode! == 2) {
         publishedOrders.add(order);
       }
     }
-    return  publishedOrders;
+    return publishedOrders;
   }
+
   List<ClientOrderInfo> getClientAllCompletedOrders(
       List<ClientOrderInfo> orders) {
     List<ClientOrderInfo> publishedOrders = [];
     for (var order in orders) {
-      if (order.statusCode! ==  8) {
+      if (order.statusCode! == 8) {
         publishedOrders.add(order);
       }
     }
-    return  publishedOrders;
-    }
+    return publishedOrders;
+  }
 
   List<OwnOrdersInfoModel> getAllInPublishedOrders(
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> publishedOrders = [];
     for (var order in orders) {
-      if (order.statusCode! ==  2) {
+      if (order.statusCode! == 2) {
         publishedOrders.add(order);
       }
     }
-    return  publishedOrders;
+    return publishedOrders;
   }
+
+  // List<OwnOrdersInfoModel> getAllInPublishedOrders(
+  //     List<OwnOrdersInfoModel> orders) {
+  //   List<OwnOrdersInfoModel> publishedOrders = [];
+  //   for (var order in orders) {
+  //     if (order.status!.toLowerCase() == "published") {
+  //       publishedOrders.add(order);
+  //     }
+  //   }
+  //   return publishedOrders;
+  // }
 
   List<OwnOrdersInfoModel> getAllInProgressOrders(
       List<OwnOrdersInfoModel> orders) {
     List<OwnOrdersInfoModel> inProgressOrders = [];
     for (var order in orders) {
-      if (order.statusCode! ==  2) {
-        inprogressOrders.add(order);
+      if (order.statusCode! == 2) {
+        inProgressOrders.add(order);
       }
     }
     return inProgressOrders;
@@ -115,38 +129,27 @@ class OrderHelper {
     return myOrders;
   }
 
-  List<OwnOrdersInfoModel> getAllInPublishedOrders(
-      List<OwnOrdersInfoModel> orders) {
-    List<OwnOrdersInfoModel> publishedOrders = [];
-    for (var order in orders) {
-      if (order.status!.toLowerCase() == "published") {
-        publishedOrders.add(order);
-      }
-    }
-    return publishedOrders;
-  }
+  // List<OwnOrdersInfoModel> getAllInProgressOrders(
+  //     List<OwnOrdersInfoModel> orders) {
+  //   List<OwnOrdersInfoModel> inprogressOrders = [];
+  //   for (var order in orders) {
+  //     if (order.status!.toLowerCase() == "inprogress") {
+  //       inprogressOrders.add(order);
+  //     }
+  //   }
+  //   return inprogressOrders;
+  // }
 
-  List<OwnOrdersInfoModel> getAllInProgressOrders(
-      List<OwnOrdersInfoModel> orders) {
-    List<OwnOrdersInfoModel> inprogressOrders = [];
-    for (var order in orders) {
-      if (order.status!.toLowerCase() == "inprogress") {
-        inprogressOrders.add(order);
-      }
-    }
-    return inprogressOrders;
-  }
-
-  List<OwnOrdersInfoModel> getAllCompletedOrders(
-      List<OwnOrdersInfoModel> orders) {
-    List<OwnOrdersInfoModel> completedOrders = [];
-    for (var order in orders) {
-      if (order.status!.toLowerCase() == "completed") {
-        completedOrders.add(order);
-      }
-    }
-    return completedOrders;
-  }
+  // List<OwnOrdersInfoModel> getAllCompletedOrders(
+  //     List<OwnOrdersInfoModel> orders) {
+  //   List<OwnOrdersInfoModel> completedOrders = [];
+  //   for (var order in orders) {
+  //     if (order.status!.toLowerCase() == "completed") {
+  //       completedOrders.add(order);
+  //     }
+  //   }
+  //   return completedOrders;
+  // }
 
   CreateOrderModel prepareClientOrderModel() => CreateOrderModel(
         title: title,
@@ -158,15 +161,15 @@ class OrderHelper {
         clientProposedBudget: clientProposedBudget,
       );
   CreateOrderModel preparePrivateOrderModel() => CreateOrderModel(
-    title: title,
-    majorId: majorId,
-    subMajorId: subMajorId,
-    description1: description1,
-    type: type,
-    lawyerId: lawyerId,
-    clientExpectedDate: expectedTime,
-    clientProposedBudget: clientProposedBudget,
-  );
+        title: title,
+        majorId: majorId,
+        subMajorId: subMajorId,
+        description1: description1,
+        type: type,
+        lawyerId: lawyerId,
+        clientExpectedDate: expectedTime,
+        clientProposedBudget: clientProposedBudget,
+      );
 
   FormData lawyerRequestModel() {
     FormData formData = FormData.fromMap({
@@ -228,6 +231,7 @@ class OrderHelper {
       context.read<OrderBloc>().add(CreateClientOrderEvent());
     }
   }
+
   onCreatePrivateOrderActionForClient(
       BuildContext context, GlobalKey<FormState> form) {
     if (form.currentState!.validate()) {
