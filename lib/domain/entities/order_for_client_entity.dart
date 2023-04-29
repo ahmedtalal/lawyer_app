@@ -13,7 +13,7 @@ class ClientOrderInfo {
   String? status;
   dynamic statusCode;
   String? type;
-  String? clientExpectedDate;
+  int? clientExpectedDate;
   dynamic lawyerExpectedDays;
   dynamic clientProposedBudget;
   dynamic lawyerProposedBudget;
@@ -69,8 +69,8 @@ class ClientOrderInfo {
     lawyerExpectedDays = json['lawyer_expected_days'];
     clientProposedBudget = json['client_proposed_budget'];
     lawyerProposedBudget = json['lawyer_proposed_budget'];
-    assignedToLawyerAt = json['assigned_to_lawyer_at'];
-    deliveredAt = json['delivered_at'];
+    assignedToLawyerAt = json['assigned_to_lawyer_at'].toString();
+    deliveredAt = json['delivered_at'].toString();
     lastBudget = json['last_budget'];
     requests = json['requests'];
     clientFeedback = json['client_feedback'];

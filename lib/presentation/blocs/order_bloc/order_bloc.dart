@@ -17,12 +17,13 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     on<UpdateOrdersForLawyerEvent>(updateOrdersForLawyer);
     on<AddOrderFeedbackForLawyerEvent>(addOrdersFeedbackForLawyer);
     on<CreateClientOrderEvent>(createClientOrder);
+    on<CreatePrivateOrderEvent>(createPrivateOrder);
     on<GetAllClientOderEvent>(getAllOrdersForClient);
     on<GetClientOrderRequestEvent>(getOrdersRequestForClient);
     on<AcceptClientOrderEvent>(acceptClientOrder);
     on<UpdateCLientOrderStatusEvent>(updateClientOrderSatus);
     on<AddClientFeedbackEvent>(addClientFeedback);
-    on<SendLawyerRequestEvent>(sendLawyerRequest);
+    // on<SendLawyerRequestEvent>(sendLawyerRequest);
   }
 
   FutureOr<void> getPublicOrdersForLawyer(
@@ -129,6 +130,21 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
       emit(OrderActionFailedState(error: result[mapValue]));
     }
   }
+  FutureOr<void> createPrivateOrder(
+      CreatePrivateOrderEvent event, Emitter<OrderStates> emit) async {
+    emit(OrderLoadingState());
+    final result = await UseCaseProvider.instance()
+        .creator<OrderRepository>(OrderRepository.instance())
+        .addOrderForClient(
+      OrderHelper.instance().preparePrivateOrderModel(),
+    );
+    if (result[mapKey] == successReposne) {
+      emit(OrderActionSuccessState());
+    } else {
+      emit(OrderActionFailedState(error: result[mapValue]));
+    }
+  }
+
 
   FutureOr<void> getAllOrdersForClient(
       GetAllClientOderEvent event, Emitter<OrderStates> emit) async {
@@ -202,16 +218,16 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     }
   }
 
-  FutureOr<void> sendLawyerRequest(
-      SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
-    emit(OrderLoadingState());
-    final result = await UseCaseProvider.instance()
-        .creator<OrderRepository>(OrderRepository.instance())
-        .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
-    if (result[mapKey] == successReposne) {
-      emit(OrderActionSuccessState());
-    } else {
-      emit(OrderActionFailedState(error: result[mapValue]));
-    }
-  }
+  // FutureOr<void> sendLawyerRequest(
+  //     SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
+  //   emit(OrderLoadingState());
+  //   final result = await UseCaseProvider.instance()
+  //       .creator<OrderRepository>(OrderRepository.instance())
+  //       .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
+  //   if (result[mapKey] == successReposne) {
+  //     emit(OrderActionSuccessState());
+  //   } else {
+  //     emit(OrderActionFailedState(error: result[mapValue]));
+  //   }
+  // }
 }
