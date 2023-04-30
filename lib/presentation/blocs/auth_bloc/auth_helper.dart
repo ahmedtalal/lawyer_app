@@ -1,7 +1,12 @@
 // ignore_for_file: file_names
 
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/core/debug_prints.dart';
+import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
 import 'package:hokok/data/models/user_model.dart';
 import 'package:hokok/data/repositories/auth_api_repository.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
@@ -11,6 +16,7 @@ import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_events.dart';
 import 'package:hokok/presentation/screen/intro/splash_screen.dart';
 import 'package:hokok/presentation/screen/layout/layout_screen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AuthHelper {
   static AuthHelper? _authHelper;
@@ -30,16 +36,16 @@ class AuthHelper {
   String email = "";
   String zone = "";
   String? city;
-  List<dynamic>? major;
+  List majors = [];
   String? majorValue;
   int? id;
   String? token;
   String? about = "";
   int? status;
-  String? personalImage = "";
+  File? personalImage;
   String? createdAt = "";
   int? lawyerId;
-  String? licenseImg = "";
+  File? licenseImg;
   int? idNumber;
   String? idExpireDate = "";
   List<String> cities = [
@@ -89,9 +95,21 @@ class AuthHelper {
     "الافلاج",
   ];
 
+  Future<String> selectPersonalImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+// Pick an image.
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    return image!.path;
+  }
+
+  Future<String> selectLicenseImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+// Pick an image.
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    return image!.path;
+  }
+
   UserModelInfo prepareLawyerInfo() => UserModelInfo(
-        id: id,
-        token: token,
         type: type,
         name: name,
         email: email,
@@ -99,15 +117,25 @@ class AuthHelper {
         zone: zone,
         city: city ?? cities[0],
         majors: [int.parse(majorValue!)],
-        status: status,
-        personalImage: personalImage,
-        createdAt: createdAt,
-        lawyerId: lawyerId,
-        licenseImg: licenseImg,
-        idExpiryDate: idExpireDate,
-        about: about,
-        idNumber: idNumber,
+        personalImage: personalImage ?? "",
+        licenseImg: licenseImg ?? "",
       );
+  Future<FormData> lawyerToFormData() async {
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'email': email,
+      'phone_number': phoneNumber,
+      'type': type,
+      'zone': zone,
+      'city': city ?? cities[0],
+      'personal_image': await MultipartFile.fromFile(personalImage!.path,
+          filename: personalImage!.path.split('/').last),
+      'license_img': await MultipartFile.fromFile(licenseImg!.path,
+          filename: licenseImg!.path.split('/').last),
+      "majors[]": majors,
+    });
+    return formData;
+  }
 
   UserModelInfo prepareClientInfo() => UserModelInfo(
         id: id,
@@ -135,9 +163,21 @@ class AuthHelper {
     }
   }
 
-  onCreateLawyerAccount(BuildContext context, GlobalKey<FormState> key) {
-    if (key.currentState!.validate()) {
+  onCreateLawyerAccount(BuildContext context, GlobalKey<FormState> key) async {
+    // final model = await lawyerToFormData();
+    // printInfo("the laywer model is => ${model.fields.asMap()}");
+    if (key.currentState!.validate() &&
+        personalImage!.path.isNotEmpty &&
+        licenseImg!.path.isNotEmpty) {
       context.read<AuthBloc>().add(CreateLawyerAccountEvent());
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        showSnakBarWidget(
+          context,
+          "من فضلك قم باختار صورة",
+          Colors.red,
+        ),
+      );
     }
   }
 

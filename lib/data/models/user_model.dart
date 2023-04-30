@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:hokok/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
@@ -15,10 +18,34 @@ class UserModel extends UserEntity {
         : null;
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> lawyerToJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.userModel != null) {
-      data['data'] = this.userModel!.lawyerToJson();
+    if (userModel != null) {
+      data['data'] = userModel!.lawyerToJson();
+    }
+    return data;
+  }
+
+  FormData lawyerToFormData() {
+    FormData data = FormData();
+    if (userModel != null) {
+      data = userModel!.lawyerToFormData();
+    }
+    return data;
+  }
+
+  Map<String, dynamic> clientToJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (userModel != null) {
+      data['data'] = userModel!.clientToJson();
+    }
+    return data;
+  }
+
+  FormData clientToFormData() {
+    FormData data = FormData();
+    if (userModel != null) {
+      data = userModel!.clientToFormData();
     }
     return data;
   }
@@ -35,32 +62,32 @@ class UserModelInfo {
   String? city;
   String? about;
   int? status;
-  String? personalImage;
+  File? personalImage;
   String? createdAt;
   int? lawyerId;
-  String? licenseImg;
+  File? licenseImg;
   int? idNumber;
   String? idExpiryDate;
   List<int>? majors;
 
   UserModelInfo({
-    this.id,
-    this.token,
-    this.name,
-    this.email,
-    this.phoneNumber,
-    this.type,
-    this.zone,
-    this.city,
-    this.about,
-    this.status,
-    this.personalImage,
-    this.createdAt,
-    this.lawyerId,
-    this.licenseImg,
-    this.idNumber,
-    this.idExpiryDate,
-    this.majors,
+    id,
+    token,
+    name,
+    email,
+    phoneNumber,
+    type,
+    zone,
+    city,
+    about,
+    status,
+    personalImage,
+    createdAt,
+    lawyerId,
+    licenseImg,
+    idNumber,
+    idExpiryDate,
+    majors,
   });
 
   UserModelInfo.lawyerFromJson(Map<String, dynamic> json) {
@@ -86,24 +113,47 @@ class UserModelInfo {
 
   Map<String, dynamic> lawyerToJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['token'] = this.token;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['phone_number'] = this.phoneNumber;
-    data['type'] = this.type;
-    data['zone'] = this.zone;
-    data['city'] = this.city;
-    data['about'] = this.about;
-    data['status'] = this.status;
-    data['personal_image'] = this.personalImage;
-    data['created_at'] = this.createdAt;
-    data['lawyer_id'] = this.lawyerId;
-    data['license_img'] = this.licenseImg;
-    data['id_number'] = this.idNumber;
-    data['id_expiry_date'] = this.idExpiryDate;
-    data["majors"] = this.majors;
+    data['id'] = id;
+    data['token'] = token;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone_number'] = phoneNumber;
+    data['type'] = type;
+    data['zone'] = zone;
+    data['city'] = city;
+    data['about'] = about;
+    data['status'] = status;
+    data['personal_image'] = personalImage;
+    data['created_at'] = createdAt;
+    data['lawyer_id'] = lawyerId;
+    data['license_img'] = licenseImg;
+    data['id_number'] = idNumber;
+    data['id_expiry_date'] = idExpiryDate;
+    data["majors"] = majors;
     return data;
+  }
+
+  FormData lawyerToFormData() {
+    FormData formData = FormData.fromMap({
+      'id': id,
+      'token': token,
+      'name': name,
+      'email': email,
+      'phone_number': phoneNumber,
+      'type': type,
+      'zone': zone,
+      'city': city,
+      'about': about,
+      'status': status,
+      'personal_image': personalImage,
+      'created_at': createdAt,
+      'lawyer_id': lawyerId,
+      'license_img': licenseImg,
+      'id_number': idNumber,
+      'id_expiry_date': idExpiryDate,
+      "majors": majors,
+    });
+    return formData;
   }
 
   UserModelInfo.clientFromJson(Map<String, dynamic> json) {
@@ -123,19 +173,37 @@ class UserModelInfo {
 
   Map<String, dynamic> clientToJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['token'] = this.token;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['phone_number'] = this.phoneNumber;
-    data['type'] = this.type;
-    data['zone'] = this.zone;
-    data['city'] = this.city;
-    data['about'] = this.about;
-    data['status'] = this.status;
-    data['personal_image'] = this.personalImage;
-    data['created_at'] = this.createdAt;
+    data['id'] = id;
+    data['token'] = token;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone_number'] = phoneNumber;
+    data['type'] = type;
+    data['zone'] = zone;
+    data['city'] = city;
+    data['about'] = about;
+    data['status'] = status;
+    data['personal_image'] = personalImage;
+    data['created_at'] = createdAt;
     return data;
+  }
+
+  FormData clientToFormData() {
+    FormData formData = FormData.fromMap({
+      'id': id,
+      'token': token,
+      'name': name,
+      'email': email,
+      'phone_number': phoneNumber,
+      'type': type,
+      'zone': zone,
+      'city': city,
+      'about': about,
+      'status': status,
+      'personal_image': personalImage,
+      'created_at': createdAt,
+    });
+    return formData;
   }
 }
 
@@ -144,7 +212,7 @@ class UserMajors {
   String? name;
   String? icon;
 
-  UserMajors({this.id, this.name, this.icon});
+  UserMajors({id, name, icon});
 
   UserMajors.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -154,9 +222,9 @@ class UserMajors {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['icon'] = this.icon;
+    data['id'] = id;
+    data['name'] = name;
+    data['icon'] = icon;
     return data;
   }
 }

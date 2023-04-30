@@ -49,7 +49,8 @@ class ProfileDetailsWidget extends StatelessWidget {
                         height: 50,
                         width: 50,
                         fit: BoxFit.cover,
-                        imageUrl: userEntity!.userModel!.personalImage!,
+                        imageUrl:
+                            userEntity!.userModel!.personalImage!.toString(),
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => const Image(

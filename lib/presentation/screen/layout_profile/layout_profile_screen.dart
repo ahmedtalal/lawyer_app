@@ -226,7 +226,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                           height: 50,
                           width: 50,
                           fit: BoxFit.cover,
-                          imageUrl: userEntity.userModel!.personalImage!,
+                          imageUrl:
+                              userEntity.userModel!.personalImage!.toString(),
                           placeholder: (context, url) =>
                               const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) => const Image(
@@ -253,7 +254,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   width: 80.w,
                 ),
                 Row(
@@ -265,8 +266,6 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       icon: const Icon(Icons.home),
                       iconSize: AppSize.s40,
                     ),
-
-
                   ],
                 ),
               ],
