@@ -165,13 +165,13 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                       builder: (BuildContext context) {
                         return Center(
                           child: Container(
-                            width: 200,
+                            width: 400,
                             height: 200,
                             color: Colors.white,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                 Text(
+                                Text(
                                   model.name!,
                                   style: const TextStyle(
                                     fontSize: 20,
@@ -179,20 +179,19 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                const Text(
-                                  'content',
-                                  style: TextStyle(fontSize: 16),
+                                Text(
+                                  model.description.toString(),
+                                  style: const TextStyle(fontSize: 16),
                                 ),
                                 SizedBox(height: 20),
                                 Container(
                                   width: 120,
                                   height: 30,
                                   child: DefaultElevatedButton(
-                                      'اغلاق',
-                                    fontSize:  FontSize.s10,
-
-
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    'اغلاق',
+                                    fontSize: FontSize.s10,
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                   ),
                                 ),
                               ],
@@ -202,7 +201,11 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
                       },
                     );
                   },
-                  child: Icon(color: Colors.white, Icons.info_outline,size: 14,),
+                  child: Icon(
+                    color: Colors.white,
+                    Icons.info_outline,
+                    size: 14,
+                  ),
                 ),
               ),
               Column(
