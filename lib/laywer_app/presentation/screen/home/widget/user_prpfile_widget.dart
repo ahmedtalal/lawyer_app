@@ -35,7 +35,7 @@ class UserPorfileWidget extends StatelessWidget {
               fit: BoxFit.cover,
               imageUrl: state == null
                   ? AssetsManager.lawyerImg
-                  : state!.userModel!.personalImage!,
+                  : state!.userModel!.personalImage!.toString(),
               placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => const Image(
