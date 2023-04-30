@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/config/screen_handler.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
@@ -133,6 +134,8 @@ class _BodyWidget extends StatelessWidget {
                               showSnakBarWidget(context,
                                   "تم إدراج الملف المرفق", Colors.red));
                         });
+                        printInfo(
+                            "the files are =>> ${OrderHelper.instance().files.asMap()}");
                       },
                       child: Row(
                         children: [
@@ -313,7 +316,9 @@ class _AppbarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               Text(
                 order.title!,
                 style: TextStyle(
@@ -350,11 +355,12 @@ class _AppbarWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 100.w,),
+          SizedBox(
+            width: 100.w,
+          ),
           InkWell(
             onTap: () {
               Navigator.of(context).pop();
-
             },
             child: Icon(
               Icons.home,

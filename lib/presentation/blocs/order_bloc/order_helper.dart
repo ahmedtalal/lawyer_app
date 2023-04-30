@@ -39,7 +39,7 @@ class OrderHelper {
   int lawyerId = 0;
   String description1 = "";
   int expectedDays = 0;
-  List<File> files = [];
+  List<dynamic> files = [];
 
   List<ClientOrderInfo> getClientAllPublishedOrders(
       List<ClientOrderInfo> orders) {

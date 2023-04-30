@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/repositories/order_respository.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
@@ -23,7 +24,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     on<AcceptClientOrderEvent>(acceptClientOrder);
     on<UpdateCLientOrderStatusEvent>(updateClientOrderSatus);
     on<AddClientFeedbackEvent>(addClientFeedback);
-    // on<SendLawyerRequestEvent>(sendLawyerRequest);
+    on<SendLawyerRequestEvent>(sendLawyerRequest);
   }
 
   FutureOr<void> getPublicOrdersForLawyer(
@@ -218,16 +219,18 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     }
   }
 
-  // FutureOr<void> sendLawyerRequest(
-  //     SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
-  //   emit(OrderLoadingState());
-  //   final result = await UseCaseProvider.instance()
-  //       .creator<OrderRepository>(OrderRepository.instance())
-  //       .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
-  //   if (result[mapKey] == successReposne) {
-  //     emit(OrderActionSuccessState());
-  //   } else {
-  //     emit(OrderActionFailedState(error: result[mapValue]));
-  //   }
-  // }
+  FutureOr<void> sendLawyerRequest(
+      SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
+    printInfo(
+        "the lawyer send request =>> ${OrderHelper.instance().lawyerRequestModel().fields.asMap()}");
+    emit(OrderLoadingState());
+    final result = await UseCaseProvider.instance()
+        .creator<OrderRepository>(OrderRepository.instance())
+        .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
+    if (result[mapKey] == successReposne) {
+      emit(OrderActionSuccessState());
+    } else {
+      emit(OrderActionFailedState(error: result[mapValue]));
+    }
+  }
 }
