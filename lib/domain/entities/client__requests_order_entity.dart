@@ -30,7 +30,7 @@ class RequestOrderInfo {
         json['lawyer'] != null ? new LawyerInfo.fromJson(json['lawyer']) : null;
     expectedDays = json['expected_days'];
     available = json['available'];
-    expectedBudget = json['expected_budget'];
+    expectedBudget = double.parse(json['expected_budget'].toString());
     info = json['info'];
     files = json['files'].cast<String>();
     createdAt = json['created_at'];

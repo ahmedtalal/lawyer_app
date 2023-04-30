@@ -5,6 +5,7 @@ import 'package:hokok/domain/entities/client__requests_order_entity.dart';
 import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/domain/entities/private_order_for_lawyer_entity.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
+import 'package:hokok/domain/entities/request_order_for_client.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'dart:async';
 import 'package:hokok/domain/interfaces/i_order_interface.dart';
@@ -101,4 +102,6 @@ class OrderRepository implements IOrderInterface {
     return await OrdersApiService.instance()
         .addCLientFeedbackSer(orderId, clientFeedback, rate);
   }
+
+
 }
