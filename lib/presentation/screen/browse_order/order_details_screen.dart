@@ -7,126 +7,155 @@ import '../../../core/color_manager.dart';
 import '../../../core/font_manager.dart';
 import '../../../core/routes_manager.dart';
 import '../../../core/values_manager.dart';
+import '../../blocs/order_bloc/order_helper.dart';
 
-class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen({Key? key}) : super(key: key);
+class OrderDetailsScreen extends StatefulWidget {
+  final int id;
+  final String title;
+  final String createdAt;
+  final int requests;
+  final String major;
+  final String subMajor;
+  final String description;
+  const OrderDetailsScreen(
+      {Key? key,
+      required this.id,
+      required this.title,
+      required this.createdAt,
+        required this.requests,
+        required this.major,
+      required this.subMajor,
+      required this.description})
+      : super(key: key);
+
+  @override
+  State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
+}
+
+class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: ScreenHandler.getScreenHeight(context),
-          width: ScreenHandler.getScreenWidth(context),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _AppbarWidget(),
-              SizedBox(
-                height: 30.h,
-              ),
-              const _BodyWidget(
-                order: 'widget.order!.city!',
-                title: "البلد",
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              const _BodyWidget(
-                order: 'widget.order!.major',
-                title: "التصنيف",
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              const _BodyWidget(
-                order: 'widget.order!.requests.toString()',
-                title: "عدد المحامين",
-              ),
-              SizedBox(
-                height: 40.h,
-              ),
-              Container(
-                height: 40.h,
-                width: 130.w,
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.all(5.sp),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.sp),
-                    bottomLeft: Radius.circular(
-                      20.sp,
-                    ),
-                  ),
-                  color: ColorManager.primary,
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: ScreenHandler.getScreenHeight(context),
+            width: ScreenHandler.getScreenWidth(context),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _AppbarWidget(title: widget.title , createdAt: widget.createdAt),
+                SizedBox(
+                  height: 30.h,
                 ),
-                child: Text(
-                  "التفاصيل",
-                  style: TextStyle(
-                    fontSize: 17.sp,
-                    fontFamily: FontConstants.fontFamily,
-                    color: Colors.white,
-                  ),
+                 _BodyWidget(
+                  order: widget.major.toString(),
+                  title: "البلد",
                 ),
-              ),
-              SizedBox(
-                height: 18.h,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 130.h,
-                  width: 230.w,
-                  padding: EdgeInsets.only(
-                    top: 20.sp,
-                    right: 20.sp,
-                    left: 10.sp,
-                  ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                 _BodyWidget(
+                  order: widget.subMajor.toString(),
+                  title: "التصنيف",
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                 _BodyWidget(
+                  order: widget.requests.toString(),
+                  title:  " عدد المحاميين",
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Container(
+                  height: 40.h,
+                  width: 130.w,
+                  alignment: Alignment.centerRight,
+                  padding: EdgeInsets.all(5.sp),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.sp),
+                      bottomLeft: Radius.circular(
+                        20.sp,
+                      ),
+                    ),
+                    color: ColorManager.primary,
                   ),
-                  alignment: Alignment.topRight,
                   child: Text(
-                    'widget.order!.description!',
+                    "التفاصيل",
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 17.sp,
                       fontFamily: FontConstants.fontFamily,
+                      color: Colors.white,
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(Routes.chooseLawyer);
-
-                  },
+                SizedBox(
+                  height: 18.h,
+                ),
+                Align(
+                  alignment: Alignment.center,
                   child: Container(
-                    height: 30.h,
-                    width: 130.w,
-                    alignment: Alignment.center,
+                    height: 130.h,
+                    width: 230.w,
+                    padding: EdgeInsets.only(
+                      top: 20.sp,
+                      right: 20.sp,
+                      left: 10.sp,
+                    ),
                     decoration: BoxDecoration(
-                      color: ColorManager.fourth,
+                      border: Border.all(color: Colors.grey, width: 2),
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    alignment: Alignment.topRight,
                     child: Text(
-                      "عروض المحامين",
+                      widget.description,
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontFamily: FontConstants.fontFamily,
-                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 20.h,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: InkWell(
+                    onTap: () {
+                      OrderHelper.instance().orderId = widget.id;
+                      Navigator.of(context).pushNamed(Routes.chooseLawyer);
+                    },
+                    child: Container(
+                      height: 30.h,
+                      width: 130.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: ColorManager.fourth,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        "عروض المحامين",
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontFamily: FontConstants.fontFamily,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -135,10 +164,11 @@ class OrderDetailsScreen extends StatelessWidget {
 }
 
 class _AppbarWidget extends StatelessWidget {
+  final String title;
+  final String createdAt;
   const _AppbarWidget({
-    super.key,
+    super.key, required this.title, required this.createdAt,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -155,9 +185,11 @@ class _AppbarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               Text(
-                'order.title!',
+                title,
                 style: TextStyle(
                   fontSize: 25.sp,
                   fontFamily: FontConstants.fontFamily,
@@ -178,7 +210,7 @@ class _AppbarWidget extends StatelessWidget {
                   color: ColorManager.fourth,
                 ),
                 child: Text(
-                  'order.createdAt!',
+                  createdAt,
                   style: TextStyle(
                     fontFamily: FontConstants.fontFamily,
                     fontSize: 10.sp,
@@ -192,11 +224,12 @@ class _AppbarWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 100.w,),
+          SizedBox(
+            width: 100.w,
+          ),
           InkWell(
             onTap: () {
-             // Navigator.of(context).pop();
-
+              // Navigator.of(context).pop();
             },
             child: Icon(
               Icons.home,

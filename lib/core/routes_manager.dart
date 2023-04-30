@@ -21,6 +21,7 @@ import '../domain/entities/major_entity.dart';
 import '../laywer_app/presentation/screen/home/widget/main_screen.dart';
 import '../presentation/screen/auth/chose_account_screen.dart';
 import '../presentation/screen/browse_order/choose_lawyer_screen.dart';
+import '../presentation/screen/browse_order/order_details_screen.dart';
 import '../presentation/screen/chat/chat_helper_screen.dart';
 import '../presentation/screen/layout_profile/edit_client_profile.dart';
 import '../presentation/screen/layout_profile/layout_profile/Lawyer_profile_screen.dart';
@@ -50,6 +51,7 @@ class Routes {
   static const String laywerProfileScreen = '/LawyerProfile';
   static const String editClientProfileScreen = '/editClient';
   static const String subMajorsScreen = '/subMajors';
+  // static const String orderDetailsScreen = '/orderDetailsScreen';
   static const String mainOrderScreen = '/mainOrderScreen';
   static const String lawyerHomeScreen = '/lawyerHomeScreen';
   static const String notificatiosLawyersScreen = "/notificationsLawyersScreen";
@@ -101,7 +103,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LayoutLawyerProfile());
       case Routes.chooseLawyer:
         return MaterialPageRoute(builder: (_) => const ChooseLawyer());
-
+      // case Routes.orderDetailsScreen:
+      //   return MaterialPageRoute(builder: (_) => const OrderDetailsScreen());
       case Routes.editClientProfileScreen:
         return MaterialPageRoute(
           builder: (_) => ClientEditProfileScreen(

@@ -8,6 +8,10 @@ import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
+import 'package:hokok/presentation/screen/browse_order/order_details_screen.dart';
+
+import '../../../core/functions.dart';
+import '../../../core/routes_manager.dart';
 
 class BrowseOrderScreen extends StatefulWidget {
   const BrowseOrderScreen({Key? key}) : super(key: key);
@@ -43,7 +47,16 @@ class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
             itemCount: state.clientOrders!.length,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  navigateTo(context,OrderDetailsScreen(
+                      id: state.clientOrders![index].id!,
+                      title: state.clientOrders![index].title!,
+                      createdAt: state.clientOrders![index].createdAt!,
+                      major: state.clientOrders![index].major!,
+                      requests:state.clientOrders![index].requests! ,
+                      subMajor: state.clientOrders![index].subMajor!,
+                      description: state.clientOrders![index].description!));
+                },
                 child: OrderView(
                   clientOrder: state.clientOrders![index],
                 ),
