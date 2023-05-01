@@ -95,18 +95,15 @@ class AuthHelper {
     "الافلاج",
   ];
 
-  Future<String> selectPersonalImageFromGallery() async {
+  Future<String> selectImageFromGallery() async {
+    String path = "";
     final ImagePicker picker = ImagePicker();
 // Pick an image.
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    return image!.path;
-  }
-
-  Future<String> selectLicenseImageFromGallery() async {
-    final ImagePicker picker = ImagePicker();
-// Pick an image.
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    return image!.path;
+    if (image != null) {
+      path = image.path;
+    }
+    return path;
   }
 
   UserModelInfo prepareLawyerInfo() => UserModelInfo(
@@ -170,15 +167,14 @@ class AuthHelper {
         personalImage!.path.isNotEmpty &&
         licenseImg!.path.isNotEmpty) {
       context.read<AuthBloc>().add(CreateLawyerAccountEvent());
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        showSnakBarWidget(
-          context,
-          "من فضلك قم باختار صورة",
-          Colors.red,
-        ),
-      );
     }
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(
+        context,
+        "الرجاء ادخال جميع البيانات من صور وبيانات المستخدم لكي تتم العمليه بنجاح",
+        Colors.red,
+      ),
+    );
   }
 
   onLoginAction(BuildContext context, GlobalKey<FormState> key) {
