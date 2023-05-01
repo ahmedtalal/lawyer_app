@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/debug_prints.dart';
+import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_events.dart';
@@ -39,7 +40,7 @@ class OrderHelper {
   int lawyerId = 0;
   String description1 = "";
   int expectedDays = 0;
-  List<dynamic> files = [];
+  File? file;
 
   List<ClientOrderInfo> getClientAllPublishedOrders(
       List<ClientOrderInfo> orders) {
@@ -171,13 +172,16 @@ class OrderHelper {
         clientProposedBudget: clientProposedBudget,
       );
 
-  FormData lawyerRequestModel() {
+  Future<FormData> lawyerRequestModel() async {
     FormData formData = FormData.fromMap({
       "order_id": orderId,
       "expected_days": expectedDays,
       "expected_budget": clientProposedBudget,
       "info": description1,
-      "files": [files],
+      "files[]": [
+        await MultipartFile.fromFile(file!.path,
+            filename: file!.path.split('/').last)
+      ],
     });
     return formData;
   }
@@ -240,8 +244,11 @@ class OrderHelper {
   }
 
   onSendLawyerRequestAction(BuildContext context, GlobalKey<FormState> form) {
-    if (form.currentState!.validate() && files.isNotEmpty) {
+    if (form.currentState!.validate() && file!.path.isNotEmpty) {
       context.read<OrderBloc>().add(SendLawyerRequestEvent());
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          showSnakBarWidget(context, "من فضلك قم باختيار ملف", Colors.red));
     }
   }
 

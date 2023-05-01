@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -129,13 +130,15 @@ class _BodyWidget extends StatelessWidget {
                         String file = await OrderHelper.instance()
                             .selectFileFromStorageFun();
                         state(() {
-                          OrderHelper.instance().files.add(File(file));
+                          // OrderHelper.instance().file.add(result);
+                          OrderHelper.instance().file = File(file);
                           ScaffoldMessenger.of(context).showSnackBar(
                               showSnakBarWidget(context,
-                                  "تم إدراج الملف المرفق", Colors.red));
+                                  "تم إدراج الملف المرفق", Colors.blue));
                         });
+
                         printInfo(
-                            "the files are =>> ${OrderHelper.instance().files.asMap()}");
+                            "the files are =>> ${OrderHelper.instance().file!.path}");
                       },
                       child: Row(
                         children: [

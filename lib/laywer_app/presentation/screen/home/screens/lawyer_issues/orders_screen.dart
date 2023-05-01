@@ -35,7 +35,7 @@ class OrderLawyerScreen extends StatefulWidget {
 class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
   @override
   void initState() {
-    ProfileHelper.instance().getLawyerProfileAction(context);
+    //ProfileHelper.instance().getLawyerProfileAction(context);
     OrderHelper.instance().getPublicOrdersForLawyerAction(context);
     MajorHelper.instance().getMajorsActionCon(context);
 
