@@ -22,8 +22,8 @@ class OrderDetailsScreen extends StatefulWidget {
       required this.id,
       required this.title,
       required this.createdAt,
-        required this.requests,
-        required this.major,
+      required this.requests,
+      required this.major,
       required this.subMajor,
       required this.description})
       : super(key: key);
@@ -50,27 +50,27 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _AppbarWidget(title: widget.title , createdAt: widget.createdAt),
+                _AppbarWidget(title: widget.title, createdAt: widget.createdAt),
                 SizedBox(
                   height: 30.h,
                 ),
-                 _BodyWidget(
+                _BodyWidget(
                   order: widget.major.toString(),
                   title: "البلد",
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
-                 _BodyWidget(
+                _BodyWidget(
                   order: widget.subMajor.toString(),
                   title: "التصنيف",
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
-                 _BodyWidget(
+                _BodyWidget(
                   order: widget.requests.toString(),
-                  title:  " عدد المحاميين",
+                  title: " عدد المحاميين",
                 ),
                 SizedBox(
                   height: 40.h,
@@ -167,7 +167,9 @@ class _AppbarWidget extends StatelessWidget {
   final String title;
   final String createdAt;
   const _AppbarWidget({
-    super.key, required this.title, required this.createdAt,
+    super.key,
+    required this.title,
+    required this.createdAt,
   });
 
   @override
@@ -229,7 +231,7 @@ class _AppbarWidget extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              // Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             child: Icon(
               Icons.home,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues/lawyer_offers_screen.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
@@ -30,6 +31,7 @@ class _LayoutLawyerIssuesState extends State<LayoutLawyerIssues> {
     ProfileHelper.instance().getLawyerProfileAction(context);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -52,99 +54,100 @@ class _LayoutLawyerIssuesState extends State<LayoutLawyerIssues> {
 }
 
 Container _appBar(BuildContext context) => Container(
-  width: double.infinity,
-  height: AppSize.s234,
-  color: ColorManager.primary,
-  padding: EdgeInsets.only(top: 10.h,left: 5.w),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Image(
-        image: const AssetImage(
-          AssetsManager.logo,
-        ),
-        width: 200.w,
-        fit: BoxFit.cover,
-      ),
-      Row(
+      width: double.infinity,
+      height: AppSize.s234,
+      color: ColorManager.primary,
+      padding: EdgeInsets.only(top: 10.h, left: 5.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                RouteGenerator.getRoute(
-                  const RouteSettings(name: Routes.notificatiosLawyersScreen),
-                ),
-              );
-            },
-            child: Icon(
-              Icons.notifications,
-              color: ColorManager.thirdy,
-              size: 30.sp,
+          Image(
+            image: const AssetImage(
+              AssetsManager.logo,
             ),
+            width: 200.w,
+            fit: BoxFit.cover,
           ),
-          SizedBox(width: 10.w,),
-          BlocConsumer<ProfileBloc, ProfileStates>(
-            listener: (context, state) {
-              if (state is ProfileFailedState) {
-                state.authErrorMessage(context, state.error);
-              }
-            },
-            builder: (context, state) {
-              if (state is ProfileLoadedState) {
-                return UserPorfileWidget(state: state.userEntity!);
-              } else if (state is ProfileFailedState) {
-                return  const UserPorfileWidget(state: null);
-              } else if (state is ProfileLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Container();
-            },
+          Row(
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    RouteGenerator.getRoute(
+                      const RouteSettings(
+                          name: Routes.notificatiosLawyersScreen),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.notifications,
+                  color: ColorManager.thirdy,
+                  size: 30.sp,
+                ),
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              BlocConsumer<ProfileBloc, ProfileStates>(
+                listener: (context, state) {
+                  if (state is ProfileFailedState) {
+                    printError("the profile model error=> ${state.error}");
+                    //state.authErrorMessage(context, state.error);
+                  }
+                },
+                builder: (context, state) {
+                  if (state is LawyerProfileLoadedState) {
+                    return UserPorfileWidget(state: state.userEntity!);
+                  } else if (state is ProfileFailedState) {
+                    return const UserPorfileWidget(state: null);
+                  } else if (state is ProfileLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ],
           ),
-
         ],
       ),
-
-    ],
-  ),
-);
+    );
 
 BlocBuilder _tabsBar() => BlocBuilder<MainLawyerCubit, MainLawyerState>(
       builder: (context, state) {
         var cubit = context.read<MainLawyerCubit>();
-        return StatefulBuilder(
-          builder: (context,state) {
-            return TabBar(
-              onTap: (index) {
-                state((){
-                  cubit.changeNav2Index(index);
-                });
-              },
-              labelPadding: const EdgeInsets.symmetric(horizontal: AppPadding.p22),
-              splashBorderRadius: BorderRadius.circular(AppSize.s12),
-              splashFactory: InkSplash.splashFactory,
-              indicatorPadding: EdgeInsets.zero,
-              labelStyle: const TextStyle(
-                fontWeight: FontWeightManager.w400,
-                fontFamily: FontConstants.fontFamily,
-              ),
-              isScrollable: true,
-              padding: EdgeInsets.zero,
-              dividerColor: Colors.transparent,
-              labelColor: ColorManager.primary,
-              unselectedLabelColor: ColorManager.secondary,
-              indicatorColor: Colors.transparent,
-              indicatorSize: TabBarIndicatorSize.label,
-              tabs: [
-                _tab(cubit.currentIndex1, 0, "القضايا"),
-                _tab(cubit.currentIndex1, 1, "طلباتى"),
-                _tab(cubit.currentIndex1, 2, "العروض"),
-              ],
-            );
-          }
-        );
+        return StatefulBuilder(builder: (context, state) {
+          return TabBar(
+            onTap: (index) {
+              state(() {
+                cubit.changeNav2Index(index);
+              });
+            },
+            labelPadding:
+                const EdgeInsets.symmetric(horizontal: AppPadding.p22),
+            splashBorderRadius: BorderRadius.circular(AppSize.s12),
+            splashFactory: InkSplash.splashFactory,
+            indicatorPadding: EdgeInsets.zero,
+            labelStyle: const TextStyle(
+              fontWeight: FontWeightManager.w400,
+              fontFamily: FontConstants.fontFamily,
+            ),
+            isScrollable: true,
+            padding: EdgeInsets.zero,
+            dividerColor: Colors.transparent,
+            labelColor: ColorManager.primary,
+            unselectedLabelColor: ColorManager.secondary,
+            indicatorColor: Colors.transparent,
+            indicatorSize: TabBarIndicatorSize.label,
+            tabs: [
+              _tab(cubit.currentIndex1, 0, "القضايا"),
+              _tab(cubit.currentIndex1, 1, "طلباتى"),
+              _tab(cubit.currentIndex1, 2, "العروض"),
+            ],
+          );
+        });
       },
     );
 Expanded _body() => const Expanded(
@@ -173,7 +176,8 @@ Stack _tab(int index, int count, String text) => Stack(
           crossFadeState: index == count
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
-          duration: const Duration(milliseconds: AppConstants.lineAnimationTime),
+          duration:
+              const Duration(milliseconds: AppConstants.lineAnimationTime),
         ),
         Tab(
           text: text,

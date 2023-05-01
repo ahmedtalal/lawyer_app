@@ -394,7 +394,7 @@ class OrdersApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      printInfo("the model => $data");
+      printInfo("the lawyer send request =>> ${data.fields.asMap()}");
       Response response = await CrudApiHelper.instance.postRequest(
         path: POST_LAWYER_ORDERS_REQUEST_PATH,
         data: data,

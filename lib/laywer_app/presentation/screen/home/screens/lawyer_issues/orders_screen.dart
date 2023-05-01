@@ -15,7 +15,7 @@ import '../../../../../../core/shared_widget/empty_data_shared_widget.dart';
 import '../../../../../../core/values_manager.dart';
 import '../../../../../../domain/entities/major_entity.dart';
 import '../../../../../../domain/entities/public_order_entity.dart';
-import '../../../../../../domain/entities/user_entity.dart';
+import '../../../../../../domain/entities/lawyer_profile_entity.dart';
 import '../../../../../../presentation/blocs/major_bloc/major_bloc.dart';
 import '../../../../../../presentation/blocs/major_bloc/major_helper.dart';
 import '../../../../../../presentation/blocs/major_bloc/major_states.dart';
@@ -35,7 +35,7 @@ class OrderLawyerScreen extends StatefulWidget {
 class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
   @override
   void initState() {
-    ProfileHelper.instance().getLawyerProfileAction(context);
+    //ProfileHelper.instance().getLawyerProfileAction(context);
     OrderHelper.instance().getPublicOrdersForLawyerAction(context);
     MajorHelper.instance().getMajorsActionCon(context);
 
@@ -383,7 +383,7 @@ class UserPorfileWidget extends StatelessWidget {
     required this.state,
     super.key,
   });
-  final UserEntity? state;
+  final LawyerProfileEntity? state;
   @override
   Widget build(BuildContext context) {
     return Column(

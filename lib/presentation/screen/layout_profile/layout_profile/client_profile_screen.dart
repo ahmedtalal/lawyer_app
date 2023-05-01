@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/data/services/api/auth_api_service.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/client_profile_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 
 import '../../../../core/assets_manager.dart';
 import '../../../../core/color_manager.dart';
@@ -17,7 +18,7 @@ import '../../../../core/values_manager.dart';
 class ClientProfileScreen extends StatefulWidget {
   const ClientProfileScreen({required this.userEntity, Key? key})
       : super(key: key);
-  final UserEntity? userEntity;
+  final ClientProfileEntity? userEntity;
   @override
   State<ClientProfileScreen> createState() => _ClientProfileScreen();
 }
@@ -97,9 +98,9 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               Padding(
                 padding: const EdgeInsets.all(AppPadding.p10),
                 child: DefaultText(
-                  widget.userEntity!.userModel!.about == null
+                  widget.userEntity!.data!.about == null
                       ? AppStrings.about
-                      : widget.userEntity!.userModel!.about!,
+                      : widget.userEntity!.data!.about!,
                   fontSize: FontSize.s16,
                   color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
                 ),

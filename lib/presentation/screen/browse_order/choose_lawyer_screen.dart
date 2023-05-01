@@ -37,6 +37,25 @@ class _ChooseLawyerState extends State<ChooseLawyer> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(right: 25.w),
+        child: Align(
+          alignment: Alignment.bottomRight,
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Icon(
+                Icons.arrow_back,
+                size: 20.sp,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
@@ -63,7 +82,7 @@ class _ChooseLawyerState extends State<ChooseLawyer> {
                 itemCount: state.requestOrders!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return OrderRequestComponent(
-                    lawer: state.requestOrders![index].lawyer!,
+                      lawer: state.requestOrders![index].lawyer!,
                       info: state.requestOrders![index].info!,
                       files: state.requestOrders![index].files!,
                       lawyerImage:
@@ -110,9 +129,8 @@ class OrderRequestComponent extends StatelessWidget {
       required this.expectedTime,
       required this.files,
       required this.expectedBudget,
-        required this.lawer,
-
-        required this.info,
+      required this.lawer,
+      required this.info,
       required this.lawyerImage,
       required this.createdAt,
       required this.available})
@@ -213,7 +231,8 @@ class OrderRequestComponent extends StatelessWidget {
                             createdAt: createdAt,
                             expectedDays: int.parse(expectedTime),
                             lawyer: lawer,
-                            files: files , expectedBudget:double.parse(expectedBudget) ),
+                            files: files,
+                            expectedBudget: double.parse(expectedBudget)),
                       ));
                 },
                 child: Container(

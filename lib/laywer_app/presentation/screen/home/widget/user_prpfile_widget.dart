@@ -5,14 +5,14 @@ import 'package:hokok/core/font_manager.dart';
 import '../../../../../core/assets_manager.dart';
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/values_manager.dart';
-import '../../../../../domain/entities/user_entity.dart';
+import '../../../../../domain/entities/lawyer_profile_entity.dart';
 
 class UserPorfileWidget extends StatelessWidget {
   const UserPorfileWidget({
     required this.state,
     super.key,
   });
-  final UserEntity? state;
+  final LawyerProfileEntity? state;
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/repositories/order_respository.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
@@ -222,10 +223,11 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
 
   FutureOr<void> sendLawyerRequest(
       SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
+    final model = await OrderHelper.instance().lawyerRequestModel();
     emit(OrderLoadingState());
     final result = await UseCaseProvider.instance()
         .creator<OrderRepository>(OrderRepository.instance())
-        .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
+        .addOrderForLawyer(model);
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {

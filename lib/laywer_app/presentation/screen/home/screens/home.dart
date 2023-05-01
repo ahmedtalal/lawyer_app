@@ -203,11 +203,12 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                 BlocConsumer<ProfileBloc, ProfileStates>(
                   listener: (context, state) {
                     if (state is ProfileFailedState) {
-                      state.authErrorMessage(context, state.error);
+                      printError("the profile model error => ${state.error}");
+                      //state.authErrorMessage(context, state.error);
                     }
                   },
                   builder: (context, state) {
-                    if (state is ProfileLoadedState) {
+                    if (state is LawyerProfileLoadedState) {
                       return UserPorfileWidget(state: state.userEntity!);
                     } else if (state is ProfileFailedState) {
                       return const UserPorfileWidget(state: null);

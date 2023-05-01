@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hokok/data/models/own_orders_for_lawyer_model.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_notifications_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_order_details_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_own_order_details_screen.dart';
@@ -108,14 +108,13 @@ class RouteGenerator {
       case Routes.editClientProfileScreen:
         return MaterialPageRoute(
           builder: (_) => ClientEditProfileScreen(
-            userEntity: settings.arguments as UserEntity,
+            userEntity: settings.arguments as LawyerProfileEntity,
           ),
         );
       case Routes.subMajorsScreen:
         return MaterialPageRoute(
           builder: (_) => SubMajorsScreen(
             model: settings.arguments as MajorData,
-
           ),
         );
       case Routes.mainOrderScreen:

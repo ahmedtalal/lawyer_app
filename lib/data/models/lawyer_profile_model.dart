@@ -1,20 +1,20 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 
-class UserModel extends UserEntity {
-  UserModel({super.userModel});
+class LawyerProfileModel extends LawyerProfileEntity {
+  LawyerProfileModel({super.userModel});
 
-  UserModel.lawyerFromJson(Map<String, dynamic> json) {
+  LawyerProfileModel.lawyerFromJson(Map<String, dynamic> json) {
     userModel = json['data'] != null
-        ? UserModelInfo.lawyerFromJson(json['data'])
+        ? ModelModelInfo.lawyerFromJson(json['data'])
         : null;
   }
 
-  UserModel.clientFromJson(Map<String, dynamic> json) {
+  LawyerProfileModel.clientFromJson(Map<String, dynamic> json) {
     userModel = json['data'] != null
-        ? UserModelInfo.clientFromJson(json['data'])
+        ? ModelModelInfo.clientFromJson(json['data'])
         : null;
   }
 
@@ -51,7 +51,7 @@ class UserModel extends UserEntity {
   }
 }
 
-class UserModelInfo {
+class ModelModelInfo {
   int? id;
   String? token;
   String? name;
@@ -70,7 +70,7 @@ class UserModelInfo {
   String? idExpiryDate;
   List<int>? majors;
 
-  UserModelInfo({
+  ModelModelInfo({
     id,
     token,
     name,
@@ -90,7 +90,7 @@ class UserModelInfo {
     majors,
   });
 
-  UserModelInfo.lawyerFromJson(Map<String, dynamic> json) {
+  ModelModelInfo.lawyerFromJson(Map<String, dynamic> json) {
     id = json['id'];
     token = json['token'];
     name = json['name'];
@@ -156,7 +156,7 @@ class UserModelInfo {
     return formData;
   }
 
-  UserModelInfo.clientFromJson(Map<String, dynamic> json) {
+  ModelModelInfo.clientFromJson(Map<String, dynamic> json) {
     id = json['id'];
     token = json['token'];
     name = json['name'];

@@ -31,7 +31,7 @@ class _AppBarCompState extends State<AppBarComp> {
         }
       },
       builder: (context, state) {
-        if (state is ProfileLoadedState) {
+        if (state is LawyerProfileLoadedState) {
           return AppBarWidget(
             onClick: widget.onTap,
             icon: widget.icon,
