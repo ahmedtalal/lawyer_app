@@ -69,28 +69,32 @@ class _BodyWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("الوقت المتوقع :${order.expectedDays}", style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: FontConstants.fontFamily,
-              color: Colors.black,
-            )),
+            Text("الوقت المتوقع :${order.expectedDays}",
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontFamily: FontConstants.fontFamily,
+                  color: Colors.black,
+                )),
             SizedBox(
               height: 14.h,
             ),
-            Text("الميزانية المتوقعة :${order.expectedDays} ", style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: FontConstants.fontFamily,
-              color: Colors.black,
-            ),),
+            Text(
+              "الميزانية المتوقعة :${order.expectedDays} ",
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontFamily: FontConstants.fontFamily,
+                color: Colors.black,
+              ),
+            ),
             SizedBox(
               height: 14.h,
             ),
-            Text(" الملفات :", style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: FontConstants.fontFamily,
-              color: Colors.black,
-            )),
-
+            Text(" الملفات :",
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontFamily: FontConstants.fontFamily,
+                  color: Colors.black,
+                )),
             SizedBox(
               height: 45.h,
               child: ListView.builder(
@@ -100,16 +104,15 @@ class _BodyWidget extends StatelessWidget {
                 itemCount: order.files!.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: ()async {
+                    onTap: () async {
                       if (await canLaunchUrl(Uri.parse(order.files![index]))) {
                         await launchUrl(Uri.parse(order.files![index]));
                       } else {
                         throw 'Could not launch ';
                       }
-
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5.w),
+                        margin: EdgeInsets.symmetric(horizontal: 5.w),
                         width: 80.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppSize.s10),
@@ -118,7 +121,8 @@ class _BodyWidget extends StatelessWidget {
                             color: ColorManager.grey,
                           ),
                         ),
-                        child: Center(child: Text(("الملف :${index+1}").toString()))),
+                        child: Center(
+                            child: Text(("الملف :${index + 1}").toString()))),
                   );
                 },
               ),
@@ -177,7 +181,6 @@ class _BodyWidget extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            
           ],
         ),
       );
