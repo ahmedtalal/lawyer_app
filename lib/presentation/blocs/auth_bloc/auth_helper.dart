@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
-import 'package:hokok/data/models/user_model.dart';
+import 'package:hokok/data/models/lawyer_profile_model.dart';
 import 'package:hokok/data/repositories/auth_api_repository.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
@@ -106,7 +106,7 @@ class AuthHelper {
     return path;
   }
 
-  UserModelInfo prepareLawyerInfo() => UserModelInfo(
+  ModelModelInfo prepareLawyerInfo() => ModelModelInfo(
         type: type,
         name: name,
         email: email,
@@ -134,7 +134,7 @@ class AuthHelper {
     return formData;
   }
 
-  UserModelInfo prepareClientInfo() => UserModelInfo(
+  ModelModelInfo prepareClientInfo() => ModelModelInfo(
         id: id,
         token: token,
         type: type,

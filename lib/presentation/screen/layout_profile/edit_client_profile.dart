@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/text.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_states.dart';
@@ -16,7 +16,7 @@ import '../profile/component/profile_details_widget.dart';
 class ClientEditProfileScreen extends StatefulWidget {
   const ClientEditProfileScreen({required this.userEntity, Key? key})
       : super(key: key);
-  final UserEntity? userEntity;
+  final LawyerProfileEntity? userEntity;
   @override
   State<ClientEditProfileScreen> createState() => _ClientEditProfileScreen();
 }

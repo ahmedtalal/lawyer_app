@@ -21,6 +21,7 @@ class BrowseOrderScreen extends StatefulWidget {
 }
 
 class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
+  List<ClientOrderInfo> clientOrders = [];
   @override
   void initState() {
     OrderHelper.instance().onGetAllClientOrdersFun(context);
@@ -33,42 +34,46 @@ class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
       height: ScreenHandler.getScreenHeight(context),
       width: ScreenHandler.getScreenWidth(context),
       padding: const EdgeInsets.all(10),
-      child: BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
-        if (state is OrderFailedLoadedState) {
-          state.authErrorMessage(context, state.error);
-        }
-      }, builder: (context, state) {
-        if (state is OrderLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is ClientOrdersLoadedState) {
+      child: BlocConsumer<OrderBloc, OrderStates>(
+        listener: (context, state) {
+          if (state is OrderFailedLoadedState) {
+            state.authErrorMessage(context, state.error);
+          } else if (state is ClientOrdersLoadedState) {
+            clientOrders = state.clientOrders!;
+          }
+        },
+        builder: (context, state) {
+          if (state is OrderLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is OrderFailedLoadedState) {
+            return emptyDataSharedWidget();
+          }
           return ListView.builder(
-            itemCount: state.clientOrders!.length,
+            itemCount: clientOrders.length,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
-                  navigateTo(context,OrderDetailsScreen(
-                      id: state.clientOrders![index].id!,
-                      title: state.clientOrders![index].title!,
-                      createdAt: state.clientOrders![index].createdAt!,
-                      major: state.clientOrders![index].major!,
-                      requests:state.clientOrders![index].requests! ,
-                      subMajor: state.clientOrders![index].subMajor!,
-                      description: state.clientOrders![index].description!));
+                  navigateTo(
+                      context,
+                      OrderDetailsScreen(
+                          id: clientOrders[index].id!,
+                          title: clientOrders[index].title!,
+                          createdAt: clientOrders[index].createdAt!,
+                          major: clientOrders[index].major!,
+                          requests: clientOrders[index].requests!,
+                          subMajor: clientOrders[index].subMajor!,
+                          description: clientOrders[index].description!));
                 },
                 child: OrderView(
-                  clientOrder: state.clientOrders![index],
+                  clientOrder: clientOrders[index],
                 ),
               );
             },
           );
-        } else if (state is OrderFailedLoadedState) {
-          return emptyDataSharedWidget();
-        } else {
-          return Container();
-        }
-      }),
+        },
+      ),
     );
   }
 }

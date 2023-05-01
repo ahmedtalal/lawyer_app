@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 
 import '../../../../core/assets_manager.dart';
 import '../../../../core/color_manager.dart';
@@ -20,7 +20,7 @@ class ProfileDetailsWidget extends StatelessWidget {
 
   final double paddingRight;
   final double positionRight;
-  final UserEntity? userEntity;
+  final LawyerProfileEntity? userEntity;
 
   @override
   Widget build(BuildContext context) {

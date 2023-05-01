@@ -208,7 +208,7 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                     }
                   },
                   builder: (context, state) {
-                    if (state is ProfileLoadedState) {
+                    if (state is LawyerProfileLoadedState) {
                       return UserPorfileWidget(state: state.userEntity!);
                     } else if (state is ProfileFailedState) {
                       return const UserPorfileWidget(state: null);

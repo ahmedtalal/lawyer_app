@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/routes_manager.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/client_profile_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
@@ -52,8 +53,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          if (state is ProfileLoadedState) {
-            UserEntity userEntity = state.userEntity!;
+          if (state is ClientProfileLoadedState) {
+            ClientProfileEntity userEntity = state.userEntity!;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -198,7 +199,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
         ),
       );
 
-  Container _appBar(UserEntity userEntity) => Container(
+  Container _appBar(ClientProfileEntity userEntity) => Container(
         width: double.infinity,
         height: AppSize.s234,
         color: ColorManager.primary,
@@ -226,8 +227,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                           height: 50,
                           width: 50,
                           fit: BoxFit.cover,
-                          imageUrl:
-                              userEntity.userModel!.personalImage!.toString(),
+                          imageUrl: userEntity.data!.personalImage!.toString(),
                           placeholder: (context, url) =>
                               const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) => const Image(
@@ -273,7 +273,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p2),
               child: DefaultText(
-                userEntity.userModel!.name!,
+                userEntity.data!.name!,
                 fontSize: FontSize.s24,
                 color: ColorManager.white,
               ),
@@ -283,7 +283,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
               children: [
                 SvgPicture.asset(AssetsManager.locationIcon),
                 DefaultText(
-                  "${userEntity.userModel!.city!} - ${userEntity.userModel!.zone!}",
+                  "${userEntity.data!.city!} - ${userEntity.data!.zone!}",
                   fontSize: FontSize.s10,
                   color: ColorManager.secondary,
                 ),
