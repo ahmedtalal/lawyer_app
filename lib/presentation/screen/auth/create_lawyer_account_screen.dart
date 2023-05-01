@@ -118,15 +118,23 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                               child: InkWell(
                                 onTap: () async {
                                   String file = await AuthHelper.instance()
-                                      .selectLicenseImageFromGallery();
+                                      .selectImageFromGallery();
                                   setState(() {
                                     AuthHelper.instance().licenseImg =
                                         File(file);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        showSnakBarWidget(
-                                            context,
-                                            "تم إدراج الملف المرفق",
-                                            Colors.blue));
+                                    if (file.isNotEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "تم إدراج الملف المرفق",
+                                              Colors.blue));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "من فضلك قم باختيار صورة شهادة ترخيص",
+                                              Colors.red));
+                                    }
                                   });
                                   printInfo(
                                       "the lisence img => ${AuthHelper.instance().licenseImg}");
@@ -172,15 +180,23 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                               child: InkWell(
                                 onTap: () async {
                                   String file = await AuthHelper.instance()
-                                      .selectPersonalImageFromGallery();
+                                      .selectImageFromGallery();
                                   setState(() {
                                     AuthHelper.instance().personalImage =
                                         File(file);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        showSnakBarWidget(
-                                            context,
-                                            "تم إدراج الملف المرفق",
-                                            Colors.blue));
+                                    if (file.isNotEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "تم إدراج الملف المرفق",
+                                              Colors.blue));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "من فضلك قم باختيار صورة شخصية",
+                                              Colors.red));
+                                    }
                                   });
                                   printInfo(
                                       "the personal img => ${AuthHelper.instance().personalImage}");

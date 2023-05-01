@@ -162,6 +162,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
 
   FutureOr<void> getOrdersRequestForClient(
       GetClientOrderRequestEvent event, Emitter<OrderStates> emit) async {
+    print("start event");
     emit(OrderLoadingState());
     final result = await UseCaseProvider.instance()
         .creator<OrderRepository>(OrderRepository.instance())
@@ -169,6 +170,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     if (result.isEmpty) {
       emit(OrderFailedLoadedState("لا يوجد بيانات"));
     } else {
+      print("ClientOrdersRequestLoadedState");
       emit(ClientOrdersRequestLoadedState(result));
     }
   }
@@ -178,7 +180,7 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
     emit(OrderLoadingState());
     final result = await UseCaseProvider.instance()
         .creator<OrderRepository>(OrderRepository.instance())
-        .acceptOrderRequestForClient(OrderHelper.instance().orderId);
+        .acceptOrderRequestForClient(OrderHelper.instance().requestId);
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {

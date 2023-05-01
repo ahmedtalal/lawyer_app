@@ -28,6 +28,7 @@ class OrderHelper {
   int majorId = 0;
   String? majorValue;
   int orderId = 0;
+  int requestId =  0;
   String orderFeedback = "";
   double orderRate = 0;
   String title = "";
@@ -254,6 +255,14 @@ class OrderHelper {
 
   onGetAllClientOrdersFun(BuildContext context) =>
       context.read<OrderBloc>().add(GetAllClientOderEvent());
+
+  onGetAllClientOrdersRequest(BuildContext context) =>
+      context.read<OrderBloc>().add(GetClientOrderRequestEvent());
+  acceptOrderClient(BuildContext context , requestID) {
+    requestId = requestID;
+    context.read<OrderBloc>().add(AcceptClientOrderEvent());
+
+  }
 
   String publishedDateFormat(String date) {
     String result = date.substring(0, 10);

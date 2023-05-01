@@ -22,7 +22,7 @@ import '../../../../domain/entities/major_entity.dart';
 class SubMajorsScreen extends StatefulWidget {
   const SubMajorsScreen({required this.model, Key? key}) : super(key: key);
   // final int? id;
- final MajorData model;
+  final MajorData model;
   // final String name;
 
   @override
@@ -69,6 +69,22 @@ class _SubMajorsScreenState extends State<SubMajorsScreen> {
                     ),
                     child: _body(context),
                   ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 50.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -83,7 +99,7 @@ class _SubMajorsScreenState extends State<SubMajorsScreen> {
                     color: ConstantColor.whiteColor,
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black)),
-                child:  Center(
+                child: Center(
                   child: DefaultText(
                     widget.model.name!,
                     // fontSize: AppSize.s20,
@@ -100,8 +116,7 @@ class _SubMajorsScreenState extends State<SubMajorsScreen> {
   SizedBox _space(double space) => SizedBox(height: space);
 
   Widget _body(BuildContext context) =>
-      BlocConsumer<MajorBloc, MajorStates>(
-          listener: (context, state) {
+      BlocConsumer<MajorBloc, MajorStates>(listener: (context, state) {
         if (state is SubMajorSuccessLoadedState) {
           subMajors = state.subMajorsList;
         }

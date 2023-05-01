@@ -8,6 +8,8 @@ import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/domain/entities/requests_order_for_lawyer_entity.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 
+import '../entities/request_order_for_client.dart';
+
 abstract class IOrderInterface {
   FutureOr<List<OrderInfoModel>> getPublicOrdersForLawyer(
       String city, int majorId);
@@ -16,6 +18,8 @@ abstract class IOrderInterface {
   FutureOr<List<PrivateOrdersInfoModel>> getPrivateOrdersForLawyer();
   FutureOr<dynamic> addOrderForLawyer(FormData data);
   FutureOr<List<RequestsLawyerOrderInfo>> getAllRequestesOrderForLawyer();
+  // FutureOr<List<RequestsClientOrderInfo>> getAllRequestsOrderForClient(int orderId);
+
   FutureOr<dynamic> updateOrderForLawyer(int status, int orderId);
   FutureOr<dynamic> addOrderForClient(CreateOrderModel model);
   FutureOr<List<ClientOrderInfo>> getAllOrdersForClient();

@@ -19,10 +19,10 @@ class OrdersClientScreen extends StatefulWidget {
   State<OrdersClientScreen> createState() => _OrdersClientScreenState();
 }
 
-List<ClientOrderInfo>? clientOrders;
-List<ClientOrderInfo>? clientFinishedOrders;
-List<ClientOrderInfo>? clientInProgressOrders;
-List<ClientOrderInfo>? clientPublishedOrders;
+List<ClientOrderInfo> clientOrders= [ ];
+List<ClientOrderInfo> clientFinishedOrders= [];
+List<ClientOrderInfo> clientInProgressOrders= [];
+List<ClientOrderInfo> clientPublishedOrders = [];
 
 class _OrdersClientScreenState extends State<OrdersClientScreen> {
   @override
@@ -335,7 +335,7 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: OrderHelper.instance()
-              .getClientAllPublishedOrders(clientOrders!)
+              .getClientAllPublishedOrders(clientOrders)
               .length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
@@ -355,7 +355,7 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                                 flex: 3,
                                 child: DefaultText(
                                   OrderHelper.instance()
-                                      .getClientAllPublishedOrders(clientOrders!)[index].client!.name!,
+                                      .getClientAllPublishedOrders(clientOrders)[index].client!.name!,
                                   color: ColorManager.black,
                                 ),
                               ),
@@ -363,7 +363,7 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                                 flex: 2,
                                 child: DefaultText(
                                   OrderHelper.instance()
-                                      .getClientAllPublishedOrders(clientOrders!)[index]
+                                      .getClientAllPublishedOrders(clientOrders)[index]
                                       .assignedToLawyerAt!
                                       .toString(),
                                   fontSize: fontSize,
@@ -374,7 +374,7 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                                 flex: 2,
                                 child: DefaultText(
                                   OrderHelper.instance()
-                                      .getClientAllPublishedOrders(clientOrders!)[index].deliveredAt!,
+                                      .getClientAllPublishedOrders(clientOrders)[index].deliveredAt!,
                                   fontSize: fontSize,
                                   color: ColorManager.black,
                                 ),
@@ -587,7 +587,7 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                   ),
                 ),
                 OrderHelper.instance()
-                    .getClientAllCompletedOrders(clientOrders!).isEmpty
+                    .getClientAllCompletedOrders(clientOrders).isEmpty
                     ? Center(
                   child: Text(
                     "لا يوجد بيانات",

@@ -7,7 +7,7 @@ class CLientRequestOrderModel extends ClientOrderRequestEntity {
     if (json['data'] != null) {
       data = <RequestOrderInfo>[];
       json['data'].forEach((v) {
-        data!.add(new RequestOrderInfo.fromJson(v));
+        data!.add( RequestOrderInfo.fromJson(v));
       });
     }
   }
