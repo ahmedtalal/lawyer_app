@@ -80,7 +80,7 @@ class RequestOrderView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              order!.order!.title.toString(),
+              order.order!.title.toString(),
               style: const TextStyle(
                 fontSize: 20,
                 fontFamily: FontConstants.fontFamily,
@@ -89,9 +89,7 @@ class RequestOrderView extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: const Directionality(
                 textDirection: TextDirection.ltr,
                 child: Icon(
@@ -118,7 +116,7 @@ class RequestOrderView extends StatelessWidget {
                 ),
                 RowItems(
                   icon: Icons.bookmark_border,
-                  title: "${order!.order!.requests} عروض",
+                  title: "${order.order!.requests} عروض",
                 ),
                 const SizedBox(
                   width: 8,
@@ -129,7 +127,7 @@ class RequestOrderView extends StatelessWidget {
               height: 15.h,
             ),
             Text(
-              order!.order!.description.toString(),
+              order.order!.description.toString(),
               style: const TextStyle(
                 fontFamily: FontConstants.fontFamily,
                 fontSize: 14,

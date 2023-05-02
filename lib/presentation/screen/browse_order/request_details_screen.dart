@@ -1,13 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/config/screen_handler.dart';
-import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
-import 'package:hokok/domain/entities/public_order_entity.dart';
-import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
-import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
-import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/color_manager.dart';
 import '../../../../../core/font_manager.dart';
@@ -42,7 +35,7 @@ class _OrderRequestDetailsScreenState extends State<OrderRequestDetailsScreen> {
                 height: 30.h,
               ),
               _BodyWidget(
-                order: widget.order!,
+                order: widget.order,
               ),
             ],
           ),
