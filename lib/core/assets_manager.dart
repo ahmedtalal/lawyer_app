@@ -7,7 +7,6 @@ class AssetsManager {
   static String advertisementImage = '$imagePath/advertisement.svg';
   static String logoEnsaf = '$imagePath/logo-ensaf.png';
 
-
   //icon
   static String logoIcon = '$iconPath/logo.svg';
   static String menuIcon = '$iconPath/menu.svg';
@@ -38,6 +37,9 @@ class AssetsManager {
   static String penal2Icon = '$iconPath/penal2.svg';
   static String cameraIcon = '$iconPath/camera.svg';
   static String settings = '$iconPath/Settings.svg';
+  static String userNumber = "assets/images/group.png";
+  static String issueNumber = "assets/images/issues_number.png";
+  static String issueFees = "assets/images/issuesFees.png";
 
   static String emptyDataImage = "assets/images/emptydata.jpg";
   static const String lawyerImg = "assets/images/lawyer.png";
