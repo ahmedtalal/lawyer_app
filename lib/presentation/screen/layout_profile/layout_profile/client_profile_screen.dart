@@ -18,7 +18,7 @@ import '../../../../core/values_manager.dart';
 class ClientProfileScreen extends StatefulWidget {
   const ClientProfileScreen({required this.userEntity, Key? key})
       : super(key: key);
-  final ClientProfileEntity? userEntity;
+  final ClientProfileAttributes? userEntity;
   @override
   State<ClientProfileScreen> createState() => _ClientProfileScreen();
 }
@@ -98,9 +98,9 @@ class _ClientProfileScreen extends State<ClientProfileScreen> {
               Padding(
                 padding: const EdgeInsets.all(AppPadding.p10),
                 child: DefaultText(
-                  widget.userEntity!.data!.about == null
+                  widget.userEntity!.about == null
                       ? AppStrings.about
-                      : widget.userEntity!.data!.about!,
+                      : widget.userEntity!.about!,
                   fontSize: FontSize.s16,
                   color: ColorManager.secondary.withOpacity(AppOpacity.c0_70),
                 ),
