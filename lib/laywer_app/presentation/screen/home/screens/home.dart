@@ -48,9 +48,6 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _appBar(context),
-          SizedBox(
-            height: 100.h,
-          ),
           BlocConsumer<LawyersBloc, LawyerStates>(listener: (context, state) {
             if (state is StatisticsLawyersLoadedState) {
               statistics = state.statistics;
@@ -63,101 +60,32 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                 child: CircularProgressIndicator(),
               );
             }
-            return Padding(
-              padding: EdgeInsets.all(15.sp),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            "عدد المستخدمين",
-                            style: TextStyle(
-                              fontSize: 19.sp,
-                              fontFamily: FontConstants.fontFamily,
-                              fontWeight: FontWeight.bold,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 6.h,
-                          ),
-                          Text(
-                            statistics["data"]["number_of_clients"].toString(),
-                            style: TextStyle(
-                              fontSize: 17.sp,
-                              fontFamily: FontConstants.fontFamily,
-                              fontWeight: FontWeight.bold,
-                              color: ColorManager.secondary,
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            "القضايا المتاحة",
-                            style: TextStyle(
-                              fontSize: 19.sp,
-                              fontFamily: FontConstants.fontFamily,
-                              fontWeight: FontWeight.bold,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 6.h,
-                          ),
-                          Text(
-                            statistics["data"]["number_of_published_orders"]
-                                .toString(),
-                            style: TextStyle(
-                              fontSize: 17.sp,
-                              fontFamily: FontConstants.fontFamily,
-                              fontWeight: FontWeight.bold,
-                              color: ColorManager.secondary,
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "اتعاب القضايا",
-                          style: TextStyle(
-                            fontSize: 19.sp,
-                            fontFamily: FontConstants.fontFamily,
-                            fontWeight: FontWeight.bold,
-                            color: ColorManager.primary,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 6.h,
-                        ),
-                        Text(
-                          statistics["data"]["all_budget"].toString(),
-                          style: TextStyle(
-                            fontSize: 17.sp,
-                            fontFamily: FontConstants.fontFamily,
-                            fontWeight: FontWeight.bold,
-                            color: ColorManager.secondary,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return Expanded(
+                child: ListView.builder(
+              padding: EdgeInsets.only(top: 20.h),
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                String value = '';
+                String title = "";
+                String image = '';
+                if (index == 0) {
+                  value = statistics["data"]["number_of_clients"].toString();
+                  title = "عدد المستخدمين";
+                  image = AssetsManager.userNumber;
+                } else if (index == 1) {
+                  value = statistics["data"]["number_of_published_orders"]
+                      .toString();
+                  title = "القضايا المتاحة";
+                  image = AssetsManager.issueNumber;
+                } else if (index == 2) {
+                  value = statistics["data"]["all_budget"].toString();
+                  title = "اتعاب القضايا";
+                  image = AssetsManager.issueFees;
+                }
+                return StatisticsLawyerView(
+                    title: title, statistic: value, image: image);
+              },
+            ));
           }),
         ],
       ),
@@ -257,6 +185,79 @@ class RowItems extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class StatisticsLawyerView extends StatelessWidget {
+  const StatisticsLawyerView({
+    required this.title,
+    required this.statistic,
+    required this.image,
+    super.key,
+  });
+
+  final String title;
+  final String statistic;
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100.w,
+      height: 100.h,
+      margin: EdgeInsets.only(
+        top: 10.sp,
+        left: 30.w,
+        right: 30.w,
+        bottom: 10.h,
+      ),
+      padding: EdgeInsets.all(5.sp),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.sp),
+        border: Border.all(color: Colors.grey, width: 1),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image(
+            image: AssetImage(
+              image,
+            ),
+            width: 70.w,
+            height: 50.h,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 11.sp,
+                  fontFamily: FontConstants.fontFamily,
+                  fontWeight: FontWeight.bold,
+                  color: ColorManager.primary,
+                ),
+              ),
+              Text(
+                statistic.toString(),
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontFamily: FontConstants.fontFamily,
+                  fontWeight: FontWeight.bold,
+                  color: ColorManager.thirdy,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
