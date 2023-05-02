@@ -62,10 +62,10 @@ class ModelModelInfo {
   String? city;
   String? about;
   int? status;
-  File? personalImage;
+  String? personalImage;
   String? createdAt;
   int? lawyerId;
-  File? licenseImg;
+  String? licenseImg;
   int? idNumber;
   String? idExpiryDate;
   List<int>? majors;

@@ -21,7 +21,7 @@ class LawyerProfileLoadedState extends ProfileStates {
 }
 
 class ClientProfileLoadedState extends ProfileStates {
-  ClientProfileEntity? userEntity;
+  ClientProfileAttributes userEntity;
   ClientProfileLoadedState(this.userEntity);
 }
 
