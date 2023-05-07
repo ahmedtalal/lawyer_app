@@ -21,10 +21,11 @@ class NotificationBloc extends Bloc<NotificationEvents, NotificationStates> {
     result.listen(
       (notifications) {
         printDone("the length of notifications =>${notifications.length} ");
-        printDone("the stream closed");
+
         emit(NotificationsLoadedState(notifications));
       },
       onDone: () {
+        printDone("the stream closed");
         printInfo("everything is ok");
       },
       cancelOnError: false,
