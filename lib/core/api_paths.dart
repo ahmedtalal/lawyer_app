@@ -40,5 +40,5 @@ const String ADD_TO_FAVORITE_REQUEST_PATH = "favorites";
 const String DELETE_FAVORITE_REQUEST_PATH = "favorites/";
 const String SEND_MESSAGE_REQUEST_PATH = "chat/message";
 const String SEND_MESSAGE_TO_ADMIN_REQUEST_PATH = "chat/message-to-admin";
-  String getAllClientOrdersRequest(int orderId) =>
-"order/$orderId/requests";
+String getAllClientOrdersRequest(int orderId) => "order/$orderId/requests";
+const String GET_ALL_NOTIFICATIONS_REQUEST_PATH = "notifications";

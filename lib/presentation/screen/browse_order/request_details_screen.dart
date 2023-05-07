@@ -53,6 +53,7 @@ class _BodyWidget extends StatelessWidget {
   final RequestOrderInfo order;
   static GlobalKey<FormState> formKey = GlobalKey<FormState>();
   static bool isShow = false;
+
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(builder: (context, state) {
@@ -62,12 +63,14 @@ class _BodyWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("الوقت المتوقع :${order.expectedDays}",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontFamily: FontConstants.fontFamily,
-                  color: Colors.black,
-                )),
+            Text(
+              "الوقت المتوقع :${order.expectedDays}",
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontFamily: FontConstants.fontFamily,
+                color: Colors.black,
+              ),
+            ),
             SizedBox(
               height: 14.h,
             ),
@@ -82,12 +85,14 @@ class _BodyWidget extends StatelessWidget {
             SizedBox(
               height: 14.h,
             ),
-            Text(" الملفات :",
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontFamily: FontConstants.fontFamily,
-                  color: Colors.black,
-                )),
+            Text(
+              " الملفات :",
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontFamily: FontConstants.fontFamily,
+                color: Colors.black,
+              ),
+            ),
             SizedBox(
               height: 45.h,
               child: ListView.builder(
@@ -101,21 +106,25 @@ class _BodyWidget extends StatelessWidget {
                       if (await canLaunchUrl(Uri.parse(order.files![index]))) {
                         await launchUrl(Uri.parse(order.files![index]));
                       } else {
-                        throw 'Could not launch ';
+                        throw 'Could not launch';
                       }
                     },
                     child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5.w),
-                        width: 80.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s10),
-                          border: Border.all(
-                            width: AppSize.s1,
-                            color: ColorManager.grey,
-                          ),
+                      margin: EdgeInsets.symmetric(horizontal: 5.w),
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppSize.s10),
+                        border: Border.all(
+                          width: AppSize.s1,
+                          color: ColorManager.grey,
                         ),
-                        child: Center(
-                            child: Text(("الملف :${index + 1}").toString()))),
+                      ),
+                      child: Center(
+                        child: Text(
+                          ("الملف :${index + 1}").toString(),
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -152,7 +161,7 @@ class _BodyWidget extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 height: AppSize.s150,
                 width: AppSize.s234,
                 decoration: BoxDecoration(
@@ -188,7 +197,6 @@ class _AppbarWidget extends StatelessWidget {
   });
 
   final RequestOrderInfo order;
-
   @override
   Widget build(BuildContext context) {
     return Container(

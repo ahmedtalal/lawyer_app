@@ -48,15 +48,15 @@ class Routes {
   static const String hiringRoute = '/hire';
   static const String layoutProfileRoute = '/layoutProfile';
   static const String homeScreenRoute = '/homeScreen';
-  static const String laywerProfileScreen = '/LawyerProfile';
+  static const String lawyerProfileScreen = '/LawyerProfile';
   static const String editClientProfileScreen = '/editClient';
   static const String subMajorsScreen = '/subMajors';
   // static const String orderDetailsScreen = '/orderDetailsScreen';
   static const String mainOrderScreen = '/mainOrderScreen';
   static const String lawyerHomeScreen = '/lawyerHomeScreen';
-  static const String notificatiosLawyersScreen = "/notificationsLawyersScreen";
+  static const String notificationLawyersScreen = "/notificationsLawyersScreen";
   static const String lawyerOrderDetailsScreen = "/lawyerOrderDetailsScreen";
-  static const String lawyerSendRequesrScreen = "/lawyerSendRequesrScreen";
+  static const String lawyerSendRequestScreen = "/lawyerSendRequesrScreen";
   static const String lawyerOwnOrderDetailsScreen = "/lawyerOwnOrdersScreen";
   static const String chooseLawyer = '/ChooseLawyer';
 }
@@ -99,7 +99,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LayoutProfileScreen());
       case Routes.homeScreenRoute:
         return MaterialPageRoute(builder: (_) => const MainScreen());
-      case Routes.laywerProfileScreen:
+      case Routes.lawyerProfileScreen:
         return MaterialPageRoute(builder: (_) => const LayoutLawyerProfile());
       case Routes.chooseLawyer:
         return MaterialPageRoute(builder: (_) => const ChooseLawyer());
@@ -124,7 +124,7 @@ class RouteGenerator {
         );
       case Routes.lawyerHomeScreen:
         return MaterialPageRoute(builder: (_) => const LawyerHomeScreen());
-      case Routes.notificatiosLawyersScreen:
+      case Routes.notificationLawyersScreen:
         return MaterialPageRoute(
             builder: (_) => const NotificationsLawyerScreen());
       case Routes.lawyerOrderDetailsScreen:
@@ -133,7 +133,7 @@ class RouteGenerator {
             order: settings.arguments as OrderInfoModel,
           ),
         );
-      case Routes.lawyerSendRequesrScreen:
+      case Routes.lawyerSendRequestScreen:
         return MaterialPageRoute(
           builder: (_) => LawyerSendRequestScreen(
             order: settings.arguments as OrderInfoModel,

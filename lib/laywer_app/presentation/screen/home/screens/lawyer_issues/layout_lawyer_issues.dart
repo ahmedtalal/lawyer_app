@@ -76,7 +76,7 @@ Container _appBar(BuildContext context) => Container(
                   Navigator.of(context).push(
                     RouteGenerator.getRoute(
                       const RouteSettings(
-                          name: Routes.notificatiosLawyersScreen),
+                          name: Routes.notificationLawyersScreen),
                     ),
                   );
                 },

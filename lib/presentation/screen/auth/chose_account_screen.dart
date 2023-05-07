@@ -63,7 +63,7 @@ class ChoseAccountScreen extends StatelessWidget {
                         child: textWidget(text: 'تسجيل الدخول', fontSize: 16)),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
