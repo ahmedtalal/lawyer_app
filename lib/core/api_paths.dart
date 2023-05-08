@@ -42,3 +42,4 @@ const String SEND_MESSAGE_REQUEST_PATH = "chat/message";
 const String SEND_MESSAGE_TO_ADMIN_REQUEST_PATH = "chat/message-to-admin";
 String getAllClientOrdersRequest(int orderId) => "order/$orderId/requests";
 const String GET_ALL_NOTIFICATIONS_REQUEST_PATH = "notifications";
+const String MAKE_AS_READ_NOTIFICATION_REQUEST_PATH = "notifications/read";

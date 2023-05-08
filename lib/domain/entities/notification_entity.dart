@@ -36,13 +36,13 @@ class NotificationInfoModel {
 }
 
 class NotificationsInfo {
-  dynamic? id;
+  int? id;
   NotificationForm? from;
-  dynamic? notifiableType;
-  dynamic? notifiableId;
-  dynamic? content;
-  dynamic? read;
-  dynamic? createdAt;
+  String? notifiableType;
+  int? notifiableId;
+  String? content;
+  int? read;
+  String? createdAt;
 
   NotificationsInfo(
       {this.id,
@@ -81,10 +81,10 @@ class NotificationsInfo {
 }
 
 class NotificationForm {
-  dynamic? id;
-  dynamic? name;
-  dynamic? type;
-  dynamic? personalImage;
+  int? id;
+  String? name;
+  String? type;
+  String? personalImage;
 
   NotificationForm({this.id, this.name, this.type, this.personalImage});
 
