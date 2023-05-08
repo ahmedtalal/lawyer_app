@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/color_manager.dart';
-import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
 import 'package:hokok/core/values_manager.dart';

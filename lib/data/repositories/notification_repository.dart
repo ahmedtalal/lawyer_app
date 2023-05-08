@@ -14,12 +14,12 @@ class NotificationRepository implements INotificationInterface {
 
   @override
   Future<List<NotificationsInfo>> getAllNotifications(model) async {
-    return NotificationApiServices.instance().getAllNotifications(model);
+    return NotificationApiServices.instance().getAllNotificationsSer(model);
   }
 
   @override
-  makeAsReadNotif(model) {
-    // TODO: implement makeAsReadNotif
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> makeAsReadNotif(model) async {
+    return await NotificationApiServices.instance()
+        .makeAsReadNotificationSer(model);
   }
 }

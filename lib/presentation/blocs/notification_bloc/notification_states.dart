@@ -26,3 +26,20 @@ class NotificationsFailedLoadedState extends NotificationStates {
     );
   }
 }
+
+class MakeNotificationReadSuccessState extends NotificationStates {
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
+class MakeNotificationReadFailedState extends NotificationStates {
+  dynamic error;
+  MakeNotificationReadFailedState({required this.error});
+  authErrorMessage(BuildContext context, String title) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      showSnakBarWidget(context, title, Colors.red),
+    );
+  }
+}
