@@ -76,9 +76,9 @@ class _BodyWidget extends StatelessWidget {
           child:
               BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
             if (state is OwnOrderFailedLoadedState) {
-              state.authErrorMessage(context, state.error);
-            }else if(state is RequesrOrderFailedLoadedState){
-              state.authErrorMessage(context, state.error);
+              // state.authErrorMessage(context, state.error);
+            } else if (state is RequesrOrderFailedLoadedState) {
+              //state.authErrorMessage(context, state.error);
             } else if (state is OwnOrderLoadedState) {
               ownOrders = state.ownOrdes!;
               printInfo("The get own orders ${ownOrders.length}");
@@ -91,14 +91,14 @@ class _BodyWidget extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state is OwnOrderFailedLoadedState) {
-              return   _issuesContainer(
-                orders:ownOrders,
-                requestOrders: requestOrders  ,
+              return _issuesContainer(
+                orders: ownOrders,
+                requestOrders: requestOrders,
               );
-            }else if (state is RequesrOrderFailedLoadedState) {
-              return   _issuesContainer(
-                orders:ownOrders,
-                requestOrders:requestOrders  ,
+            } else if (state is RequesrOrderFailedLoadedState) {
+              return _issuesContainer(
+                orders: ownOrders,
+                requestOrders: requestOrders,
               );
             }
             return _issuesContainer(
@@ -163,9 +163,8 @@ Widget _issuesContainer({
               )
             : ListView.builder(
                 padding: EdgeInsets.only(top: 10.h),
-                itemCount: OrderHelper.instance()
-                    .getAllMyOrders(requestOrders)
-                    .length,
+                itemCount:
+                    OrderHelper.instance().getAllMyOrders(requestOrders).length,
                 itemBuilder: (context, index) {
                   return _LawyerMyOrdersViewWidget(
                     order: OrderHelper.instance()
@@ -408,7 +407,6 @@ class _LawyerIssuesViewWidget extends StatelessWidget {
     );
   }
 }
-
 
 class _LawyerMyOrdersViewWidget extends StatelessWidget {
   const _LawyerMyOrdersViewWidget({

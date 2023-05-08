@@ -113,11 +113,12 @@ class OrdersApiService {
     }
   }
 
-  FutureOr<List<RequestsClientOrderInfo>> getAllClientOrderRequest(int orderID) async {
+  FutureOr<List<RequestsClientOrderInfo>> getAllClientOrderRequest(
+      int orderID) async {
     try {
       Options options = Options(headers: {
         "authorization":
-        "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
+            "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
 
       Response response = await CrudApiHelper.instance.getRequest(
@@ -287,14 +288,13 @@ class OrdersApiService {
       Response response = await CrudApiHelper.instance.getRequest(
         path: GET_CLIENT_ORDER_REQUESTS_REQUEST_PATH +
             "$orderId"
-            "/requests".toString(),
+                    "/requests"
+                .toString(),
         options: options,
       );
       printDone(
           "the get all client request orders success => ${response.data}");
       return CLientRequestOrderModel.fromJson(response.data).data!;
-      printDone(
-          "the get all client request orders success => ${response.data}");
     } on DioError catch (error) {
       final message = DioExceptions.dioErrorHandling(error);
       printError(

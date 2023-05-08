@@ -31,7 +31,7 @@ class _LawyerOffersScreenState extends State<LawyerOffersScreen> {
     return BlocConsumer<OrderBloc, OrderStates>(
       listener: (context, state) {
         if (state is RequesrOrderFailedLoadedState) {
-          state.authErrorMessage(context, state.error);
+          //state.authErrorMessage(context, state.error);
         } else if (state is RequestOrderLoadedState) {
           requestOrders = state.requestOrders!;
         }

@@ -106,4 +106,5 @@ class AppStrings {
   static const cases = "القضايا";
   static const massages = "الرسائل";
   static const contactUs = "راسلنا";
+  static const String notifications = "الاشعارات";
 }

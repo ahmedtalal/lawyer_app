@@ -115,7 +115,7 @@ class _HomeLawyerScreenState extends State<HomeLawyerScreen> {
                     Navigator.of(context).push(
                       RouteGenerator.getRoute(
                         const RouteSettings(
-                            name: Routes.notificatiosLawyersScreen),
+                            name: Routes.notificationLawyersScreen),
                       ),
                     );
                   },
@@ -222,39 +222,43 @@ class StatisticsLawyerView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image(
-            image: AssetImage(
-              image,
+          Expanded(
+            child: Image(
+              image: AssetImage(
+                image,
+              ),
+              width: 70.w,
+              height: 50.h,
             ),
-            width: 70.w,
-            height: 50.h,
           ),
           SizedBox(
             height: 10.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 11.sp,
-                  fontFamily: FontConstants.fontFamily,
-                  fontWeight: FontWeight.bold,
-                  color: ColorManager.primary,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    fontFamily: FontConstants.fontFamily,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.primary,
+                  ),
                 ),
-              ),
-              Text(
-                statistic.toString(),
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontFamily: FontConstants.fontFamily,
-                  fontWeight: FontWeight.bold,
-                  color: ColorManager.thirdy,
+                Text(
+                  statistic.toString(),
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    fontFamily: FontConstants.fontFamily,
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.thirdy,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

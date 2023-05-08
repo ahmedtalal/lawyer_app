@@ -11,6 +11,7 @@ import 'package:hokok/presentation/blocs/feedback_bloc/feedback_bloc.dart';
 import 'package:hokok/presentation/blocs/lawyer_bloc/lawyer_bloc.dart';
 import 'package:hokok/presentation/blocs/lawyer_bloc/lawyer_events.dart';
 import 'package:hokok/presentation/blocs/major_bloc/major_bloc.dart';
+import 'package:hokok/presentation/blocs/notification_bloc/notification_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/blocs/subscriptions_bloc/subscriptions_bloc.dart';
@@ -68,6 +69,7 @@ class MyAppState extends State<MyApp> {
           create: (context) => LawyersBloc()..add(GetAllLawyersEvent()),
         ),
         BlocProvider(create: (context) => MainLawyerCubit()),
+        BlocProvider(create: (context) => NotificationBloc()),
       ],
       child: ScreenUtilInit(
         splitScreenMode: true,
