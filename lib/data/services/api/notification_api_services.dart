@@ -17,7 +17,7 @@ class NotificationApiServices {
     return _notificationApiServices!;
   }
 
-  Stream<List<NotificationsInfo>> getAllNotifications(int perPage) async* {
+  Future<List<NotificationsInfo>> getAllNotifications(int perPage) async {
     try {
       Options options = Options(headers: {
         "authorization":
@@ -29,14 +29,14 @@ class NotificationApiServices {
         options: options,
       );
       printDone("get all notifications success => ${response.data}");
-      yield NotificationModel.fromJson(response.data).data!.notifications!;
+      return NotificationModel.fromJson(response.data).data!.notifications!;
     } on DioError catch (error) {
       final message = DioExceptions.dioErrorHandling(error);
       printError("error in get all notification from dio catch => $message");
-      yield [];
+      return [];
     } catch (e) {
       printError("error in get all notification from catch => $e");
-      yield [];
+      return [];
     }
   }
 }

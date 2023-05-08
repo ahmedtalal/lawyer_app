@@ -20,7 +20,6 @@ class NotificationsLoadedState extends NotificationStates {
 class NotificationsFailedLoadedState extends NotificationStates {
   String error;
   NotificationsFailedLoadedState(this.error);
-
   authErrorMessage(BuildContext context, String title) {
     ScaffoldMessenger.of(context).showSnackBar(
       showSnakBarWidget(context, title, Colors.red),

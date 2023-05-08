@@ -36,13 +36,13 @@ class NotificationInfoModel {
 }
 
 class NotificationsInfo {
-  int? id;
+  dynamic? id;
   NotificationForm? from;
-  String? notifiableType;
-  int? notifiableId;
-  String? content;
-  int? read;
-  String? createdAt;
+  dynamic? notifiableType;
+  dynamic? notifiableId;
+  dynamic? content;
+  dynamic? read;
+  dynamic? createdAt;
 
   NotificationsInfo(
       {this.id,
@@ -81,10 +81,10 @@ class NotificationsInfo {
 }
 
 class NotificationForm {
-  int? id;
-  String? name;
-  String? type;
-  String? personalImage;
+  dynamic? id;
+  dynamic? name;
+  dynamic? type;
+  dynamic? personalImage;
 
   NotificationForm({this.id, this.name, this.type, this.personalImage});
 
@@ -106,11 +106,11 @@ class NotificationForm {
 }
 
 class NotificationPagination {
-  int? total;
-  int? count;
-  int? perPage;
-  int? currentPage;
-  int? totalPages;
+  dynamic? total;
+  dynamic? count;
+  dynamic? perPage;
+  dynamic? currentPage;
+  dynamic? totalPages;
   NotificationLinks? links;
 
   NotificationPagination(

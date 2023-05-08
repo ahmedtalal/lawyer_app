@@ -13,25 +13,17 @@ class NotificationBloc extends Bloc<NotificationEvents, NotificationStates> {
   }
   int perPage = 10;
   FutureOr<void> getAllNotifications(
-      GetALlNotificationsEvent event, Emitter<NotificationStates> emit) async* {
+      GetALlNotificationsEvent event, Emitter<NotificationStates> emit) async {
     emit(NotificationLoadingState());
-    final result = NotificationUseCaseProvider.instance()
+    final result = await NotificationUseCaseProvider.instance()
         .creator<NotificationRepository>(NotificationRepository.instance())
         .getAllNotifications(perPage);
-    result.listen(
-      (notifications) {
-        printDone("the length of notifications =>${notifications.length} ");
+    if(result.isNotEmpty){
+      emit(NotificationsLoadedState(result));
 
-        emit(NotificationsLoadedState(notifications));
-      },
-      onDone: () {
-        printDone("the stream closed");
-        printInfo("everything is ok");
-      },
-      cancelOnError: false,
-      onError: (error) {
-        emit(NotificationsFailedLoadedState(error));
-      },
-    );
+    }else {
+      emit(NotificationsFailedLoadedState("لا يوجد بيانات"));
+
+    }
   }
 }

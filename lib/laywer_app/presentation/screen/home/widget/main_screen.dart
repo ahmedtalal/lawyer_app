@@ -30,6 +30,7 @@ class LawyerHomeScreen extends StatelessWidget {
 List<String> bottomNavStrings = [
   AppStrings.main,
   AppStrings.cases,
+  AppStrings.notifications,
   AppStrings.massages,
   AppStrings.contactUs,
   AppStrings.exit,
@@ -38,6 +39,7 @@ List<String> bottomNavStrings = [
 List<IconData> bottomNavIcons = [
   FontAwesomeIcons.house,
   FontAwesomeIcons.magnifyingGlass,
+  Icons.notification_important,
   FontAwesomeIcons.fileLines,
   FontAwesomeIcons.headset,
   FontAwesomeIcons.arrowRightFromBracket,
@@ -57,7 +59,7 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
       builder: (context, state) {
         return Container(
           height: 80,
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(5),
           decoration: const BoxDecoration(
             color: ColorManager.secondary,
             borderRadius: BorderRadius.only(
@@ -69,50 +71,52 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
               bottomNavStrings.length,
-              (index) => Row(
-                children: [
-                  SizedBox(
-                    width: (MediaQuery.of(context).size.width / 5) - 20,
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          context.read<MainLawyerCubit>().changeNavIndex(index,context);
-                        });
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            bottomNavIcons[index],
-                            color:
-                                context.read<MainLawyerCubit>().currentIndex ==
-                                        index
-                                    ? ColorManager.primary
-                                    : ColorManager.white,
-                          ),
-                          const SizedBox(height: 5),
-                          FittedBox(
-                            child: Text(
-                              bottomNavStrings[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: context
-                                                .read<MainLawyerCubit>()
-                                                .currentIndex ==
-                                            index
-                                        ? ColorManager.primary
-                                        : ColorManager.white,
-                                  ),
+              (index) => Expanded(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: (MediaQuery.of(context).size.width / 5) - 20,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            context.read<MainLawyerCubit>().changeNavIndex(index,context);
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              bottomNavIcons[index],
+                              color:
+                                  context.read<MainLawyerCubit>().currentIndex ==
+                                          index
+                                      ? ColorManager.primary
+                                      : ColorManager.white,
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 5),
+                            FittedBox(
+                              child: Text(
+                                bottomNavStrings[index],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: context
+                                                  .read<MainLawyerCubit>()
+                                                  .currentIndex ==
+                                              index
+                                          ? ColorManager.primary
+                                          : ColorManager.white,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                ],
+                    const SizedBox(width: 4),
+                  ],
+                ),
               ),
             ),
           ),

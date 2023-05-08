@@ -13,8 +13,8 @@ class NotificationRepository implements INotificationInterface {
   }
 
   @override
-  Stream<List<NotificationsInfo>> getAllNotifications(model) async* {
-    yield* NotificationApiServices.instance().getAllNotifications(model);
+  Future<List<NotificationsInfo>> getAllNotifications(model) async {
+    return NotificationApiServices.instance().getAllNotifications(model);
   }
 
   @override

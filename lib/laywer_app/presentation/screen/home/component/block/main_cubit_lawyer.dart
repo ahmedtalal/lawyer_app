@@ -9,6 +9,7 @@ import 'package:hokok/core/shared_widget/button.dart';
 import 'package:hokok/laywer_app/presentation/screen/cotact_us/contact_us_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/component/block/main_states_lawyer.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_issues/layout_lawyer_issues.dart';
+import 'package:hokok/laywer_app/presentation/screen/home/screens/notifications_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/massages/massages_screen.dart';
 import 'package:hokok/laywer_app/presentation/screen/orders/orders_scree.dart';
 import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_settings_screen.dart';
@@ -22,6 +23,7 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
   List<Widget> screens = [
     const HomeLawyerScreen(),
     const LayoutLawyerIssues(),
+    const NotificationsScreen(),
     const MassagesScreen(),
     const ContactUsScreen(),
     const Scaffold(
@@ -32,7 +34,7 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
   int currentIndex1 = 0;
 
   changeNavIndex(int index, BuildContext context) {
-    if (index == 4) {
+    if (index == 5) {
       showBottomSheet(context);
     } else {
       currentIndex = index;
