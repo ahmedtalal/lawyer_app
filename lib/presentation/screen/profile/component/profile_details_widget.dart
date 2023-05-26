@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 
 import '../../../../core/assets_manager.dart';
 import '../../../../core/color_manager.dart';
@@ -20,7 +20,7 @@ class ProfileDetailsWidget extends StatelessWidget {
 
   final double paddingRight;
   final double positionRight;
-  final UserEntity? userEntity;
+  final LawyerProfileEntity? userEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,8 @@ class ProfileDetailsWidget extends StatelessWidget {
                         height: 50,
                         width: 50,
                         fit: BoxFit.cover,
-                        imageUrl: userEntity!.userModel!.personalImage!,
+                        imageUrl:
+                            userEntity!.userModel!.personalImage!.toString(),
                         placeholder: (context, url) =>
                             const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => const Image(

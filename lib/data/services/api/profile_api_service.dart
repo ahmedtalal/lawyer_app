@@ -5,10 +5,13 @@ import 'package:hokok/config/dio_exception.dart';
 import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
-import 'package:hokok/data/models/user_model.dart';
+import 'package:hokok/data/models/client_profile_model.dart';
+import 'package:hokok/data/models/lawyer_profile_model.dart';
 import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
+
+import '../../../domain/entities/client_profile_entity.dart';
 
 class ProfileAPiService {
   static ProfileAPiService? _profileAPiService;
@@ -20,7 +23,7 @@ class ProfileAPiService {
     return _profileAPiService!;
   }
 
-  FutureOr<UserEntity?> getLawyerProfileApiService() async {
+  FutureOr<LawyerProfileEntity?> getLawyerProfileApiService() async {
     try {
       Options options = Options(headers: {
         "authorization":
@@ -32,8 +35,8 @@ class ProfileAPiService {
       );
       printDone("the get lawyer profile success => ${response.data}");
       printDone(
-          "the get lawyer profile model success => ${UserModel.lawyerFromJson(response.data)}");
-      return UserModel.lawyerFromJson(response.data);
+          "the get lawyer profile model success => ${LawyerProfileModel.lawyerFromJson(response.data)}");
+      return LawyerProfileModel.lawyerFromJson(response.data);
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError("the lawyer get profile error from dio catch => $message");
@@ -55,9 +58,7 @@ class ProfileAPiService {
         options: options,
       );
       printDone("the get client profile success => ${response.data}");
-      printDone(
-          "the get client profile model success => ${UserModel.clientFromJson(response.data)}");
-      return successRequest(UserModel.lawyerFromJson(response.data));
+      return successRequest(ClientProfileModel.fromJson(response.data).data!);
     } on DioError catch (error) {
       String message = DioExceptions.dioErrorHandling(error);
       printError("the get client profile error from dio catch => $message");

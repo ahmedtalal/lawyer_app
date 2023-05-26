@@ -8,6 +8,10 @@ import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_bloc.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
+import 'package:hokok/presentation/screen/browse_order/order_details_screen.dart';
+
+import '../../../core/functions.dart';
+import '../../../core/routes_manager.dart';
 
 class BrowseOrderScreen extends StatefulWidget {
   const BrowseOrderScreen({Key? key}) : super(key: key);
@@ -17,6 +21,7 @@ class BrowseOrderScreen extends StatefulWidget {
 }
 
 class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
+  List<ClientOrderInfo> clientOrders = [];
   @override
   void initState() {
     OrderHelper.instance().onGetAllClientOrdersFun(context);
@@ -29,33 +34,46 @@ class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
       height: ScreenHandler.getScreenHeight(context),
       width: ScreenHandler.getScreenWidth(context),
       padding: const EdgeInsets.all(10),
-      child: BlocConsumer<OrderBloc, OrderStates>(listener: (context, state) {
-        if (state is OrderFailedLoadedState) {
-          state.authErrorMessage(context, state.error);
-        }
-      }, builder: (context, state) {
-        if (state is OrderLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is ClientOrdersLoadedState) {
+      child: BlocConsumer<OrderBloc, OrderStates>(
+        listener: (context, state) {
+          if (state is OrderFailedLoadedState) {
+            state.authErrorMessage(context, state.error);
+          } else if (state is ClientOrdersLoadedState) {
+            clientOrders = state.clientOrders!;
+          }
+        },
+        builder: (context, state) {
+          if (state is OrderLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is OrderFailedLoadedState) {
+            return emptyDataSharedWidget();
+          }
           return ListView.builder(
-            itemCount: state.clientOrders!.length,
+            itemCount: clientOrders.length,
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  navigateTo(
+                      context,
+                      OrderDetailsScreen(
+                          id: clientOrders[index].id!,
+                          title: clientOrders[index].title!,
+                          createdAt: clientOrders[index].createdAt!,
+                          major: clientOrders[index].major!,
+                          requests: clientOrders[index].requests!,
+                          subMajor: clientOrders[index].subMajor!,
+                          description: clientOrders[index].description!));
+                },
                 child: OrderView(
-                  clientOrder: state.clientOrders![index],
+                  clientOrder: clientOrders[index],
                 ),
               );
             },
           );
-        } else if (state is OrderFailedLoadedState) {
-          return emptyDataSharedWidget();
-        } else {
-          return Container();
-        }
-      }),
+        },
+      ),
     );
   }
 }

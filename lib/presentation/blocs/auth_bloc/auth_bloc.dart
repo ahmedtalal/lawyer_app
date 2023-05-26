@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/response_api_model.dart';
 import 'package:hokok/data/repositories/auth_api_repository.dart';
@@ -24,6 +25,9 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
   Map<String, dynamic> _clientMapModel() =>
       _controller.prepareClientInfo().clientToJson();
+
+  FormData _clientFormDataModel() =>
+      _controller.prepareClientInfo().clientToFormData();
 
   Map<String, dynamic> _lawyerMapModel() =>
       _controller.prepareLawyerInfo().lawyerToJson();
@@ -73,10 +77,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
   FutureOr<void> createLawyerAccount(AuthEvents events, Emitter emit) async {
     emit(AuthLoadingState());
-    printInfo("the lawyer model is ${_lawyerMapModel()}");
+    final model = await AuthHelper.instance().lawyerToFormData();
     Map<String, dynamic> result = await UseCaseProvider.instance()
         .creator<AuthApiRepository>(AuthApiRepository.instance())
-        .register(_lawyerMapModel());
+        .register(model);
     if (result[mapKey] == successReposne) {
       emit(AuthSuccessState(result: result[mapValue]));
     } else {

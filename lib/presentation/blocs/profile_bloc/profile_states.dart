@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/circler_loader_shared_widget.dart';
 import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/client_profile_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 
 abstract class ProfileStates {}
 
@@ -14,9 +15,14 @@ class ProfileLoadingState extends ProfileStates {
   }
 }
 
-class ProfileLoadedState extends ProfileStates {
-  UserEntity? userEntity;
-  ProfileLoadedState(this.userEntity);
+class LawyerProfileLoadedState extends ProfileStates {
+  LawyerProfileEntity? userEntity;
+  LawyerProfileLoadedState(this.userEntity);
+}
+
+class ClientProfileLoadedState extends ProfileStates {
+  ClientProfileAttributes userEntity;
+  ClientProfileLoadedState(this.userEntity);
 }
 
 class ProfileFailedState extends ProfileStates {

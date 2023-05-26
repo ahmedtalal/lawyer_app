@@ -19,10 +19,10 @@ class OrdersClientScreen extends StatefulWidget {
   State<OrdersClientScreen> createState() => _OrdersClientScreenState();
 }
 
-List<ClientOrderInfo>? clientOrders;
-List<ClientOrderInfo>? clientFinishedOrders;
-List<ClientOrderInfo>? clientInProgressOrders;
-List<ClientOrderInfo>? clientPublishedOrders;
+List<ClientOrderInfo> clientOrders = [];
+List<ClientOrderInfo> clientFinishedOrders = [];
+List<ClientOrderInfo> clientInProgressOrders = [];
+List<ClientOrderInfo> clientPublishedOrders = [];
 
 class _OrdersClientScreenState extends State<OrdersClientScreen> {
   @override
@@ -72,7 +72,7 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                 child: TabBarView(children: [
                   _ordersBody(),
                   _inProgressBody(),
-                 _completedBody()
+                  _completedBody()
                 ]),
               )
             ],
@@ -155,8 +155,11 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
             alignment: AlignmentDirectional.centerStart,
             margin: const EdgeInsets.only(top: AppMargin.m31),
             decoration: BoxDecoration(
-                color: ColorManager.grey.withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(240))),
+              color: ColorManager.grey.withOpacity(0.4),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(240),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -185,7 +188,10 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                     fontSize: fontSize,
                     color: ColorManager.black,
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.exit_to_app))
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.exit_to_app),
+                  ),
                 ],
               ),
             ),
@@ -196,8 +202,11 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
             alignment: AlignmentDirectional.centerStart,
             margin: const EdgeInsets.only(top: AppMargin.m31),
             decoration: BoxDecoration(
-                color: ColorManager.grey.withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(240))),
+              color: ColorManager.grey.withOpacity(0.4),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(240),
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -226,7 +235,10 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                     fontSize: fontSize,
                     color: ColorManager.black,
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.exit_to_app))
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.exit_to_app),
+                  ),
                 ],
               ),
             ),
@@ -237,9 +249,14 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
             alignment: Alignment.center,
             margin: const EdgeInsets.only(top: AppMargin.m31),
             decoration: BoxDecoration(
-                color: ColorManager.grey.withOpacity(0.4),
-                borderRadius: BorderRadius.all(Radius.circular(240))),
-            child: Center(child: Text(AppStrings.more_)),
+              color: ColorManager.grey.withOpacity(0.4),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(240),
+              ),
+            ),
+            child: const Center(
+              child: Text(AppStrings.more_),
+            ),
           ),
         ],
       );
@@ -307,91 +324,104 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                     color: ColorManager.grey.withOpacity(.6),
                   ),
                   margin: const EdgeInsets.only(top: AppMargin.m15),
-
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: const [
-                        Text("اسم الطلب" , style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text("تاريخ النشر", style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text("موعد الانتهاء", style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "اسم الطلب",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text("تاريخ النشر",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("موعد الانتهاء",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
                 ),
                 OrderHelper.instance()
-                    .getClientAllPublishedOrders(clientOrders!).isEmpty
+                        .getClientAllPublishedOrders(clientOrders)
+                        .isEmpty
                     ? Center(
-                  child: Text(
-                    "لا يوجد بيانات",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontFamily: FontConstants.fontFamily,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                )   :  Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: OrderHelper.instance()
-              .getClientAllPublishedOrders(clientOrders!)
-              .length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: AppSize.s50,
-                        width: double.infinity,
-                        alignment: AlignmentDirectional.centerStart,
-                        margin: const EdgeInsets.only(bottom: AppMargin.m31),
-                        decoration: BoxDecoration(
-                            color: ColorManager.grey.withOpacity(0.4),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(240))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllPublishedOrders(clientOrders!)[index].client!.name!,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllPublishedOrders(clientOrders!)[index]
-                                      .assignedToLawyerAt!
-                                      .toString(),
-                                  fontSize: fontSize,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllPublishedOrders(clientOrders!)[index].deliveredAt!,
-                                  fontSize: fontSize,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.exit_to_app)),
-                              )
-                            ],
+                        child: Text(
+                          "لا يوجد بيانات",
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontFamily: FontConstants.fontFamily,
+                            color: Colors.grey[400],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: OrderHelper.instance()
+                              .getClientAllPublishedOrders(clientOrders)
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              height: AppSize.s50,
+                              width: double.infinity,
+                              alignment: AlignmentDirectional.centerStart,
+                              margin:
+                                  const EdgeInsets.only(bottom: AppMargin.m31),
+                              decoration: BoxDecoration(
+                                  color: ColorManager.grey.withOpacity(0.4),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(240))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllPublishedOrders(
+                                                clientOrders)[index]
+                                            .client!
+                                            .name!,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllPublishedOrders(
+                                                clientOrders)[index]
+                                            .assignedToLawyerAt!
+                                            .toString(),
+                                        fontSize: fontSize,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllPublishedOrders(
+                                                clientOrders)[index]
+                                            .deliveredAt!,
+                                        fontSize: fontSize,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.exit_to_app)),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
               ],
             );
           }
@@ -440,91 +470,104 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                     color: ColorManager.grey.withOpacity(.6),
                   ),
                   margin: const EdgeInsets.only(top: AppMargin.m15),
-
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: const [
-                        Text("اسم الطلب" , style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text("تاريخ النشر", style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text("موعد الانتهاء", style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "اسم الطلب",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text("تاريخ النشر",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("موعد الانتهاء",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
                 ),
                 OrderHelper.instance()
-                    .getClientAllInProgressOrders(clientOrders!).isEmpty
+                        .getClientAllInProgressOrders(clientOrders)
+                        .isEmpty
                     ? Center(
-                  child: Text(
-                    "لا يوجد بيانات",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontFamily: FontConstants.fontFamily,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                )   :  Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: OrderHelper.instance()
-                        .getClientAllInProgressOrders(clientOrders!)
-                        .length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: AppSize.s50,
-                        width: double.infinity,
-                        alignment: AlignmentDirectional.centerStart,
-                        margin: const EdgeInsets.only(bottom: AppMargin.m31),
-                        decoration: BoxDecoration(
-                            color: ColorManager.grey.withOpacity(0.4),
-                            borderRadius:
-                            const BorderRadius.all(Radius.circular(240))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllInProgressOrders(clientOrders!)[index].client!.name!,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllInProgressOrders(clientOrders!)[index]
-                                      .assignedToLawyerAt!
-                                      .toString(),
-                                  fontSize: fontSize,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllInProgressOrders(clientOrders!)[index].deliveredAt!,
-                                  fontSize: fontSize,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.exit_to_app)),
-                              )
-                            ],
+                        child: Text(
+                          "لا يوجد بيانات",
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontFamily: FontConstants.fontFamily,
+                            color: Colors.grey[400],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: OrderHelper.instance()
+                              .getClientAllInProgressOrders(clientOrders)
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              height: AppSize.s50,
+                              width: double.infinity,
+                              alignment: AlignmentDirectional.centerStart,
+                              margin:
+                                  const EdgeInsets.only(bottom: AppMargin.m31),
+                              decoration: BoxDecoration(
+                                  color: ColorManager.grey.withOpacity(0.4),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(240))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllInProgressOrders(
+                                                clientOrders)[index]
+                                            .client!
+                                            .name!,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllInProgressOrders(
+                                                clientOrders)[index]
+                                            .assignedToLawyerAt!
+                                            .toString(),
+                                        fontSize: fontSize,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllInProgressOrders(
+                                                clientOrders)[index]
+                                            .deliveredAt!,
+                                        fontSize: fontSize,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.exit_to_app)),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
               ],
             );
           }
@@ -573,91 +616,104 @@ class _OrdersClientScreenState extends State<OrdersClientScreen> {
                     color: ColorManager.grey.withOpacity(.6),
                   ),
                   margin: const EdgeInsets.only(top: AppMargin.m15),
-
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: const [
-                        Text("اسم الطلب" , style: TextStyle(fontWeight: FontWeight.bold),),
-                        Text("تاريخ النشر", style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text("موعد الانتهاء", style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          "اسم الطلب",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text("تاريخ النشر",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text("موعد الانتهاء",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
                 ),
                 OrderHelper.instance()
-                    .getClientAllCompletedOrders(clientOrders!).isEmpty
+                        .getClientAllCompletedOrders(clientOrders)
+                        .isEmpty
                     ? Center(
-                  child: Text(
-                    "لا يوجد بيانات",
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontFamily: FontConstants.fontFamily,
-                      color: Colors.grey[400],
-                    ),
-                  ),
-                )   :  Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: OrderHelper.instance()
-                        .getClientAllCompletedOrders(clientOrders!)
-                        .length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: AppSize.s50,
-                        width: double.infinity,
-                        alignment: AlignmentDirectional.centerStart,
-                        margin: const EdgeInsets.only(bottom: AppMargin.m31),
-                        decoration: BoxDecoration(
-                            color: ColorManager.grey.withOpacity(0.4),
-                            borderRadius:
-                            const BorderRadius.all(Radius.circular(240))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllCompletedOrders(clientOrders!)[index].client!.name!,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllCompletedOrders(clientOrders!)[index]
-                                      .assignedToLawyerAt!
-                                      .toString(),
-                                  fontSize: fontSize,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: DefaultText(
-                                  OrderHelper.instance()
-                                      .getClientAllCompletedOrders(clientOrders!)[index].deliveredAt!,
-                                  fontSize: fontSize,
-                                  color: ColorManager.black,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.exit_to_app)),
-                              )
-                            ],
+                        child: Text(
+                          "لا يوجد بيانات",
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontFamily: FontConstants.fontFamily,
+                            color: Colors.grey[400],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: OrderHelper.instance()
+                              .getClientAllCompletedOrders(clientOrders)
+                              .length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              height: AppSize.s50,
+                              width: double.infinity,
+                              alignment: AlignmentDirectional.centerStart,
+                              margin:
+                                  const EdgeInsets.only(bottom: AppMargin.m31),
+                              decoration: BoxDecoration(
+                                  color: ColorManager.grey.withOpacity(0.4),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(240))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllCompletedOrders(
+                                                clientOrders)[index]
+                                            .client!
+                                            .name!,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllCompletedOrders(
+                                                clientOrders)[index]
+                                            .assignedToLawyerAt!
+                                            .toString(),
+                                        fontSize: fontSize,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: DefaultText(
+                                        OrderHelper.instance()
+                                            .getClientAllCompletedOrders(
+                                                clientOrders)[index]
+                                            .deliveredAt!,
+                                        fontSize: fontSize,
+                                        color: ColorManager.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.exit_to_app)),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
               ],
             );
           }

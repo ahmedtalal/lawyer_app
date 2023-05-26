@@ -19,6 +19,9 @@ import 'package:hokok/data/models/public_order_model.dart';
 import 'package:hokok/data/models/private_order_for_lawyer_model.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 
+import '../../../domain/entities/request_order_for_client.dart';
+import '../../models/request_order_for_client_model.dart';
+
 class OrdersApiService {
   static OrdersApiService? ordersApiService;
   OrdersApiService._internal();
@@ -106,6 +109,32 @@ class OrdersApiService {
       return [];
     } catch (e) {
       printError('the get private orders error from catch $e');
+      return [];
+    }
+  }
+
+  FutureOr<List<RequestsClientOrderInfo>> getAllClientOrderRequest(
+      int orderID) async {
+    try {
+      Options options = Options(headers: {
+        "authorization":
+            "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
+      });
+
+      Response response = await CrudApiHelper.instance.getRequest(
+        path: getAllClientOrdersRequest(orderID).toString(),
+        options: options,
+      );
+      printDone("the get all request orders lawyer orders => ${response.data}");
+      return RequestsOrderForClientModel.fromJson(response.data).data!;
+    } on DioError catch (error) {
+      final message = DioExceptions.dioErrorHandling(error);
+      printError(
+          "the get all requests order for lawyer error from dio catch => $message");
+      return [];
+    } catch (e) {
+      printError(
+          "the get all requests order for lawyer error from  catch => $e");
       return [];
     }
   }
@@ -258,8 +287,9 @@ class OrdersApiService {
       });
       Response response = await CrudApiHelper.instance.getRequest(
         path: GET_CLIENT_ORDER_REQUESTS_REQUEST_PATH +
-            "$orderId".toString() +
-            "/requests".toString(),
+            "$orderId"
+                    "/requests"
+                .toString(),
         options: options,
       );
       printDone(
@@ -364,7 +394,7 @@ class OrdersApiService {
         "authorization":
             "Bearer ${UserInfoLocalService.instance().getUserToken().token}"
       });
-      printInfo("the model => $data");
+      printInfo("the lawyer send request =>> ${data.fields.asMap()}");
       Response response = await CrudApiHelper.instance.postRequest(
         path: POST_LAWYER_ORDERS_REQUEST_PATH,
         data: data,

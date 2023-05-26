@@ -15,14 +15,13 @@ import '../../../../../../core/shared_widget/empty_data_shared_widget.dart';
 import '../../../../../../core/values_manager.dart';
 import '../../../../../../domain/entities/major_entity.dart';
 import '../../../../../../domain/entities/public_order_entity.dart';
-import '../../../../../../domain/entities/user_entity.dart';
+import '../../../../../../domain/entities/lawyer_profile_entity.dart';
 import '../../../../../../presentation/blocs/major_bloc/major_bloc.dart';
 import '../../../../../../presentation/blocs/major_bloc/major_helper.dart';
 import '../../../../../../presentation/blocs/major_bloc/major_states.dart';
 import '../../../../../../presentation/blocs/order_bloc/order_bloc.dart';
 import '../../../../../../presentation/blocs/order_bloc/order_helper.dart';
 import '../../../../../../presentation/blocs/order_bloc/order_states.dart';
-import '../../../../../../presentation/blocs/profile_bloc/profile_helper.dart';
 import '../../../../../../presentation/widget/shared_widget.dart';
 
 class OrderLawyerScreen extends StatefulWidget {
@@ -35,7 +34,7 @@ class OrderLawyerScreen extends StatefulWidget {
 class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
   @override
   void initState() {
-    ProfileHelper.instance().getLawyerProfileAction(context);
+    //ProfileHelper.instance().getLawyerProfileAction(context);
     OrderHelper.instance().getPublicOrdersForLawyerAction(context);
     MajorHelper.instance().getMajorsActionCon(context);
 
@@ -70,7 +69,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                   BlocConsumer<OrderBloc, OrderStates>(
                       listener: (context, state) {
                     if (state is PublicOrderFailedLoadedState) {
-                      state.authErrorMessage(context, state.error);
+                      //state.authErrorMessage(context, state.error);
                     } else if (state is PublicOrderLoadedState) {
                       publicOrders = state.orders!;
                     }
@@ -119,7 +118,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
           padding: MediaQuery.of(context).viewInsets,
           child: StatefulBuilder(builder: (context, setState) {
             return Container(
-              height: 250.h,
+              height: 280.h,
               margin: const EdgeInsets.only(
                 left: 30,
                 right: 30,
@@ -144,9 +143,6 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   const Text(
                     "الترتيب حسب",
                     style: TextStyle(
@@ -156,8 +152,8 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: 5.h,
                   ),
                   Form(
                     key: formKey,
@@ -348,7 +344,7 @@ class _OrderLawyerScreenState extends State<OrderLawyerScreen> {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
                         SizedBox(
                           width: 110.w,
@@ -383,38 +379,41 @@ class UserPorfileWidget extends StatelessWidget {
     required this.state,
     super.key,
   });
-  final UserEntity? state;
+  final LawyerProfileEntity? state;
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          height: AppSize.s105,
-          width: AppSize.s116,
-          margin: const EdgeInsets.only(top: AppMargin.m48),
-          padding: const EdgeInsets.all(AppPadding.p10),
-          decoration: BoxDecoration(
-            border: Border.all(color: ColorManager.grey, width: 0.5),
-            shape: BoxShape.circle,
-          ),
-          child: CircleAvatar(
-            backgroundColor: Colors.grey[300],
-            child: CachedNetworkImage(
-              height: 50,
-              width: 50,
-              fit: BoxFit.cover,
-              imageUrl: state == null
-                  ? AssetsManager.lawyerImg
-                  : state!.userModel!.personalImage!,
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Image(
-                image: AssetImage(AssetsManager.lawyerImg),
+        InkWell(
+          onTap: () {},
+          child: Container(
+            height: AppSize.s105,
+            width: AppSize.s116,
+            margin: const EdgeInsets.only(top: AppMargin.m48),
+            padding: const EdgeInsets.all(AppPadding.p10),
+            decoration: BoxDecoration(
+              border: Border.all(color: ColorManager.grey, width: 0.5),
+              shape: BoxShape.circle,
+            ),
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: CachedNetworkImage(
+                height: 50.h,
+                width: 50.w,
+                fit: BoxFit.cover,
+                imageUrl: state == null
+                    ? AssetsManager.lawyerImg
+                    : state!.userModel!.personalImage!.toString(),
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Image(
+                  image: AssetImage(AssetsManager.lawyerImg),
+                ),
               ),
             ),
+            //clipBehavior: Clip.antiAliasWithSaveLayer,
           ),
-          //clipBehavior: Clip.antiAliasWithSaveLayer,
         ),
         const SizedBox(
           height: 4,

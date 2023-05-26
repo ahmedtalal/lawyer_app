@@ -24,7 +24,7 @@ class LayoutScreen extends StatelessWidget {
         appBar: _appBar(context),
         body: cubit.screens[cubit.currentIndex],
         bottomNavigationBar: _tapBar(),
-        drawer: const HomeViewDrawer(),
+        //drawer: const HomeViewDrawer(),
       );
     });
   }
@@ -45,8 +45,7 @@ class LayoutScreen extends StatelessWidget {
             padding: const EdgeInsets.only(left: AppPadding.p12),
             child: GestureDetector(
               onTap: () => Navigator.of(context)
-    .pushReplacementNamed(Routes.layoutProfileRoute),
-
+                  .pushReplacementNamed(Routes.layoutProfileRoute),
               child: const CircleAvatar(
                 backgroundColor: ColorManager.white,
                 radius: AppSize.s18,
@@ -136,7 +135,9 @@ class MainBottomNavBar extends StatelessWidget {
                     width: (MediaQuery.of(context).size.width / 5) - 20,
                     child: InkWell(
                       onTap: () {
-                        context.read<LayoutCubit>().changeNavIndex(index, context);
+                        context
+                            .read<LayoutCubit>()
+                            .changeNavIndex(index, context);
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

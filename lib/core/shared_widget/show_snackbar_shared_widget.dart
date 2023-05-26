@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/core/font_manager.dart';
 
 SnackBar showSnakBarWidget(
@@ -11,9 +12,9 @@ SnackBar showSnakBarWidget(
         child: Text(
           title,
           textScaleFactor: 1.0,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 17,
+            fontSize: 14.sp,
             fontFamily: FontConstants.fontFamily,
           ),
           textDirection: TextDirection.rtl,

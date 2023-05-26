@@ -317,8 +317,7 @@ class _LawyerOwnOrderDetailsScreenState
           SizedBox(
             height: 6.h,
           ),
-          order.statusCode! == 8 ||
-                  order.statusCode! == 2
+          order.statusCode! == 8 || order.statusCode! == 2
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -415,8 +414,7 @@ class _LawyerOwnOrderDetailsScreenState
               ),
             ],
           ),
-          order.statusCode! == 8 ||
-                  order.statusCode! == 2
+          order.statusCode! == 8 || order.statusCode! == 2
               ? _clientInfoSection(clientModel: order.client!)
               : _unknownUser(),
           SizedBox(
@@ -619,38 +617,38 @@ Widget _clientInfoSection({required Client clientModel}) {
 }
 
 Widget _appBar(BuildContext context) => Container(
-  width: double.infinity,
-  height: 170.h,
-  color: ColorManager.primary,
-  padding: EdgeInsets.only(top: 15.h,left: 20.w),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Image(
-        image: const AssetImage(
-          AssetsManager.logo,
-        ),
-        width: 200.w,
-        height: 100.h,
-        fit: BoxFit.cover,
-      ),
-      SizedBox(width: 60.w,),
-      InkWell(
-        onTap: () {
-          Navigator.of(context).pop();
-        },
-        child: Directionality(
-          textDirection: TextDirection.ltr,
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: ColorManager.thirdy,
-            size: 30.sp,
+      width: double.infinity,
+      height: 170.h,
+      color: ColorManager.primary,
+      padding: EdgeInsets.only(top: 15.h, left: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image(
+            image: const AssetImage(
+              AssetsManager.logo,
+            ),
+            width: 200.w,
+            height: 100.h,
+            fit: BoxFit.cover,
           ),
-        ),
+          SizedBox(
+            width: 60.w,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: ColorManager.thirdy,
+                size: 30.sp,
+              ),
+            ),
+          ),
+        ],
       ),
-
-    ],
-  ),
-);
-
+    );

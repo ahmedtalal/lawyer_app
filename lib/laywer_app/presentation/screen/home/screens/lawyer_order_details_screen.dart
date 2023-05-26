@@ -112,7 +112,7 @@ class _LaweyrOrderDetailsScreenState extends State<LaweyrOrderDetailsScreen> {
                   Navigator.of(context).push(
                     RouteGenerator.getRoute(
                       RouteSettings(
-                        name: Routes.lawyerSendRequesrScreen,
+                        name: Routes.lawyerSendRequestScreen,
                         arguments: widget.order,
                       ),
                     ),

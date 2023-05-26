@@ -65,7 +65,7 @@ class AuthApiService {
     }
   }
 
-  Future<Map<String, dynamic>> register(Map<String, dynamic> data) async {
+  Future<Map<String, dynamic>> register(dynamic data) async {
     try {
       Response response = await CrudApiHelper.instance
           .postRequest(path: REGISTER_REQUEST_PATH, data: data);

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:hokok/data/services/api/profile_api_service.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
+import 'package:hokok/domain/entities/lawyer_profile_entity.dart';
 import 'package:hokok/domain/interfaces/i_profile_interface.dart';
 
 class ProfileRepository implements IProfileInterface {
@@ -21,7 +21,7 @@ class ProfileRepository implements IProfileInterface {
   }
 
   @override
-  FutureOr<UserEntity?> getLawyerProfile() async =>
+  FutureOr<LawyerProfileEntity?> getLawyerProfile() async =>
       await ProfileAPiService.instance().getLawyerProfileApiService();
 
   @override

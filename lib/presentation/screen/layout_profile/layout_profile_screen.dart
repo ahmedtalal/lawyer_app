@@ -4,10 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hokok/core/routes_manager.dart';
-import 'package:hokok/domain/entities/user_entity.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
-import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
+import 'package:hokok/domain/entities/client_profile_entity.dart';
 import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_helper.dart';
@@ -52,8 +49,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          if (state is ProfileLoadedState) {
-            UserEntity userEntity = state.userEntity!;
+          if (state is ClientProfileLoadedState) {
+            ClientProfileAttributes userEntity = state.userEntity;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -198,7 +195,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
         ),
       );
 
-  Container _appBar(UserEntity userEntity) => Container(
+  Container _appBar(ClientProfileAttributes userEntity) => Container(
         width: double.infinity,
         height: AppSize.s234,
         color: ColorManager.primary,
@@ -226,7 +223,9 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                           height: 50,
                           width: 50,
                           fit: BoxFit.cover,
-                          imageUrl: userEntity.userModel!.personalImage!,
+                          imageUrl: userEntity.personalImage == null
+                              ? AssetsManager.lawyerImg
+                              : userEntity.personalImage!.toString(),
                           placeholder: (context, url) =>
                               const Center(child: CircularProgressIndicator()),
                           errorWidget: (context, url, error) => const Image(
@@ -253,7 +252,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                     ),
                   ],
                 ),
-                 SizedBox(
+                SizedBox(
                   width: 80.w,
                 ),
                 Row(
@@ -265,8 +264,6 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                       icon: const Icon(Icons.home),
                       iconSize: AppSize.s40,
                     ),
-
-
                   ],
                 ),
               ],
@@ -274,7 +271,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p2),
               child: DefaultText(
-                userEntity.userModel!.name!,
+                userEntity.name == null ? "unKnown" : userEntity.name!,
                 fontSize: FontSize.s24,
                 color: ColorManager.white,
               ),
@@ -284,7 +281,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
               children: [
                 SvgPicture.asset(AssetsManager.locationIcon),
                 DefaultText(
-                  "${userEntity.userModel!.city!} - ${userEntity.userModel!.zone!}",
+                  userEntity.city ?? "${userEntity.city} - ${userEntity.zone}",
                   fontSize: FontSize.s10,
                   color: ColorManager.secondary,
                 ),

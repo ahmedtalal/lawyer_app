@@ -26,7 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileStates> {
     if (result == null) {
       emit(ProfileFailedState("no profile model"));
     } else {
-      emit(ProfileLoadedState(result));
+      emit(LawyerProfileLoadedState(result));
     }
   }
 
@@ -39,7 +39,7 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileStates> {
     if (result[mapKey] == failedResponse) {
       emit(ProfileFailedState("no profile model"));
     } else {
-      emit(ProfileLoadedState(result[mapValue]));
+      emit(ClientProfileLoadedState(result[mapValue]));
     }
   }
 

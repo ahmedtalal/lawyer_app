@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/core/assets_manager.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
+import 'package:hokok/core/shared_widget/show_snackbar_shared_widget.dart';
 import 'package:hokok/domain/entities/major_entity.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
@@ -14,6 +17,7 @@ import 'package:hokok/presentation/blocs/major_bloc/major_states.dart';
 import 'package:hokok/presentation/widget/shared_widget.dart';
 
 import '../../../core/routes_manager.dart';
+import '../../blocs/order_bloc/order_helper.dart';
 
 class CreateLawyerAccountScreen extends StatefulWidget {
   const CreateLawyerAccountScreen({Key? key}) : super(key: key);
@@ -112,7 +116,29 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                             Expanded(
                               flex: 1,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () async {
+                                  String file = await AuthHelper.instance()
+                                      .selectImageFromGallery();
+                                  setState(() {
+                                    AuthHelper.instance().licenseImg =
+                                        File(file);
+                                    if (file.isNotEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "تم إدراج الملف المرفق",
+                                              Colors.blue));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "من فضلك قم باختيار صورة شهادة ترخيص",
+                                              Colors.red));
+                                    }
+                                  });
+                                  printInfo(
+                                      "the lisence img => ${AuthHelper.instance().licenseImg}");
+                                },
                                 child: Container(
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
@@ -152,7 +178,31 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                             Expanded(
                               flex: 1,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () async {
+                                  String file = await AuthHelper.instance()
+                                      .selectImageFromGallery();
+                                  setState(() {
+                                    AuthHelper.instance().personalImage =
+                                        File(file);
+                                    if (file.isNotEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "تم إدراج الملف المرفق",
+                                              Colors.blue));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(showSnakBarWidget(
+                                              context,
+                                              "من فضلك قم باختيار صورة شخصية",
+                                              Colors.red));
+                                    }
+                                  });
+                                  printInfo(
+                                      "the personal img => ${AuthHelper.instance().personalImage}");
+                                  printInfo(
+                                      "the lisence img => ${AuthHelper.instance().licenseImg}");
+                                },
                                 child: Container(
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
@@ -194,7 +244,9 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: nameController,
                             onChange: (value) {
-                              AuthHelper.instance().name = value;
+                              setState(() {
+                                AuthHelper.instance().name = value;
+                              });
                             },
                             inputType: TextInputType.text,
                             labelText: 'اسم المستخدم',
@@ -210,7 +262,9 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: emailController,
                             onChange: (value) {
-                              AuthHelper.instance().email = value;
+                              setState(() {
+                                AuthHelper.instance().email = value;
+                              });
                             },
                             inputType: TextInputType.emailAddress,
                             labelText: 'البريد الالكتروني',
@@ -226,7 +280,9 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: phoneController,
                             onChange: (value) {
-                              AuthHelper.instance().phoneNumber = value;
+                              setState(() {
+                                AuthHelper.instance().phoneNumber = value;
+                              });
                             },
                             inputType: TextInputType.number,
                             labelText: 'رقم الهاتف',
@@ -292,6 +348,9 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                               "the id of major is $value");
                                           AuthHelper.instance().majorValue =
                                               value;
+                                          AuthHelper.instance()
+                                              .majors
+                                              .add(value);
                                         });
                                       },
                                       items: majors!.map((MajorData value) {
@@ -324,7 +383,9 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                         defaultTextFiled(
                             controller: governorateController,
                             onChange: (value) {
-                              AuthHelper.instance().zone = value;
+                              setState(() {
+                                AuthHelper.instance().zone = value;
+                              });
                             },
                             inputType: TextInputType.text,
                             labelText: 'الموقع',
@@ -382,8 +443,6 @@ class _CreateLawyerAccountScreenState extends State<CreateLawyerAccountScreen> {
                                             "the value of city is $value");
                                         AuthHelper.instance().city = value;
                                       });
-                                      printInfo(
-                                          "the value of city inside auth helper=>${AuthHelper.instance().city}");
                                     },
                                     items: AuthHelper.instance()
                                         .cities
