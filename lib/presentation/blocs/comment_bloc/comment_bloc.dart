@@ -1,11 +1,16 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hokok/data/repositories/comment_repository.dart';
 import 'package:hokok/domain/usecases/use_case_provider.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_events.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_helper.dart';
 import 'package:hokok/presentation/blocs/comment_bloc/comment_states.dart';
+
+import '../../../core/functions.dart';
+import '../../../core/shared_widget/show_snackbar_shared_widget.dart';
+import '../../screen/layout/layout_screen.dart';
 
 class CommentBloc extends Bloc<CommentEvents, CommentStates> {
   CommentBloc() : super(CommentInitState()) {
@@ -34,6 +39,7 @@ class CommentBloc extends Bloc<CommentEvents, CommentStates> {
         .addComment(CommentHelper.instance().prepareCommentModel());
     if (result == true) {
       emit(CommentSuccessState());
+
     } else {
       emit(CommentFailedState("add feedback failed"));
     }

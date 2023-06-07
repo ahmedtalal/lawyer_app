@@ -16,6 +16,7 @@ import 'package:hokok/laywer_app/presentation/screen/home/screens/lawyer_setting
 import 'package:hokok/presentation/blocs/auth_bloc/auth_bloc.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_helper.dart';
 import 'package:hokok/presentation/blocs/auth_bloc/auth_states.dart';
+import '../../../../../../chat/presintation/screens/inbox_screen.dart';
 import '../../screens/home.dart';
 
 class MainLawyerCubit extends Cubit<MainLawyerState> {
@@ -24,7 +25,7 @@ class MainLawyerCubit extends Cubit<MainLawyerState> {
     const HomeLawyerScreen(),
     const LayoutLawyerIssues(),
     const NotificationsScreen(),
-    const MassagesScreen(),
+    const InboxScreen(),
     const ContactUsScreen(),
     const Scaffold(
       body: Text("تسجيل الخروج"),

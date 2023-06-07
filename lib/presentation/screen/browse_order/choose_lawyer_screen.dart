@@ -5,6 +5,7 @@ import 'package:hokok/core/constant.dart';
 import 'package:hokok/domain/entities/order_for_client_entity.dart';
 import 'package:hokok/domain/entities/public_order_entity.dart';
 import 'package:hokok/presentation/screen/browse_order/request_details_screen.dart';
+import '../../../chat/presintation/screens/chat_screen.dart';
 import '../../../config/screen_handler.dart';
 import '../../../core/assets_manager.dart';
 import '../../../core/functions.dart';
@@ -82,6 +83,7 @@ class _ChooseLawyerState extends State<ChooseLawyer> {
                 itemCount: state.requestOrders!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return OrderRequestComponent(
+                    lawyerId: state.requestOrders![index].lawyer!.id!,
                       lawer: state.requestOrders![index].lawyer!,
                       info: state.requestOrders![index].info!,
                       files: state.requestOrders![index].files!,
@@ -113,6 +115,8 @@ class _ChooseLawyerState extends State<ChooseLawyer> {
 class OrderRequestComponent extends StatelessWidget {
   final int requestId;
   final String lawyerName;
+  final int lawyerId;
+
   final String expectedTime;
   final String expectedBudget;
   final String createdAt;
@@ -126,7 +130,8 @@ class OrderRequestComponent extends StatelessWidget {
       {Key? key,
       required this.requestId,
       required this.lawyerName,
-      required this.expectedTime,
+        required this.lawyerId,
+        required this.expectedTime,
       required this.files,
       required this.expectedBudget,
       required this.lawer,
@@ -266,7 +271,27 @@ class OrderRequestComponent extends StatelessWidget {
                         ),
                       ),
                     )
-                  : const SizedBox(),
+                  : InkWell(
+                      onTap: () {
+                        navigateTo(
+                            context,
+                            ChatScreen(
+                              recieverId: lawyerId,
+                              userName: lawyerName,
+                              chatId: null,
+                            ));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(20.r)),
+                        child: DefaultElevatedButton2(
+                          '   مراسلة   ',
+                          fontSize: 13.sp,
+                          size: const Size(AppSize.s12, AppSize.s12),
+                        ),
+                      ),
+                    ),
             ],
           ),
         ],

@@ -12,6 +12,8 @@ import 'package:hokok/presentation/blocs/order_bloc/order_helper.dart';
 import 'package:hokok/presentation/blocs/order_bloc/order_states.dart';
 
 import '../../../../../../core/routes_manager.dart';
+import '../../../../../../core/shared_widget/text.dart';
+import '../../../../../../core/values_manager.dart';
 
 class LawyerIssuesScreen extends StatefulWidget {
   const LawyerIssuesScreen({super.key});
@@ -56,6 +58,7 @@ class _BodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OrderHelper.instance().publishedDateFormat("2023/3/4 03:31:42");
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,42 +119,46 @@ Widget _issuesContainer({
   required List<OwnOrdersInfoModel> orders,
   required List<RequestsLawyerOrderInfo> requestOrders,
 }) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      SizedBox(
-        height: 15.h,
-      ),
-      Align(
-        alignment: Alignment.topRight,
-        child: Container(
-          height: 35.h,
-          width: 85.w,
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 3.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.sp),
-              bottomLeft: Radius.circular(
-                20.sp,
+  return DefaultTabController(
+    length: 3,
+
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Stack(
+          children: [
+            TabBar(
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              labelPadding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.p5,
+                vertical: AppPadding.p0,
               ),
+              labelColor: ColorManager.secondary,
+              labelStyle: const TextStyle(
+                fontSize: FontSize.s13,
+                fontWeight: FontWeightManager.w400,
+              ),
+              indicatorPadding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.p37,
+                vertical: AppPadding.p0,
+              ),
+              indicatorColor: ColorManager.primary,
+              indicatorWeight: AppSize.s4,
+              indicatorSize: TabBarIndicatorSize.label,
+              tabs: [
+                _header("طلباتي"),
+                _header("قيد التنفيذ"),
+                _header("المنجز"),
+              ],
             ),
-            color: ColorManager.thirdy,
-          ),
-          child: Text(
-            "طلباتي",
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontFamily: FontConstants.fontFamily,
-              color: Colors.white,
-            ),
-          ),
+          ],
         ),
-      ),
-      Expanded(
-        child: OrderHelper.instance().getAllMyOrders(requestOrders).isEmpty
-            ? Center(
+        Expanded(
+          child: TabBarView(children: [
+            Expanded(
+              child: OrderHelper.instance().getAllMyOrders(requestOrders).isEmpty
+                  ? Center(
                 child: Text(
                   "لا يوجد بيانات",
                   style: TextStyle(
@@ -161,10 +168,10 @@ Widget _issuesContainer({
                   ),
                 ),
               )
-            : ListView.builder(
+                  : ListView.builder(
                 padding: EdgeInsets.only(top: 10.h),
                 itemCount:
-                    OrderHelper.instance().getAllMyOrders(requestOrders).length,
+                OrderHelper.instance().getAllMyOrders(requestOrders).length,
                 itemBuilder: (context, index) {
                   return _LawyerMyOrdersViewWidget(
                     order: OrderHelper.instance()
@@ -172,36 +179,10 @@ Widget _issuesContainer({
                   );
                 },
               ),
-      ),
-      Align(
-        alignment: Alignment.topRight,
-        child: Container(
-          height: 35.h,
-          width: 85.w,
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 3.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.sp),
-              bottomLeft: Radius.circular(
-                20.sp,
-              ),
             ),
-            color: ColorManager.thirdy,
-          ),
-          child: Text(
-            "قيد التنفيذ",
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontFamily: FontConstants.fontFamily,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-      Expanded(
-        child: OrderHelper.instance().getAllInProgressOrders(orders).isEmpty
-            ? Center(
+            Expanded(
+              child: OrderHelper.instance().getAllInProgressOrders(orders).isEmpty
+                  ? Center(
                 child: Text(
                   "لا يوجد بيانات",
                   style: TextStyle(
@@ -211,7 +192,7 @@ Widget _issuesContainer({
                   ),
                 ),
               )
-            : ListView.builder(
+                  : ListView.builder(
                 padding: EdgeInsets.only(top: 10.h),
                 itemCount: OrderHelper.instance()
                     .getAllInProgressOrders(orders)
@@ -223,36 +204,10 @@ Widget _issuesContainer({
                   );
                 },
               ),
-      ),
-      Align(
-        alignment: Alignment.topRight,
-        child: Container(
-          height: 35.h,
-          width: 85.w,
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 3.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.sp),
-              bottomLeft: Radius.circular(
-                20.sp,
-              ),
             ),
-            color: ColorManager.thirdy,
-          ),
-          child: Text(
-            "المنجز",
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontFamily: FontConstants.fontFamily,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-      Expanded(
-        child: OrderHelper.instance().getAllCompletedOrders(orders).isEmpty
-            ? Center(
+            Expanded(
+              child: OrderHelper.instance().getAllCompletedOrders(orders).isEmpty
+                  ? Center(
                 child: Text(
                   "لا يوجد بيانات",
                   style: TextStyle(
@@ -262,10 +217,10 @@ Widget _issuesContainer({
                   ),
                 ),
               )
-            : ListView.builder(
+                  : ListView.builder(
                 padding: EdgeInsets.only(top: 10.h),
                 itemCount:
-                    OrderHelper.instance().getAllCompletedOrders(orders).length,
+                OrderHelper.instance().getAllCompletedOrders(orders).length,
                 itemBuilder: (context, index) {
                   return _LawyerIssuesViewWidget(
                     order: OrderHelper.instance()
@@ -273,8 +228,13 @@ Widget _issuesContainer({
                   );
                 },
               ),
-      ),
-    ],
+            ),
+          ]),
+        )
+
+
+      ],
+    ),
   );
 }
 
@@ -487,3 +447,23 @@ class _LawyerMyOrdersViewWidget extends StatelessWidget {
     );
   }
 }
+Container _header(String header, [double fontSize = FontSize.s15]) =>
+    Container(
+      height: AppSize.s40,
+      width: AppSize.s90,
+      alignment: AlignmentDirectional.centerStart,
+      margin: const EdgeInsets.only(top: AppMargin.m31),
+      decoration: const BoxDecoration(
+        color: ColorManager.primary,
+        borderRadius: BorderRadius.all(
+          Radius.circular(AppSize.s30),
+        ),
+      ),
+      child: Center(
+        child: DefaultText(
+          header,
+          fontSize: fontSize,
+          color: ColorManager.white,
+        ),
+      ),
+    );

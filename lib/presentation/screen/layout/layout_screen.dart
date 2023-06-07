@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/core/functions.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_cubit.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_state.dart';
 import 'package:hokok/core/assets_manager.dart';
@@ -9,6 +10,7 @@ import 'package:hokok/core/strings_manager.dart';
 import 'package:hokok/core/values_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../chat/presintation/screens/inbox_screen.dart';
 import '../../../core/constants_manager.dart';
 import '../../../core/routes_manager.dart';
 import '../main/drawer/home_view_drawer.dart';
@@ -31,6 +33,9 @@ class LayoutScreen extends StatelessWidget {
 
   AppBar _appBar(BuildContext context) => AppBar(
         backgroundColor: ColorManager.primary,
+        title: InkWell( onTap: () {
+          navigateTo(context, InboxScreen());
+        },child: Icon(Icons.chat)),
         actions: <Widget>[
           GestureDetector(
             onTap: () {},

@@ -40,6 +40,7 @@ class ProfileBloc extends Bloc<ProfileEvents, ProfileStates> {
       emit(ProfileFailedState("no profile model"));
     } else {
       emit(ClientProfileLoadedState(result[mapValue]));
+
     }
   }
 

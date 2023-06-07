@@ -10,3 +10,13 @@ void navigateTo(
         builder: (context) => screen,
       ));
 }
+void navigateAndFinish(
+    BuildContext context,
+    Widget screen,
+    ) {
+  Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => screen,
+      ));
+}

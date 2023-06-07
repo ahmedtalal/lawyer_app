@@ -57,6 +57,10 @@ class ProfileAPiService {
         path: GET_PROFILE_REQUEST_PATH,
         options: options,
       );
+      ClientProfileModel userModel = ClientProfileModel.fromJson(response.data);
+      ClientProfileAttributes? userData = userModel.data;
+      Map<String, dynamic> userMap = userData!.toJson();
+      await UserInfoLocalService.instance().saveUserCode(userMap);
       printDone("the get client profile success => ${response.data}");
       return successRequest(ClientProfileModel.fromJson(response.data).data!);
     } on DioError catch (error) {

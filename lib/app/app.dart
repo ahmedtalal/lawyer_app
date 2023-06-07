@@ -18,6 +18,7 @@ import 'package:hokok/presentation/blocs/subscriptions_bloc/subscriptions_bloc.d
 import 'package:hokok/presentation/blocs/wallet_bloc/wallet_bloc.dart';
 import 'package:hokok/presentation/screen/layout/cubit/layout_cubit.dart';
 import 'package:hokok/config/l10n/l10n.dart';
+import '../chat/presintation/controller/chats_cubit.dart';
 import '../presentation/screen/main/component/cubit/main_cubit.dart';
 import '../core/routes_manager.dart';
 
@@ -46,6 +47,9 @@ class MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => MajorBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ChatsCubit(),
         ),
         BlocProvider(
           create: (context) => FeedBackBloc(),

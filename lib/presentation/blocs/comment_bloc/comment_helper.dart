@@ -14,6 +14,8 @@ class CommentHelper {
     }
     return _commentHelper!;
   }
+TextEditingController hintTextEditingController = TextEditingController();
+  TextEditingController reportTextEditingController = TextEditingController();
 
   int? userId = UserInfoLocalService.instance().getUserToken().id;
   String type = "";
@@ -29,8 +31,8 @@ class CommentHelper {
     context.read<CommentBloc>().add(GetAllCommentsEvent());
   }
 
-  addCommentAction(BuildContext context, GlobalKey<FormState> key) {
-    if (key.currentState!.validate()) {
+  addCommentAction(BuildContext context, ) {
+    if (description.isNotEmpty) {
       context.read<CommentBloc>().add(AddCommentEvent());
     }
   }

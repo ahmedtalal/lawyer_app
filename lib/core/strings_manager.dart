@@ -19,6 +19,7 @@ class AppStrings {
   static const browse = "تصفح الطلبات";
   static const orders = "تصفح الطلبات";
   static const exit = "تسجيل الخروج";
+  static const chats = "محادثات";
 
   static const classification = "التصنيفات";
   static const commercial = "تجاري";

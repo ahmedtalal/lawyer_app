@@ -17,6 +17,8 @@ class ClientProfileAttributes {
   int? status;
   String? personalImage;
   String? createdAt;
+  String? code;
+
 
   ClientProfileAttributes(
       {this.id,
@@ -30,6 +32,7 @@ class ClientProfileAttributes {
       this.about,
       this.status,
       this.personalImage,
+        this.code,
       this.createdAt});
 
   ClientProfileAttributes.fromJson(Map<String, dynamic> json) {
@@ -45,6 +48,8 @@ class ClientProfileAttributes {
     status = json['status'];
     personalImage = json['personal_image'];
     createdAt = json['created_at'];
+    code = json['code'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +66,8 @@ class ClientProfileAttributes {
     data['status'] = this.status;
     data['personal_image'] = this.personalImage;
     data['created_at'] = this.createdAt;
+    data['code'] = this.code;
+
     return data;
   }
 }

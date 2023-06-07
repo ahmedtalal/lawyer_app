@@ -22,7 +22,7 @@ class CommentData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['to_user_id'] = this.id;
     data['type'] = this.type;
     data['description'] = this.description;
     if (this.fromUser != null) {

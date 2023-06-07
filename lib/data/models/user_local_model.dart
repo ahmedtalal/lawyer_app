@@ -20,17 +20,22 @@ class UserData {
   int? id;
   String? token;
   String? userType;
+  String? code;
 
   UserData({
     this.id,
     this.token,
     this.userType,
+    this.code,
+
   });
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     token = json['token'];
     userType = json["type"];
+    code = json["code"];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -38,6 +43,8 @@ class UserData {
     data['id'] = id;
     data['token'] = token;
     data["type"] = userType;
+    data["code"] = code;
+
     return data;
   }
 }

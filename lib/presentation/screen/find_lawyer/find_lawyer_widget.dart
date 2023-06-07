@@ -10,6 +10,7 @@ import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/shared_widget/text.dart';
 import 'package:hokok/core/values_manager.dart';
 import 'package:hokok/domain/entities/lawyer_entity.dart';
+import 'package:hokok/presentation/screen/comments/add_hint.dart';
 import 'package:hokok/presentation/screen/welcome/welcome_screen.dart';
 
 import '../orders/private_order/private_order.dart';
@@ -118,8 +119,8 @@ class FindLawyerView extends StatelessWidget {
               ),
               color: ConstantColor.primaryColor,
             ),
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 Icon(
                   Icons.person,
                 ),
@@ -142,40 +143,40 @@ class FindLawyerView extends StatelessWidget {
               color: ColorManager.primary,
               onSelected: (item) => onSelected(context, item , lawyerAttributes),
               itemBuilder: (context) => [
-                PopupMenuItem<int>(
+                const PopupMenuItem<int>(
                   value: 0,
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.insert_invitation),
                       SizedBox(width: 8),
                       Text('دعوه للعمل لعي قضيه'),
                     ],
                   ),
                 ),
-                PopupMenuItem<int>(
+                const PopupMenuItem<int>(
                   value: 1,
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.favorite),
                       SizedBox(width: 8),
                       Text('اضف الي المفضله'),
                     ],
                   ),
                 ),
-                PopupMenuItem<int>(
+                const PopupMenuItem<int>(
                   value: 2,
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.message),
                       SizedBox(width: 8),
                       Text('ترك ملاحظه'),
                     ],
                   ),
                 ),
-                PopupMenuItem<int>(
-                  value: 2,
+                const PopupMenuItem<int>(
+                  value: 3,
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.flag),
                       SizedBox(width: 8),
                       Text('بلاغ عن اساءه'),
@@ -208,19 +209,17 @@ class FindLawyerView extends StatelessWidget {
         );
         break;
       case 2:
-        Navigator.of(context).pushAndRemoveUntil(
+        Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const WelcomeScreen(),
+            builder: (context) =>  AddCommentScreen(hint: true  ,lawerAttributes: lawerAttributes),
           ),
-          (route) => false,
         );
         break;
       case 3:
-        Navigator.of(context).pushAndRemoveUntil(
+        Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const WelcomeScreen(),
+            builder: (context) =>   AddCommentScreen(hint: false ,lawerAttributes: lawerAttributes),
           ),
-          (route) => false,
         );
     }
   }

@@ -120,7 +120,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
                     ClientProfileScreen(
                       userEntity: userEntity,
                     ),
-                    FavClientScreen(),
+                    const FavClientScreen(),
                     OrdersClientScreen(),
                   ]),
                 )

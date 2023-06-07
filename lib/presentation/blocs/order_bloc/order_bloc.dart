@@ -220,10 +220,11 @@ class OrderBloc extends Bloc<OrderEvents, OrderStates> {
 
   FutureOr<void> sendLawyerRequest(
       SendLawyerRequestEvent event, Emitter<OrderStates> emit) async {
+    final model = await OrderHelper.instance().lawyerRequestModel();
     emit(OrderLoadingState());
     final result = await UseCaseProvider.instance()
         .creator<OrderRepository>(OrderRepository.instance())
-        .addOrderForLawyer(OrderHelper.instance().lawyerRequestModel());
+        .addOrderForLawyer(model);
     if (result[mapKey] == successReposne) {
       emit(OrderActionSuccessState());
     } else {
