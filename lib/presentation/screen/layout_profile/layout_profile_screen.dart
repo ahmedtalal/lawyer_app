@@ -43,7 +43,8 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
           if (state is ProfileFailedState) {
             state.authErrorMessage(context, state.error);
           }
-        }, builder: (context, state) {
+        },
+            builder: (context, state) {
           if (state is ProfileLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -290,4 +291,5 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
           ],
         ),
       );
+
 }

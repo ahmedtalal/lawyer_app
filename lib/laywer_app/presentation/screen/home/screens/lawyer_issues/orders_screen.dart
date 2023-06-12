@@ -386,7 +386,15 @@ class UserPorfileWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            print("lad,l;as,d;l");
+            Navigator.of(context).push(
+              RouteGenerator.getRoute(
+                const RouteSettings(
+                    name: Routes.profileRoute),
+              ),
+            );
+          },
           child: Container(
             height: AppSize.s105,
             width: AppSize.s116,
