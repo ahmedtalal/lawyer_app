@@ -65,9 +65,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   FutureOr<void> createUserAccount(AuthEvents events, Emitter emit) async {
     emit(AuthLoadingState());
     printInfo("the user model is ${_clientMapModel()}");
+    final model = await AuthHelper.instance().ClientToFormData();
     Map<String, dynamic> result = await UseCaseProvider.instance()
         .creator<AuthApiRepository>(AuthApiRepository.instance())
-        .register(_clientMapModel());
+        .register(model);
     if (result[mapKey] == successReposne) {
       emit(AuthSuccessState(result: result[mapValue]));
     } else {

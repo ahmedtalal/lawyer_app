@@ -223,7 +223,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                   .read<ChatsCubit>()
                                   .senMessageController
                                   .text,
-                              chatId: widget.chatId));
+                              chatId: widget.chatId ,
+                            isAdmin: widget.userName == "Admin" ? true : false
+                          ));
                         }
                       },
                       child: const Padding(

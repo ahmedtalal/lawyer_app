@@ -9,7 +9,7 @@ import '../parameter/send_message_parameter.dart';
 abstract class ChatsRemoteDataSource {
   Future<List<ChatsModel>> getAllChats();
   Future<List<MessageModel>> getChatMessage(int chatId);
-  Future<void> sendMessage(MessageParameter messageParameter);
+  Future<void> sendMessage(MessageParameter messageParameter );
 
 }
 
@@ -38,10 +38,10 @@ class ChatsRemoteDataSourceImpl implements ChatsRemoteDataSource {
   }
 
   @override
-  Future<void> sendMessage(MessageParameter messageParameter) async {
+  Future<void> sendMessage(MessageParameter messageParameter ) async {
     Response response = await _apiConsumer.post(
       body: messageParameter.toJson(),
-        CHATMESSAGES,
+      messageParameter.isAdmin?CHATADMINMESSAGES :   CHATMESSAGES,
     );
     if (response.statusCode == 200) {
       print("send Messages Successfully");

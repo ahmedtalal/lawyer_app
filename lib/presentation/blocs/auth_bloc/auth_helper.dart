@@ -134,6 +134,19 @@ class AuthHelper {
     return formData;
   }
 
+  Future<FormData> ClientToFormData() async {
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'email': email,
+      'phone_number': phoneNumber,
+      'type': type,
+      'zone': zone,
+      'city': city ?? cities[0],
+      "majors[]": majors,
+    });
+    return formData;
+  }
+
   ModelModelInfo prepareClientInfo() => ModelModelInfo(
         id: id,
         token: token,

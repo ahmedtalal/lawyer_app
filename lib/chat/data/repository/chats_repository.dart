@@ -38,10 +38,10 @@ class ChatsRepositoryImpl implements BaseChatsRepository {
     }
   }
   @override
-  Future<Either<FailureTest, void>> sendMessage(MessageParameter messageParameter) async {
+  Future<Either<FailureTest, void>> sendMessage(MessageParameter messageParameter ) async {
     try {
       var result = await _chatsRemoteDataSource.sendMessage(
-        messageParameter,
+        messageParameter
       );
       return Right(result);
     } on Exception catch (e) {
