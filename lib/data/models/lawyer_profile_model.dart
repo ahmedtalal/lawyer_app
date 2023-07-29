@@ -66,7 +66,7 @@ class ModelModelInfo {
   String? createdAt;
   int? lawyerId;
   String? licenseImg;
-  int? idNumber;
+  String? idNumber;
   String? idExpiryDate;
   List<int>? majors;
 

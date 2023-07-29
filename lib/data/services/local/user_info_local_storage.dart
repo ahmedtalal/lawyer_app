@@ -29,6 +29,7 @@ class UserInfoLocalService {
       return false;
     }
   }
+
   Future<bool> saveUserCode(Map<String, dynamic> model) async {
     try {
       await _getStorage.write(_usercode, model);
@@ -37,12 +38,15 @@ class UserInfoLocalService {
       return false;
     }
   }
+
   Map<String, dynamic> getUserInfo() {
     return _getStorage.read(_userKey) ?? failedRequest("user not found");
   }
+
   Map<String, dynamic> getUserCodeeeeeeeeee() {
     return _getStorage.read(_usercode) ?? failedRequest("user not found");
   }
+
   Future<void> deleteUserInfo() async {
     await _getStorage.remove(_userKey);
   }
@@ -60,6 +64,7 @@ class UserInfoLocalService {
     UserData userData = UserData.fromJson(data);
     return userData;
   }
+
   String getUserCode() {
     Map<String, dynamic> data = getUserCodeeeeeeeeee();
     ClientProfileAttributes userData = ClientProfileAttributes.fromJson(data);

@@ -1,13 +1,13 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
 import 'package:hokok/config/dio_exception.dart';
-import 'package:hokok/core/api_paths.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/data/services/api/crud_helper.dart';
 import 'package:hokok/data/services/local/user_info_local_storage.dart';
 import 'package:hokok/domain/entities/plans_entity.dart';
 import 'package:hokok/data/models/plans_model.dart';
+
+import '../../../core/api_paths.dart';
 
 class SubscriptionsServices {
   static SubscriptionsServices? _subscriptionsServices;

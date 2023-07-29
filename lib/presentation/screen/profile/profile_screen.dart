@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hokok/core/functions.dart';
+import 'package:hokok/core/ui_responsive/sized_box.dart';
 import 'package:hokok/presentation/blocs/profile_bloc/profile_bloc.dart';
+import 'package:hokok/presentation/screen/profile/plans_screen.dart';
 import '../../../core/assets_manager.dart';
 import '../../../core/color_manager.dart';
 import '../../../core/constants_manager.dart';
@@ -36,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(title: Text("sdasds")),
       body: BlocConsumer<ProfileBloc, ProfileStates>(
         listener: (context, state) {
           if (state is ProfileFailedState) {
@@ -67,12 +71,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           crossFadeState: isstate
                               ? CrossFadeState.showFirst
                               : CrossFadeState.showSecond,
-                          duration:
-                              Duration(seconds: AppConstants.splashMoreDelay),
+                          duration: const Duration(
+                              seconds: AppConstants.splashMoreDelay),
                         ),
                         _header(AppStrings.statistics),
                         Padding(
-                          padding: EdgeInsets.all(AppPadding.p14),
+                          padding: const EdgeInsets.all(AppPadding.p14),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -359,7 +363,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p2),
               child: DefaultText(
-                userEntity.userModel!.name == null ? "unKnown" : userEntity.userModel!.name!,
+                userEntity.userModel!.name == null
+                    ? "unKnown"
+                    : userEntity.userModel!.name!,
                 fontSize: FontSize.s24,
                 color: ColorManager.white,
               ),
@@ -367,12 +373,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                20.pw,
+                InkWell(
+                  onTap: () {
+                    // navigateTo(context, const PlansScreen());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorManager.thirdy,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: const Row(children: [
+                      Icon(Icons.check_box_outlined),
+                      Text("رصيدى"),
+                    ]),
+                  ),
+                ),
+                Spacer(),
                 SvgPicture.asset(AssetsManager.locationIcon),
                 DefaultText(
-                  userEntity.userModel!.city ?? "${userEntity.userModel!.city} - ${userEntity.userModel!.zone}",
+                  userEntity.userModel!.city ??
+                      "${userEntity.userModel!.city} - ${userEntity.userModel!.zone}",
                   fontSize: FontSize.s10,
                   color: ColorManager.secondary,
                 ),
+                Spacer(),
+
+                InkWell(
+                  onTap: () {
+                    navigateTo(context, const PlansScreen());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorManager.thirdy,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: const Row(children: [
+                      Icon(Icons.check_box_outlined),
+                      Text("الاشتراكات"),
+                    ]),
+                  ),
+                ),
+                20.pw,
+
               ],
             ),
           ],

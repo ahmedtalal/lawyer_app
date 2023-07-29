@@ -35,6 +35,7 @@ class _LayoutProfileScreenState extends State<LayoutProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("profile")),
       backgroundColor: ColorManager.white,
       body: DefaultTabController(
         length: 3,
