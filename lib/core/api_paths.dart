@@ -45,6 +45,8 @@ const String GET_ALL_NOTIFICATIONS_REQUEST_PATH = "notifications";
 const String MAKE_AS_READ_NOTIFICATION_REQUEST_PATH = "notifications/read";
  const String CHATS = 'chat/all';
 const String CHATMESSAGES = 'chat/message';
+const String PAYMENT = 'payment';
+
 const String CHATADMINMESSAGES = 'chat/message-to-admin';
 
 String chatMessages(int chatId) => "chat/$chatId/messages";

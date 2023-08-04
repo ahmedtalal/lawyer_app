@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:hokok/chat/data/parameter/visa_card_parameter.dart';
 import '../../../core/failure.dart';
 import '../../domain/entities/chats.dart';
 import '../../domain/entities/message.dart';
@@ -24,10 +25,13 @@ class ChatsRepositoryImpl implements BaseChatsRepository {
       );
     }
   }
+
   @override
-  Future<Either<FailureTest, List<MessageEntity>>> getChatMessages(int chatId) async {
+  Future<Either<FailureTest, List<MessageEntity>>> getChatMessages(
+      int chatId) async {
     try {
-      List<MessageEntity> messages = await _chatsRemoteDataSource.getChatMessage(chatId);
+      List<MessageEntity> messages =
+          await _chatsRemoteDataSource.getChatMessage(chatId);
       return Right(messages);
     } on Exception catch (e) {
       return const Left(
@@ -37,12 +41,28 @@ class ChatsRepositoryImpl implements BaseChatsRepository {
       );
     }
   }
+
   @override
-  Future<Either<FailureTest, void>> sendMessage(MessageParameter messageParameter ) async {
+  Future<Either<FailureTest, void>> sendMessage(
+      MessageParameter messageParameter) async {
     try {
-      var result = await _chatsRemoteDataSource.sendMessage(
-        messageParameter
+      var result = await _chatsRemoteDataSource.sendMessage(messageParameter);
+      return Right(result);
+    } on Exception catch (e) {
+      return const Left(
+        ServerFailure(
+          errorModel: ErrorModel(),
+        ),
       );
+    }
+  }
+
+  @override
+  Future<Either<FailureTest, String>> subscribeToPlan(
+      VisaCardParameter visaCardParameter) async {
+    try {
+      var result =
+          await _chatsRemoteDataSource.subscribeToPlan(visaCardParameter);
       return Right(result);
     } on Exception catch (e) {
       return const Left(

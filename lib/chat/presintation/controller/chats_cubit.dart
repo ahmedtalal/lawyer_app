@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hokok/chat/data/parameter/visa_card_parameter.dart';
+import 'package:hokok/chat/domain/use_cases/subscribe_to_plan.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import '../../../core/base_use_cse.dart';
 import '../../../core/sl.dart';
@@ -42,6 +44,19 @@ class ChatsCubit extends Cubit<ChatsState> {
         print('failure');
       }, (data) {
         emit(GetChatsSuccessState(data));
+        print('data');
+      }));
+  }
+
+  Future<void> subscribeToPlan(VisaCardParameter visaCardParameter) async {
+    emit(SubscribeToPlanLoadingState());
+    final subscribeToPlanUseCase = sl<SubscribeToPlanUseCase>();
+    (await subscribeToPlanUseCase(visaCardParameter)
+      ..fold((failure) {
+        emit(SubscribeToPlanFailureState());
+        print('failure');
+      }, (data) {
+        emit(SubscribeToPlanSuccessState(data));
         print('data');
       }));
   }

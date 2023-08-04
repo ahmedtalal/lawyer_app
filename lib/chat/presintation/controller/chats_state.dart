@@ -13,6 +13,19 @@ class GetChatsSuccessState extends ChatsState {
 }
 
 class GetChatsFailureState extends ChatsState {}
+
+class SubscribeToPlanLoadingState extends ChatsState {}
+
+class SubscribeToPlanSuccessState extends ChatsState {
+  String paymentGateway;
+
+  SubscribeToPlanSuccessState(this.paymentGateway);
+}
+
+class SubscribeToPlanFailureState extends ChatsState {}
+
+
+
 class GetlifeMessageSuccessState extends ChatsState {}
 
 class GetMessagesLoadingState extends ChatsState {}

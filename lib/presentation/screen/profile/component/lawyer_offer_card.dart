@@ -7,6 +7,7 @@ import 'package:hokok/core/functions.dart';
 import '../visa_card_data.dart';
 
 class LawyerOfferCard extends StatelessWidget {
+  final int offerId;
   final String offerName;
   final String period;
   final String price;
@@ -14,7 +15,8 @@ class LawyerOfferCard extends StatelessWidget {
 
   const LawyerOfferCard(
       {Key? key,
-      required this.offerName,
+        required this.offerId,
+        required this.offerName,
       required this.period,
       required this.price,
       required this.description})
@@ -31,11 +33,11 @@ class LawyerOfferCard extends StatelessWidget {
             spreadRadius:
                 2, // The larger the value, the bigger the shadow spread
             blurRadius: 4, // The larger the value, the more blurry the shadow
-            offset: Offset(0, 2), // Changes the position of the shadow
+            offset: const Offset(0, 2), // Changes the position of the shadow
           ),
         ],
       ),
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       height: 160,
       width: double.infinity,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -47,7 +49,7 @@ class LawyerOfferCard extends StatelessWidget {
                 fontSize: 16.sp,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -85,7 +87,7 @@ class LawyerOfferCard extends StatelessWidget {
             Spacer(),
             InkWell(
               onTap: () {
-                navigateTo(context, MyFormScreen());
+                navigateTo(context, MyFormScreen(offerId: offerId,));
               },
               child: Container(
                 width: 85.w,

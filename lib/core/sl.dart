@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hokok/chat/domain/use_cases/subscribe_to_plan.dart';
 
 import '../chat/data/data_source/chat_remote_datasource.dart';
 import '../chat/data/repository/chats_repository.dart';
@@ -46,7 +47,9 @@ class ServicesLocator {
     if (!GetIt.I.isRegistered<SendMessageUseCase>()) {
       sl.registerFactory(() => SendMessageUseCase(sl<BaseChatsRepository>()));
     }
-
+    if (!GetIt.I.isRegistered<SubscribeToPlanUseCase>()) {
+      sl.registerFactory(() => SubscribeToPlanUseCase(sl<BaseChatsRepository>()));
+    }
   }
 
 }
