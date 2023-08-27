@@ -41,7 +41,7 @@ class OrderHelper {
   int lawyerId = 0;
   String description1 = "";
   int expectedDays = 0;
-  File? file;
+  File? orderFile;
 
   List<ClientOrderInfo> getClientAllPublishedOrders(
       List<ClientOrderInfo> orders) {
@@ -160,6 +160,7 @@ class OrderHelper {
         description1: description1,
         type: type,
         clientExpectedDate: expectedTime,
+        orderFile: orderFile,
         clientProposedBudget: clientProposedBudget,
       );
   CreateOrderModel preparePrivateOrderModel() => CreateOrderModel(
@@ -169,7 +170,9 @@ class OrderHelper {
         description1: description1,
         type: type,
         lawyerId: lawyerId,
-        clientExpectedDate: expectedTime,
+    orderFile: orderFile,
+
+    clientExpectedDate: expectedTime,
         clientProposedBudget: clientProposedBudget,
       );
 
@@ -180,8 +183,8 @@ class OrderHelper {
       "expected_budget": clientProposedBudget,
       "info": description1,
       "files[]": [
-        await MultipartFile.fromFile(file!.path,
-            filename: file!.path.split('/').last)
+        await MultipartFile.fromFile(orderFile!.path,
+            filename: orderFile!.path.split('/').last)
       ],
     });
     return formData;
@@ -192,6 +195,7 @@ class OrderHelper {
     String filePath = '';
     if (result != null) {
       File file = File(result.files.single.path ?? "");
+      orderFile = File(result.files.single.path ?? "");
       String fileName = file.path.split('/').last;
       filePath = file.path;
       printInfo("the file path is => $filePath");
@@ -245,7 +249,7 @@ class OrderHelper {
   }
 
   onSendLawyerRequestAction(BuildContext context, GlobalKey<FormState> form) {
-    if (form.currentState!.validate() && file!.path.isNotEmpty) {
+    if (form.currentState!.validate() && orderFile!.path.isNotEmpty) {
       context.read<OrderBloc>().add(SendLawyerRequestEvent());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -275,6 +279,7 @@ class CreateOrderModel {
   final String title, description1, clientExpectedDate, type;
   final int? majorId, subMajorId, lawyerId;
   final double clientProposedBudget;
+  final File? orderFile;
   CreateOrderModel({
     required this.title,
     required this.majorId,
@@ -283,6 +288,7 @@ class CreateOrderModel {
     required this.type,
     this.lawyerId,
     required this.clientExpectedDate,
+     this.orderFile,
     required this.clientProposedBudget,
   });
 
@@ -298,7 +304,7 @@ class CreateOrderModel {
       clientProposedBudget: json["client_proposed_budget"],
     );
   }
-  Map<String, dynamic> toJsonWithLawyerId() => {
+  Map<String, dynamic> toJsonWithLawyerId () => {
         "title": title,
         "major_id": majorId,
         "sub_major_id": subMajorId,
@@ -307,6 +313,10 @@ class CreateOrderModel {
         "lawyer_id": lawyerId,
         "client_expected_date": clientExpectedDate,
         "client_proposed_budget": clientProposedBudget,
+    "files[]" :[
+       MultipartFile.fromFile(orderFile!.path,
+          filename: orderFile!.path.split('/').last)
+    ] ,
       };
 
   Map<String, dynamic> toJsonWithoutLawyerId() => {
@@ -316,6 +326,11 @@ class CreateOrderModel {
         "description": description1,
         "type": type,
         "client_expected_date": clientExpectedDate,
-        "client_proposed_budget": clientProposedBudget,
+    "files[]" :[
+       MultipartFile.fromFile(orderFile!.path,
+          filename: orderFile!.path.split('/').last)
+    ],
+
+    "client_proposed_budget": clientProposedBudget,
       };
 }

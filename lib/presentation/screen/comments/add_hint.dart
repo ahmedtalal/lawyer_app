@@ -46,38 +46,46 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
         padding: const EdgeInsets.all(20),
         child: BlocListener<CommentBloc, CommentStates>(
           listener: (context, state) {
-            if(state is CommentSuccessState){
+            if (state is CommentSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 showSnakBarWidget(
                   context,
-                  widget.hint?  "تم إرسال ملاحظتك بنجاح": "تم إرسال بلاغك بنجاح",
+                  widget.hint
+                      ? "تم إرسال ملاحظتك بنجاح"
+                      : "تم إرسال بلاغك بنجاح",
                   Colors.green,
                 ),
-
               );
               Future.delayed(const Duration(seconds: 1), () {
                 // Navigate to the next screen after a delay of 1 second
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LayoutScreen()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const LayoutScreen()));
               });
-              CommentHelper.instance()
-                  .hintTextEditingController
-                  .clear();
-                  CommentHelper.instance()
-                  .reportTextEditingController
-                  .clear();
+              CommentHelper.instance().hintTextEditingController.clear();
+              CommentHelper.instance().reportTextEditingController.clear();
             }
           },
           child: Column(
             children: [
-              const SizedBox(height: 30),
-               Stack(
+               SizedBox(height: 30),
+             Stack(
                 children: [
-                  CircleAvatar(radius: 40, backgroundImage:NetworkImage(widget.lawerAttributes.personalImage!) ),
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 40,
+                    backgroundImage: NetworkImage(
+                      widget.lawerAttributes.personalImage!,
+                    ),
+                  ),
                   const CircleAvatar(
                     backgroundColor: Colors.green,
                     radius: 10,
                   ),
                 ],
+              ),
+              Text(
+                widget.lawerAttributes.name!,
+                style: const TextStyle(color: ColorManager.white),
               ),
               const SizedBox(height: 50),
               Column(

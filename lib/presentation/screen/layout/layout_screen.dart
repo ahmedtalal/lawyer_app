@@ -32,10 +32,11 @@ class LayoutScreen extends StatelessWidget {
   }
 
   AppBar _appBar(BuildContext context) => AppBar(
+    leading:InkWell( onTap: () {
+      navigateTo(context, InboxScreen());
+    },child: Icon(Icons.chat)),
         backgroundColor: ColorManager.primary,
-        title: InkWell( onTap: () {
-          navigateTo(context, InboxScreen());
-        },child: Icon(Icons.chat)),
+
         actions: <Widget>[
           GestureDetector(
             onTap: () {},

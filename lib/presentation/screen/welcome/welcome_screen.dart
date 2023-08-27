@@ -5,10 +5,13 @@ import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/constant.dart';
 import 'package:hokok/core/debug_prints.dart';
 import 'package:hokok/core/font_manager.dart';
+import 'package:hokok/core/functions.dart';
 import 'package:hokok/core/routes_manager.dart';
 import 'package:hokok/core/strings_manager.dart';
 import 'package:hokok/core/values_manager.dart';
 import '../../../core/shared_widget/button.dart';
+import '../../../laywer_app/presentation/screen/home/widget/main_screen.dart';
+import '../layout/layout_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({this.name, Key? key}) : super(key: key);
@@ -116,11 +119,13 @@ class WelcomeScreen extends StatelessWidget {
             const SizedBox(height: AppSize.s104),
             DefaultElevatedButton(
               AppStrings.loginNow,
-              onPressed: () => name == "client"
-                  ? Navigator.of(context)
-                      .pushReplacementNamed(Routes.layoutRoute)
-                  : Navigator.of(context)
-                      .pushReplacementNamed(Routes.lawyerHomeScreen),
+              onPressed: () =>  name == "client"
+                  ?  navigateAndFinish(context, LayoutScreen())
+              // Navigator.of(context)
+              //         .pushReplacementNamed(Routes.layoutRoute)
+                  : navigateAndFinish(context, LawyerHomeScreen())
+           // Navigator.of(context)
+           //            .pushReplacementNamed(Routes.lawyerHomeScreen),
             ),
           ],
         ),

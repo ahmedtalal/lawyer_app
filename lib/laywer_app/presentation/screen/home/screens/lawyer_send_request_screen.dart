@@ -131,14 +131,14 @@ class _BodyWidget extends StatelessWidget {
                             .selectFileFromStorageFun();
                         state(() {
                           // OrderHelper.instance().file.add(result);
-                          OrderHelper.instance().file = File(file);
+                          OrderHelper.instance().orderFile = File(file);
                           ScaffoldMessenger.of(context).showSnackBar(
                               showSnakBarWidget(context,
                                   "تم إدراج الملف المرفق", Colors.blue));
                         });
 
                         printInfo(
-                            "the files are =>> ${OrderHelper.instance().file!.path}");
+                            "the files are =>> ${OrderHelper.instance().orderFile!.path}");
                       },
                       child: Row(
                         children: [

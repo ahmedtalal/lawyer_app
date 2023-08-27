@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hokok/config/screen_handler.dart';
+import 'package:hokok/core/color_manager.dart';
 import 'package:hokok/core/font_manager.dart';
 import 'package:hokok/core/shared_widget/empty_data_shared_widget.dart';
 import 'package:hokok/domain/entities/order_for_client_entity.dart';
@@ -50,28 +51,38 @@ class _BrowseOrderScreenState extends State<BrowseOrderScreen> {
           } else if (state is OrderFailedLoadedState) {
             return emptyDataSharedWidget();
           }
-          return ListView.builder(
-            itemCount: clientOrders.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  navigateTo(
-                      context,
-                      OrderDetailsScreen(
-                          id: clientOrders[index].id!,
-                          title: clientOrders[index].title!,
-                          createdAt: clientOrders[index].createdAt!,
-                          major: clientOrders[index].major!,
-                          requests: clientOrders[index].requests!,
-                          subMajor: clientOrders[index].subMajor!,
-                          description: clientOrders[index].description!));
-                },
-                child: OrderView(
-                  clientOrder: clientOrders[index],
-                ),
-              );
-            },
-          );
+          return clientOrders.isEmpty
+              ? Center(
+                  child: Text(
+                    "لا يوجد طلبات",
+                    style: TextStyle(
+                        color: ColorManager.grey,
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: clientOrders.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        navigateTo(
+                            context,
+                            OrderDetailsScreen(
+                                id: clientOrders[index].id!,
+                                title: clientOrders[index].title!,
+                                createdAt: clientOrders[index].createdAt!,
+                                major: clientOrders[index].major!,
+                                requests: clientOrders[index].requests!,
+                                subMajor: clientOrders[index].subMajor!,
+                                description: clientOrders[index].description!));
+                      },
+                      child: OrderView(
+                        clientOrder: clientOrders[index],
+                      ),
+                    );
+                  },
+                );
         },
       ),
     );

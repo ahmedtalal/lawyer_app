@@ -40,6 +40,17 @@ class _MainOrderScreen extends State<MainOrderScreen> {
         scrollDirection: Axis.vertical,
         child: Stack(
           children: <Widget>[
+            Positioned(
+              top: 35,
+              left: 15,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.layoutRoute);
+                },
+                icon: const Icon(Icons.home),
+                iconSize: AppSize.s40,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(
                 AppPadding.p25,
@@ -77,7 +88,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                     color: ConstantColor.whiteColor,
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.black)),
-                child:  Center(
+                child: Center(
                   child: DefaultText(
                     widget.data!["majorName"],
                   ),
@@ -98,17 +109,6 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                       size: const Size(AppSize.s140, AppSize.s40),
                       fontSize: FontSize.s14,
                     ),
-            ),
-            Positioned(
-              top: 35,
-              left: 15,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(Routes.layoutRoute);
-                },
-                icon: const Icon(Icons.home),
-                iconSize: AppSize.s40,
-              ),
             ),
           ],
         ),
@@ -215,7 +215,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                               height: AppSize.s36,
                               width: AppSize.s242,
                               margin:
-                              const EdgeInsets.only(bottom: AppMargin.m27),
+                                  const EdgeInsets.only(bottom: AppMargin.m27),
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   width: AppSize.s1,
@@ -238,8 +238,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     if (value.isNotEmpty) {
-                                      OrderHelper.instance()
-                                          .expectedTime =
+                                      OrderHelper.instance().expectedTime =
                                           value;
                                     }
                                   });
@@ -270,7 +269,7 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'المزيانيه المتوقعه',
+                                    text: 'الميزيانيه المتوقعه',
                                     style: TextStyle(
                                       color: ColorManager.secondary,
                                       fontSize: FontSize.s12,
@@ -368,14 +367,22 @@ class _MainOrderScreen extends State<MainOrderScreen> {
                                 Positioned(
                                   bottom: 5,
                                   left: 2,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                        Routes.layoutRoute,
-                                      );
-                                    },
-                                    icon: const Icon(Icons.attach_file),
-                                    iconSize: AppSize.s40,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      OrderHelper.instance().orderFile == null ? SizedBox():  Text("تم اضافة ملف "),
+                                      IconButton(
+                                        onPressed: () {
+
+                                          OrderHelper.instance()
+                                              .selectFileFromStorageFun().then((value) => {setState(() {
+
+                                          })});
+                                        },
+                                        icon: const Icon(Icons.attach_file),
+                                        iconSize: AppSize.s40,
+                                      ),
+                                    ],
                                   ),
                                 )
                               ],

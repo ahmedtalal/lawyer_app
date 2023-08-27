@@ -244,8 +244,11 @@ class OrdersApiService {
         data: data,
       );
       printDone("the create client order success => ${response.data}");
+
+      print("status code ${response.statusCode}");
       return successRequest(response.data);
     } on DioError catch (error) {
+
       final message = DioExceptions.dioErrorHandling(error);
       printError("the create order for client error from dio catch =>$message");
       return failedRequest(message);

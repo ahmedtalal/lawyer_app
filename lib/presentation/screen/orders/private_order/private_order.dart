@@ -75,8 +75,10 @@ class _PrivateOrderScreen extends State<PrivateOrderScreen> {
                       padding: EdgeInsets.all(22.h),
                       color: ColorManager.primary,
                       child: Row(children: [
+                        Expanded( flex: 1 ,child: Text("")),
+
                         Expanded(
-                          flex: 9,
+                          flex: 4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -100,7 +102,7 @@ class _PrivateOrderScreen extends State<PrivateOrderScreen> {
                                       color: Colors.white, fontSize: 22.sp),
                                 ),
                               ),
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(Icons.location_on_outlined),
@@ -109,7 +111,8 @@ class _PrivateOrderScreen extends State<PrivateOrderScreen> {
                               )
                             ],
                           ),
-                        )
+                        ),
+                        Expanded( flex: 1 ,child: DefaultBackButton())
                       ]),
                     ),
                     Padding(
